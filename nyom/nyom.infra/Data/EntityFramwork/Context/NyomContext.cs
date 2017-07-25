@@ -1,0 +1,27 @@
+﻿using Microsoft.EntityFrameworkCore;
+using nyom.domain.Entities;
+using nyom.infra.Data.EntityFramwork.Extensions;
+using nyom.infra.Data.EntityFramwork.Mapping;
+
+namespace nyom.infra.Data.EntityFramwork.Context
+{
+	public class NyomContext : DbContext
+	{
+		public NyomContext(DbContextOptions<NyomContext> options) : base(options)
+		{
+		}
+		
+		public DbSet<Configuration> Configurations { get; set; }
+		public DbSet<Notification> Notifications { get; set; }
+
+		protected override void OnModelCreating(ModelBuilder builder)
+		{
+			builder.AddConfiguration(new ConfigurationMap());
+			builder.AddConfiguration(new NotificationMap());
+
+			base.OnModelCreating(builder);
+			
+		}
+	}
+}
+
