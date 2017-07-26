@@ -1,0 +1,37 @@
+version: '2'
+
+services:
+  mssql:
+    image: microsoft/mssql-server-linux
+    container_name: mssql
+    ports:
+      - 1433:1433
+    volumes:
+      - "./app/nyom/:/temp/nyom/"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "nyom.7410"
+
+  rabbit:
+    image: rabbitmq
+    container_name: rabbit
+    ports:
+      - 5672:5672
+
+  nyom.pushsender:
+    image: nyom.pushsender
+    container_name: nyom.pushsender
+    build:
+      context: ./nyom.pushsender
+      dockerfile: Dockerfile
+    links:
+      - rabbit:rabbit
+
+  nyom.queuebuilder:
+    image: nyom.queuebuilder
+    container_name: nyom.queuebuilder
+    build:
+      context: ./nyom.queuebuilder
+      dockerfile: Dockerfile
+    links:
+      - mssql:mssql

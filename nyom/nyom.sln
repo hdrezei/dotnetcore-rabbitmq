@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nyom.domain", "nyom.domain\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nyom.infra", "nyom.infra\nyom.infra.csproj", "{D9DBFD86-24EB-405E-9505-6755ED5AF92C}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{14D914D8-9736-4D4D-89F9-39898F69E5D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D9DBFD86-24EB-405E-9505-6755ED5AF92C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9DBFD86-24EB-405E-9505-6755ED5AF92C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9DBFD86-24EB-405E-9505-6755ED5AF92C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14D914D8-9736-4D4D-89F9-39898F69E5D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14D914D8-9736-4D4D-89F9-39898F69E5D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14D914D8-9736-4D4D-89F9-39898F69E5D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14D914D8-9736-4D4D-89F9-39898F69E5D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
