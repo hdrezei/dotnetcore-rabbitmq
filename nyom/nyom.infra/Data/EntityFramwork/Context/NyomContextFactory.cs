@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 
 namespace nyom.infra.Data.EntityFramwork.Context
@@ -19,6 +20,8 @@ namespace nyom.infra.Data.EntityFramwork.Context
 	    {
 			var optionsBuilder = new DbContextOptionsBuilder<NyomContext>();
 			optionsBuilder.UseSqlServer(@"Server=mssql;Database=nyom;User ID=sa;Password=nyom.7410");
+
+		    
 
 			return new NyomContext(optionsBuilder.Options);
 		}

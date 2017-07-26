@@ -11,7 +11,7 @@ namespace nyom.infra.Data.EntityFramwork.Context
 		public NyomContext(DbContextOptions<NyomContext> options) : base(options)
 		{
 		}
-		
+
 		public DbSet<Configuration> Configurations { get; set; }
 		public DbSet<Notification> Notifications { get; set; }
 

@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\nyom.domain\nyom.domain.csproj" />
+    <ProjectReference Include="..\nyom.infra\nyom.infra.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update=".dockerignore">
       <DependentUpon>Dockerfile</DependentUpon>
     </None>
