@@ -1,7 +1,6 @@
-﻿using nyom.domain.Entities;
-using nyom.domain.Interfaces;
+﻿using nyom.domain.core.Interfaces;
 
-namespace nyom.domain.Notifications
+namespace nyom.domain.Configuration
 {
 	public interface IConfigurationRepository : IRepositoryBase<Configuration>
 	{

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using nyom.domain.core.Interfaces;
-using nyom.domain.Interfaces;
 
 namespace nyom.domain.core.Models
 {

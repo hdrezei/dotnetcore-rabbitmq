@@ -1,5 +1,5 @@
-﻿using nyom.domain.Entities;
-using nyom.domain.Interfaces;
+﻿using nyom.domain.core.Interfaces;
+using nyom.domain.Entities;
 
 namespace nyom.domain.Notifications
 {
