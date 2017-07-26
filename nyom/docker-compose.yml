@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  nyom.pushsender:
+    image: nyom.pushsender
+    build:
+      context: ./nyom.pushsender
+      dockerfile: Dockerfile
+
+  nyom.queuebuilder:
+    image: nyom.queuebuilder
+    build:
+      context: ./nyom.queuebuilder
+      dockerfile: Dockerfile
