@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 using nyom.domain.core.Interfaces;
 
 namespace nyom.domain.core.Models
 {
-    public class ServiceBase<TEntity> :IServiceBase<TEntity> where TEntity : class
+	public class ServiceBase<TEntity> :IServiceBase<TEntity> where TEntity : class
     {
 	    private readonly IRepositoryBase<TEntity> _repositoryBase;
 

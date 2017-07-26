@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using nyom.domain.Entities;
+using nyom.domain.Configuration;
+using nyom.domain.Notifications;
 using nyom.infra.Data.EntityFramwork.Extensions;
 using nyom.infra.Data.EntityFramwork.Mapping;
 

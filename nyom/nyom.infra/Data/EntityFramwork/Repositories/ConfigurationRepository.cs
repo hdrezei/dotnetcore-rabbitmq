@@ -1,6 +1,12 @@
-﻿namespace nyom.infra.Data.EntityFramwork.Repositories
+﻿using nyom.domain.Configuration;
+using nyom.infra.Data.EntityFramwork.Context;
+
+namespace nyom.infra.Data.EntityFramwork.Repositories
 {
-    class ConfigurationRepository
+   public class ConfigurationRepository : RepositoryBase<Configuration> , IConfigurationRepository
     {
+	    public ConfigurationRepository(NyomContext context) : base(context)
+	    {
+	    }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace nyom.domain.Entities
+namespace nyom.domain.Notifications
 {
 	public class Notification
     {

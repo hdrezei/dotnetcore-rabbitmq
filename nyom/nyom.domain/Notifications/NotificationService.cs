@@ -1,5 +1,4 @@
 ﻿using nyom.domain.core.Models;
-using nyom.domain.Entities;
 
 namespace nyom.domain.Notifications
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using nyom.domain.Entities;
 using nyom.infra.Data.EntityFramwork.Extensions;
+using nyom.domain.Notifications;
 
 namespace nyom.infra.Data.EntityFramwork.Mapping
 {

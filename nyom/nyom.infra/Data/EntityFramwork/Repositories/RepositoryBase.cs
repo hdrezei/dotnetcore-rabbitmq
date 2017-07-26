@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using nyom.infra.Data.EntityFramwork.Context;
+using nyom.domain.core.Interfaces;
 
 namespace nyom.infra.Data.EntityFramwork.Repositories
 {

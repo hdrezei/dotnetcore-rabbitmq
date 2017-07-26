@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using nyom.domain.Notifications;
+using nyom.infra.Data.EntityFramwork.Context;
 
 namespace nyom.infra.Data.EntityFramwork.Repositories
 {
-    class NotificationRepository
+	public class NotificationRepository : RepositoryBase<Notification>,INotificationRepository
     {
+	    public NotificationRepository(NyomContext context) : base(context)
+	    {
+	    }
     }
 }
