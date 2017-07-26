@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using nyom.domain.Interfaces;
 using nyom.infra.Data.EntityFramwork.Context;
+using nyom.domain.Interfaces;
 
 namespace nyom.infra.Data.EntityFramwork.Repositories
 {
@@ -19,45 +19,46 @@ namespace nyom.infra.Data.EntityFramwork.Repositories
 			DbSet = Db.Set<TEntity>();
 		}
 
-		public virtual void Add(TEntity obj)
+		public ICollection<TEntity> All()
 		{
-			DbSet.Add(obj);
+			return DbSet.AsTracking().ToList();
 		}
 
-		public virtual TEntity GetById(Guid id)
+		public bool Delete(Guid id)
 		{
-			return DbSet.Find(id);
+			return Delete(Get(id));
 		}
 
-		public virtual IEnumerable<TEntity> GetAll()
+		public bool Delete(TEntity entity)
 		{
-			return DbSet.ToList();
-		}
-
-		public virtual void Update(TEntity obj)
-		{
-			DbSet.Update(obj);
-		}
-
-		public virtual void Remove(Guid id)
-		{
-			DbSet.Remove(DbSet.Find(id));
-		}
-
-		public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
-		{
-			return DbSet.AsNoTracking().Where(predicate);
-		}
-
-		public int SaveChanges()
-		{
-			return Db.SaveChanges();
+			DbSet.Remove(entity);
+			return true;
 		}
 
 		public void Dispose()
 		{
-			Db.Dispose();
 			GC.SuppressFinalize(this);
+		}
+
+		public TEntity Find(Expression<Func<TEntity, bool>> predicate)
+		{
+			return DbSet.Where(predicate).AsTracking().SingleOrDefault();
+		}
+
+		public ICollection<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate)
+		{
+			return DbSet.Where(predicate).AsTracking().ToList();
+		}
+
+		public TEntity Get(Guid id)
+		{
+			return DbSet.Find(id);
+		}
+
+		public TEntity Save(TEntity entity)
+		{
+			DbSet.Add(entity);
+			return entity;
 		}
 	}
 }
