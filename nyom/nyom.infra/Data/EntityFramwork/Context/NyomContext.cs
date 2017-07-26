@@ -15,13 +15,15 @@ namespace nyom.infra.Data.EntityFramwork.Context
 		public DbSet<Configuration> Configurations { get; set; }
 		public DbSet<Notification> Notifications { get; set; }
 
-		protected override void OnModelCreating(ModelBuilder builder)
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			builder.AddConfiguration(new ConfigurationMap());
-			builder.AddConfiguration(new NotificationMap());
-
-			base.OnModelCreating(builder);
-			
+			optionsBuilder.UseSqlServer(@"Server=mssql;Database=nyom;User ID=sa;Password=nyom.7410");
+		}
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.AddConfiguration(new ConfigurationMap());
+			modelBuilder.AddConfiguration(new NotificationMap());
+			base.OnModelCreating(modelBuilder);
 		}
 	}
 }

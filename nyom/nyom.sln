@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nyom.domain", "nyom.domain\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nyom.infra", "nyom.infra\nyom.infra.csproj", "{D9DBFD86-24EB-405E-9505-6755ED5AF92C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nyom.domain.core", "nyom.domain.core\nyom.domain.core.csproj", "{FD6C491A-2BA8-4F41-AE1D-1B4FDFD5AB5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nyom.domain.core", "nyom.domain.core\nyom.domain.core.csproj", "{FD6C491A-2BA8-4F41-AE1D-1B4FDFD5AB5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
