@@ -1,35 +1,26 @@
-﻿
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using nyom.infra.Data.EntityFramwork.Context;
+
 namespace nyom.queuebuilder
 {
     class Program
     {
-        static void Main(string[] args)
-        {
-	        //public void ConfigureServices(IServiceCollection services)
-	        //{
-		       // var connectionString = Configuration.GetConnectionString("DefaultConnection");
-		       // var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+	    public static IConfigurationRoot Configuration { get; set; }
+	    private static IServiceProvider _serviceProvider;
+		static void Main(string[] args)
+		{
+			var builder = new ConfigurationBuilder()
+				.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+			Configuration = builder.Build();
 
-		       // // Add framework services.
-		       // services.AddDbContext<ApplicationDbContext>(options =>
-				     //   options.UseSqlServer(connectionString));
-			      //  ...
-	        //}
-	        //public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-	        //{
-		       // // this will do the initial DB population
-		       // InitializeDatabase(app);
-	        //}
-
-	        //private void InitializeDatabase(IApplicationBuilder app)
-	        //{
-		       // using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-		       // {
-			      //  scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
-			      //  scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
-				     //   ...
-		       // }
-	        //}
+			//setup DI
+			_serviceProvider = new ServiceCollection()
+				.AddDbContext<NyomContext>(o => o.UseSqlServer(Configuration["DefaultConnection"]))
+				.BuildServiceProvider();
+			
 		}
     }
 }
