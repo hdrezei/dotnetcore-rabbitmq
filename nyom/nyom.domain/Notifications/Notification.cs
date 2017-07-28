@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections;
 
 namespace nyom.domain.Notifications
 {
-	public class Notification
-    {
+	public class Notification 
+	{
 	    public Notification()
 	    {
 		    NotificationId = Guid.NewGuid();
@@ -20,6 +21,7 @@ namespace nyom.domain.Notifications
 	    public int CodigoTemplate { get; set; }
 		public string TokenPush { get; set; }
 	    public string Contexto { get; set; }
-	    
+
+		
 	}
 }

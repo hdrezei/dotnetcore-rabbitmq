@@ -20,6 +20,7 @@ namespace nyom.infra.Data.EntityFramwork.Context
 		{
 			modelBuilder.AddConfiguration(new ConfigurationMap());
 			modelBuilder.AddConfiguration(new NotificationMap());
+
 			base.OnModelCreating(modelBuilder);
 		}
 	}
