@@ -58,6 +58,7 @@ namespace nyom.infra.Data.EntityFramwork.Repositories
 		public TEntity Save(TEntity entity)
 		{
 			DbSet.Add(entity);
+			Db.SaveChanges();
 			return entity;
 		}
 	}
