@@ -39,12 +39,10 @@ namespace nyom.queuebuilder
 
 		private static void ConfigureServices(IServiceCollection serviceCollection)
 		{
-			
 			serviceCollection.AddTransient<INotificationService, NotificationService>();
 			serviceCollection.AddTransient<INotificationRepository, NotificationRepository>();
 			serviceCollection.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
 			serviceCollection.AddTransient(typeof(IServiceBase<>), typeof(ServiceBase<>));
-			
 			serviceCollection.AddTransient<NotificationProvider>();
 		}
 	}

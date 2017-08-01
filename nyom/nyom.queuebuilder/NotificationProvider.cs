@@ -25,28 +25,7 @@ namespace nyom.queuebuilder
 		{
 			var dadosNotificacao = ObterDadosNotificacao();
 
-			if (dadosNotificacao.Count() == 0)
-			{
-				for (var i = 0; i < 100000; i++)
-				{
-					Notification notification = new Notification()
-					{
-						NotificationId = Guid.NewGuid(),
-						Cadastrado = 1,
-						CodigoAplicativo = 1,
-						CodigoNotificacao = 1,
-						CodigoTemplate = 1,
-						Contexto = "Mensagem de número: " + i,
-						IdServidor = 1,
-						MaxRegistros = 1,
-						NomeRobo = "É nois que voa Bruxão",
-						Plataforma = 1,
-						ThreadName = "Tread_number " + i,
-						TokenPush = i.ToString()
-					};
-					_notificationService.Save(notification);
-				}
-			}
+			InserirDadosTesteNoBanco(dadosNotificacao);
 
 			dadosNotificacao = ObterDadosNotificacao();
 
@@ -74,6 +53,30 @@ namespace nyom.queuebuilder
 
 			Console.WriteLine(" Press [enter] to exit.");
 			Console.ReadLine();
+		}
+
+		private void InserirDadosTesteNoBanco(IEnumerable<Notification> dadosNotificacao)
+		{
+			if (dadosNotificacao.Count() != 0) return;
+			for (var i = 0; i < 1000; i++)
+			{
+				var notification = new Notification()
+				{
+					NotificationId = Guid.NewGuid(),
+					Cadastrado = 1,
+					CodigoAplicativo = 1,
+					CodigoNotificacao = 1,
+					CodigoTemplate = 1,
+					Contexto = "Mensagem de número: " + i,
+					IdServidor = 1,
+					MaxRegistros = 1,
+					NomeRobo = "É nois que voa Bruxão",
+					Plataforma = 1,
+					ThreadName = "Tread_number " + i,
+					TokenPush = i.ToString()
+				};
+				_notificationService.Save(notification);
+			}
 		}
 
 		private IEnumerable<Notification> ObterDadosNotificacao()
