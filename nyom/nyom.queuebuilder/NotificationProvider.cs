@@ -39,15 +39,26 @@ namespace nyom.queuebuilder
 					false,
 					null);
 
-				foreach (var arg in dadosNotificacao)
+				//foreach (var arg in dadosNotificacao)
+				//{
+				//	var message = arg.Contexto;
+				//	var body = Encoding.UTF8.GetBytes(message);
+				//	channel.BasicPublish("",
+				//		"hello",
+				//		null,
+				//		body);
+				//	//Console.WriteLine(" [x] Sent {0}", message);
+				//}
+
+				for (int i = 0; i <= 1000000; i++)
 				{
-					var message = arg.Contexto;
+					var message = "Enviando mensagem " + i;
 					var body = Encoding.UTF8.GetBytes(message);
 					channel.BasicPublish("",
 						"hello",
 						null,
 						body);
-					//Console.WriteLine(" [x] Sent {0}", message);
+					Console.WriteLine(" [x] Sent {0}", message);
 				}
 			}
 
