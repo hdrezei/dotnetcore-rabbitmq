@@ -1,0 +1,100 @@
+version: '2'
+
+services:
+  mssql.workflow:
+    image: microsoft/mssql-server-linux
+    container_name: mssql.workflow
+    ports:
+      - 1433:1433
+    volumes:
+      - "./app/nyom/:/temp/nyom/"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "nyom.workflow-7410"
+    networks:
+      - net.workflow
+      
+  mssql.crm:
+    image: microsoft/mssql-server-linux
+    container_name: mssql.crm
+    ports:
+      - 1455:1433
+    volumes:
+      - "./app/nyom/:/temp/nyom/"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "nyom.crm-7410"
+    networks:
+      - net.workflow
+
+  nyom.api.crm:
+    image: microsoft/aspnetcore
+    container_name: nyom.api.crm
+    ports:
+      - 5000:5000
+    links:
+      - mssql.workflow
+    networks:
+      - net.workflow
+
+  nyom.workflow:
+    image: nyom.workflow
+    container_name: nyom.workflow
+    ports:
+      - 5600:5600
+    links:
+      - mssql.workflow
+    networks:
+      - net.workflow
+
+  mongo.messages:
+    image: mongo:latest
+    container_name: mongo.messages
+    volumes:
+      - ./data/db/messages:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - net.workflow
+
+  rabbit:
+    image: rabbitmq:3-management
+    container_name: rabbit
+    ports:
+      - 5672:5672
+      - 8080:15672
+    networks:
+      - net.workflow
+
+  mongo.logs:
+    image: mongo:latest
+    container_name: mongo.logs
+    volumes:
+      - ./data/db/logs:/data/db
+    ports:
+      - 27018:27017
+    networks:
+      - net.workflow
+
+  splunk:
+    image: splunk/splunk:6.5.3-monitor
+    hostname: splunkenterprise
+    environment:
+      SPLUNK_START_ARGS: --accept-license --answer-yes
+      SPLUNK_ENABLE_LISTEN: 9997
+      SPLUNK_ADD: tcp 1514
+      SPLUNK_USER: root
+    volumes:
+      - /var/lib/docker/containers:/host/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "8000:8000"
+      - "9997:9997"
+      - "8088:8088"
+      - "1514:1514"
+    networks:
+      - net.workflow
+
+networks:
+  net.workflow:
+    driver: bridge

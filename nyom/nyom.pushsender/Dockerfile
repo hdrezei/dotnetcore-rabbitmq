@@ -1,5 +1,5 @@
-FROM microsoft/dotnet:1.1-runtime
-ARG source
-WORKDIR /app
-COPY ${source:-obj/Docker/publish} .
-ENTRYPOINT ["dotnet", "nyom.pushsender.dll"]
+FROM microsoft/dotnet:latest
+RUN mkdir /nyom
+WORKDIR /nyom
+COPY /bin/Release/netcoreapp1.1/publish/ /nyom
+ENTRYPOINT ["dotnet","nyom.pushsender.dll"]

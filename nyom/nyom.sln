@@ -7,11 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nyom.pushsender", "nyom.pus
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nyom.queuebuilder", "nyom.queuebuilder\nyom.queuebuilder.csproj", "{9D1AB06B-7DF7-4B11-978F-48E1453A42FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nyom.domain", "nyom.domain\nyom.domain.csproj", "{57C2E98F-69B6-413C-8A97-E05919E2622E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nyom.domain", "nyom.domain\nyom.domain.csproj", "{57C2E98F-69B6-413C-8A97-E05919E2622E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nyom.infra", "nyom.infra\nyom.infra.csproj", "{D9DBFD86-24EB-405E-9505-6755ED5AF92C}"
-EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{14D914D8-9736-4D4D-89F9-39898F69E5D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nyom.infra", "nyom.infra\nyom.infra.csproj", "{D9DBFD86-24EB-405E-9505-6755ED5AF92C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +33,6 @@ Global
 		{D9DBFD86-24EB-405E-9505-6755ED5AF92C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9DBFD86-24EB-405E-9505-6755ED5AF92C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9DBFD86-24EB-405E-9505-6755ED5AF92C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{14D914D8-9736-4D4D-89F9-39898F69E5D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14D914D8-9736-4D4D-89F9-39898F69E5D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14D914D8-9736-4D4D-89F9-39898F69E5D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14D914D8-9736-4D4D-89F9-39898F69E5D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
