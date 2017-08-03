@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using nyom.domain.Empresa;
+using nyom.domain.Nyom.Empresa;
 using nyom.infra.Data.EntityFramwork.Extensions;
 
 namespace nyom.infra.Data.EntityFramwork.Mappings

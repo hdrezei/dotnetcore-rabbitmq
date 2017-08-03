@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using nyom.domain.Templates;
+using nyom.domain.Nyom.Templates;
 using nyom.infra.Data.EntityFramwork.Extensions;
 
 namespace nyom.infra.Data.EntityFramwork.Mappings

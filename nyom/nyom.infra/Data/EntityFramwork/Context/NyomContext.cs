@@ -1,11 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using nyom.domain.Campanha;
-using nyom.domain.Configuration;
-using nyom.domain.Empresa;
-using nyom.domain.Notifications;
-using nyom.domain.Pessoa;
-using nyom.domain.Templates;
-using nyom.domain.Workflow;
+using nyom.domain.Nyom.Campanha;
+using nyom.domain.Nyom.Configuration;
+using nyom.domain.Nyom.Empresa;
+using nyom.domain.Nyom.Notifications;
+using nyom.domain.Nyom.Pessoa;
 using nyom.infra.Data.EntityFramwork.Extensions;
 using nyom.infra.Data.EntityFramwork.Mapping;
 using nyom.infra.Data.EntityFramwork.Mappings;
@@ -23,9 +21,6 @@ namespace nyom.infra.Data.EntityFramwork.Context
 		public DbSet<Campanha> Campanhas { get; set; }
 		public DbSet<Empresa> Empresas { get; set; }
 		public DbSet<Pessoa> Pessoas { get; set; }
-		public DbSet<Template> Templates { get; set; }
-		public DbSet<Workflow> Workflows { get; set; }
-
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -34,8 +29,6 @@ namespace nyom.infra.Data.EntityFramwork.Context
 			modelBuilder.AddConfiguration(new CampanhaMap());
 			modelBuilder.AddConfiguration(new EmpresaMap());
 			modelBuilder.AddConfiguration(new PessoaMap());
-			modelBuilder.AddConfiguration(new TemplateMap());
-			modelBuilder.AddConfiguration(new WorkflowMap());
 
 			base.OnModelCreating(modelBuilder);
 		}

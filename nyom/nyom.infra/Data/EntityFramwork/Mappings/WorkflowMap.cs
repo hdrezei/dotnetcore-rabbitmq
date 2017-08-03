@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using nyom.domain.Templates;
-using nyom.domain.Workflow;
+using nyom.domain.Nyom2.Workflow;
 using nyom.infra.Data.EntityFramwork.Extensions;
 
 namespace nyom.infra.Data.EntityFramwork.Mappings

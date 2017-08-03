@@ -1,4 +1,4 @@
-﻿using nyom.domain.Templates;
+﻿using nyom.domain.Nyom.Templates;
 using nyom.infra.Data.EntityFramwork.Context;
 
 namespace nyom.infra.Data.EntityFramwork.Repositories

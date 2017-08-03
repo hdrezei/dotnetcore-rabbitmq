@@ -1,4 +1,4 @@
-﻿using nyom.domain.Workflow;
+﻿using nyom.domain.Nyom2.Workflow;
 using nyom.infra.Data.EntityFramwork.Context;
 
 namespace nyom.infra.Data.EntityFramwork.Repositories
