@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections;
 
-namespace nyom.domain.Notifications
+namespace nyom.domain.Nyom.Notifications
 {
 	public class Notification 
 	{

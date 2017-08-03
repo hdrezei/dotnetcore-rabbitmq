@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace nyom.domain.Configuration
+namespace nyom.domain.Nyom.Configuration
 {
     public class Configuration
     {

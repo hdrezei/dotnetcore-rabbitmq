@@ -1,9 +1,9 @@
 ﻿using nyom.domain.core.Models;
-using nyom.domain.Configuration;
 
-namespace nyom.domain.Notifications
+
+namespace nyom.domain.Nyom.Configuration
 {
-	public class ConfigurationService : ServiceBase<Configuration.Configuration>, IConfigurationService
+	public class ConfigurationService : ServiceBase<Configuration>, IConfigurationService
 	{
 		private readonly IConfigurationRepository _configurationRepository;
 

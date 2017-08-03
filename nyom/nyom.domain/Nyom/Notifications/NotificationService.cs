@@ -1,6 +1,6 @@
 ﻿using nyom.domain.core.Models;
 
-namespace nyom.domain.Notifications
+namespace nyom.domain.Nyom.Notifications
 {
     public class NotificationService : ServiceBase<Notification> ,INotificationService
     {

@@ -8,9 +8,10 @@ using nyom.infra.Data.EntityFramwork.Context;
 namespace nyom.infra.Migrations
 {
     [DbContext(typeof(NyomContext))]
-    partial class NyomContextModelSnapshot : ModelSnapshot
+    [Migration("20170803214433_Add_Nyom2")]
+    partial class Add_Nyom2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
