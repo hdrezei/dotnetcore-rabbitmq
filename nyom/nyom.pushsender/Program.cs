@@ -1,65 +1,64 @@
-﻿using System;
-using System.IO;
+﻿using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using System;
 using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace nyom.pushsender
 {
-	internal class Program
-	{
-		private static void Main()
-		{
-			var factory = new ConnectionFactory { HostName = "localhost" };
-			using (var connection = factory.CreateConnection())
-			using (var channel = connection.CreateModel())
-			{
-				channel.QueueDeclare("hello",
-					false,
-					false,
-					false,
-					null);
+    class Program
+    {
+        public static void Main()
+        {
+            var factory = new ConnectionFactory() { HostName = "rabbit", Port = 5672, UserName = "guest", Password = "guest" };
 
-				var consumer = new EventingBasicConsumer(channel);
-				consumer.Received += (model, ea) =>
-				{
-					var body = ea.Body;
-					var message = Encoding.UTF8.GetString(body);
-					Console.WriteLine(" [x] Received {0}", message);
-					Log(" [x] Received " + message);
-				};
-				channel.BasicConsume("hello",
-					true,
-					consumer);
+            using (var connection = factory.CreateConnection())
+            {
+                using (var channel = connection.CreateModel())
+                {
+                    channel.QueueDeclare(queue: "CampanhaX",
+                                         durable: false,
+                                         exclusive: false,
+                                         autoDelete: true,
+                                         arguments: null);
 
-				Console.WriteLine(" Press [enter] to exit.");
-				Console.ReadLine();
-			}
-		}
+                    channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
 
-		public static void Log(string conteudo)
-		{
-			var folderName = @"c:\log\";
-			var pathString = Path.Combine(folderName);
-			if (!Directory.Exists(pathString)) Directory.CreateDirectory(pathString);
+                    Console.WriteLine(" [*] Waiting for messages.");
+                    Console.WriteLine("Started " + DateTime.Now);
 
-			var fileName = "log.txt";
+                    var consumer = new EventingBasicConsumer(channel);
 
-			pathString = Path.Combine(pathString, fileName);
+                    consumer.Received += (model, ea) =>
+                    {
+                        var body = ea.Body;
+                        var message = Encoding.UTF8.GetString(body);
+                        Console.WriteLine(" [x] Received {0}", message);
 
-			if (!File.Exists(pathString))
-			{
-				File.Create(pathString);
-			}
+                        int dots = message.Split('.').Length - 1;
+                        Thread.Sleep(dots * 1000);
 
+                        Console.WriteLine(" [x] Done");
 
-			var file = File.AppendText(pathString);
+                        channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+                    };
 
-			file.WriteLine(conteudo);
-			file.Dispose();
+                    channel.BasicConsume(queue: "CampanhaX",
+                                         autoAck: false,
+                                         consumer: consumer);
 
-			// docker run -d --name c3ae0c4f2db5 -v c:/log:/var/log b40c975edd5e
+                    Console.WriteLine("Finished " + DateTime.Now);
+                    Console.WriteLine(" Press [enter] to exit.");
+                    Console.ReadLine();
 
-		}
-	}
+                    Thread.Sleep(500000000);
+                }
+            }
+        }
+    }
 }
