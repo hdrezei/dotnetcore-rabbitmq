@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using nyom.domain.Configuration;
-
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using nyom.domain.Configuration;
 using nyom.infra.Data.EntityFramwork.Extensions;
 
-namespace nyom.infra.Data.EntityFramwork.Mapping
+namespace nyom.infra.Data.EntityFramwork.Mappings
 {
 	public class ConfigurationMap : EntityTypeConfiguration<Configuration>
 	{
@@ -74,13 +73,6 @@ namespace nyom.infra.Data.EntityFramwork.Mapping
 				.HasColumnType("varchar(100)")
 				.HasMaxLength(100)
 				.IsRequired();
-
-			
-
-			//builder.Property(c => c.Email)
-			//	.HasColumnType("varchar(100)")
-			//	.HasMaxLength(11)
-			//	.IsRequired();
 		}
 	}
 }
