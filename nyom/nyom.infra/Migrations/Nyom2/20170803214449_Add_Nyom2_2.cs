@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace nyom.infra.Migrations.Nyom2
 {
-    public partial class Add_Nyom2_1 : Migration
+    public partial class Add_Nyom2_2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

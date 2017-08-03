@@ -8,7 +8,7 @@ using nyom.infra.Data.EntityFramwork.Context;
 namespace nyom.infra.Migrations
 {
     [DbContext(typeof(NyomContext))]
-    [Migration("20170803211824_Add_Nyom2")]
+    [Migration("20170803214433_Add_Nyom2")]
     partial class Add_Nyom2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

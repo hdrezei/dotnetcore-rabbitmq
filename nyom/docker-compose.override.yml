@@ -10,7 +10,7 @@ services:
       - "./app/nyom/:/temp/nyom/"
     environment:
       ACCEPT_EULA: "Y"
-      SA_PASSWORD: "nyom.7410"
+      SA_PASSWORD: "nyom.7410"  
 
   rabbit:
     image: rabbitmq
@@ -53,3 +53,4 @@ services:
       - "9997:9997"
       - "8088:8088"
       - "1514:1514"
+
