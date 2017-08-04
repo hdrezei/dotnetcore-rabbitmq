@@ -1,11 +1,11 @@
-﻿using nyom.domain.Nyom.Notifications;
+﻿using nyom.domain.Crm.Notifications;
 using nyom.infra.Data.EntityFramwork.Context;
 
 namespace nyom.infra.Data.EntityFramwork.Repositories
 {
-	public class NotificationRepository : RepositoryBase<Notification>,INotificationRepository
+	public class NotificationRepository : RepositoryBaseCrm<Notification>,INotificationRepository
     {
-	    public NotificationRepository(NyomContext context) : base(context)
+	    public NotificationRepository(CrmContext context) : base(context)
 	    {
 	    }
     }

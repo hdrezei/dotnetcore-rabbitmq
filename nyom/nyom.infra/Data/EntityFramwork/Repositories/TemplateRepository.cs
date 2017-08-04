@@ -1,11 +1,11 @@
-﻿using nyom.domain.Nyom.Templates;
+﻿using nyom.domain.Crm.Templates;
 using nyom.infra.Data.EntityFramwork.Context;
 
 namespace nyom.infra.Data.EntityFramwork.Repositories
 {
-	public class TemplateRepository : RepositoryBase<Template>, ITemplateRepository
+	public class TemplateRepository : RepositoryBaseCrm<Template>, ITemplateRepository
 	{
-		public TemplateRepository(NyomContext context) : base(context)
+		public TemplateRepository(CrmContext context) : base(context)
 		{
 		}
 	}

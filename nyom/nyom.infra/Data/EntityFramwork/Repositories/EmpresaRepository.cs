@@ -1,11 +1,11 @@
-﻿using nyom.domain.Nyom.Empresa;
+﻿using nyom.domain.Crm.Empresa;
 using nyom.infra.Data.EntityFramwork.Context;
 
 namespace nyom.infra.Data.EntityFramwork.Repositories
 {
-	public class EmpresaRepository : RepositoryBase<Empresa>,IEmpresaRepository
+	public class EmpresaRepository : RepositoryBaseCrm<Empresa>,IEmpresaRepository
 	{
-		public EmpresaRepository(NyomContext context) : base(context)
+		public EmpresaRepository(CrmContext context) : base(context)
 		{
 		}
 	}

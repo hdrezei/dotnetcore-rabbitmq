@@ -1,11 +1,9 @@
-﻿using RabbitMQ.Client;
-using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nyom.domain.core.Interfaces;
 using nyom.domain.core.Models;
-using nyom.domain.Nyom.Notifications;
+using nyom.domain.Crm.Notifications;
 using nyom.infra.Data.EntityFramwork.Context;
 using nyom.infra.Data.EntityFramwork.Repositories;
 
@@ -33,17 +31,17 @@ namespace nyom.queuebuilder
 
 			_serviceProvider = new ServiceCollection();
 
-			_serviceProvider.AddDbContext<NyomContext>(o => o.UseSqlServer(Configuration["DefaultConnection"]))
+			_serviceProvider.AddDbContext<CrmContext>(o => o.UseSqlServer(Configuration["DefaultConnection"]))
 				.BuildServiceProvider();
 
-			_serviceProvider.AddDbContext<Nyom2Context>(o => o.UseSqlServer(Configuration["DefaultConnection2"]))
+			_serviceProvider.AddDbContext<WorkflowContext>(o => o.UseSqlServer(Configuration["DefaultConnection2"]))
 				.BuildServiceProvider();
 
 
-			serviceCollection.AddDbContext<NyomContext>(options =>
+			serviceCollection.AddDbContext<CrmContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-			serviceCollection.AddDbContext<Nyom2Context>(options =>
+			serviceCollection.AddDbContext<WorkflowContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection2")));
 		}
 
@@ -51,53 +49,54 @@ namespace nyom.queuebuilder
 		{
 			serviceCollection.AddTransient<INotificationService, NotificationService>();
 			serviceCollection.AddTransient<INotificationRepository, NotificationRepository>();
-			serviceCollection.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+			serviceCollection.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBaseCrm<>));
+			//serviceCollection.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBaseWorkflow<>));
 			serviceCollection.AddTransient(typeof(IServiceBase<>), typeof(ServiceBase<>));
 			serviceCollection.AddTransient<NotificationProvider>();
 		}
 	}
-    class Program
-    {
-        public static void Main(string[] args)
-        {
-            var factory = new ConnectionFactory() { HostName = "localhost", Port = 5672, UserName = "guest", Password = "guest" };
+    //class Program
+    //{
+    //    public static void Main(string[] args)
+    //    {
+    //        var factory = new ConnectionFactory() { HostName = "localhost", Port = 5672, UserName = "guest", Password = "guest" };
 
-            using (var connection = factory.CreateConnection())
-            {
-                using (var channel = connection.CreateModel())
-                {
-                    channel.QueueDeclare(queue: "CampanhaX", 
-                                         durable: false,
-                                         exclusive: false,
-                                         autoDelete: true,
-                                         arguments: null);
+    //        using (var connection = factory.CreateConnection())
+    //        {
+    //            using (var channel = connection.CreateModel())
+    //            {
+    //                channel.QueueDeclare(queue: "CampanhaX", 
+    //                                     durable: false,
+    //                                     exclusive: false,
+    //                                     autoDelete: true,
+    //                                     arguments: null);
 
-                    Console.WriteLine(" [x] Sent {0}", args[0]);
+    //                Console.WriteLine(" [x] Sent {0}", args[0]);
 
-                    var limit = 0;
+    //                var limit = 0;
 
-                    while (limit < Convert.ToInt64(args[0]))
-                    {
-                        string message = "Teste do Helder ";
-                        message += limit.ToString();
+    //                while (limit < Convert.ToInt64(args[0]))
+    //                {
+    //                    string message = "Teste do Helder ";
+    //                    message += limit.ToString();
 
-                        var body = Encoding.UTF8.GetBytes(message);
+    //                    var body = Encoding.UTF8.GetBytes(message);
 
-                        var properties = channel.CreateBasicProperties();
-                        properties.Persistent = true;
+    //                    var properties = channel.CreateBasicProperties();
+    //                    properties.Persistent = true;
 
-                        channel.BasicPublish(exchange: "",
-                                             routingKey: "CampanhaX",
-                                             basicProperties: null,
-                                             body: body);
+    //                    channel.BasicPublish(exchange: "",
+    //                                         routingKey: "CampanhaX",
+    //                                         basicProperties: null,
+    //                                         body: body);
 
-                        limit++;
-                    }
-                }
-            }
+    //                    limit++;
+    //                }
+    //            }
+    //        }
 
-            Console.WriteLine(" Press [enter] to exit.");
-            Console.ReadLine();
-        }
-    }
+    //        Console.WriteLine(" Press [enter] to exit.");
+    //        Console.ReadLine();
+    //    }
+    //}
 }

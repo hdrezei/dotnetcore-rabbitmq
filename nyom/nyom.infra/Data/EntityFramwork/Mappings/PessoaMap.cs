@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using nyom.domain.Crm.Pessoa;
 using nyom.domain.Nyom.Pessoa;
 using nyom.infra.Data.EntityFramwork.Extensions;
 
