@@ -8,9 +8,10 @@ using nyom.infra.Data.EntityFramwork.Context;
 namespace nyom.infra.Migrations
 {
     [DbContext(typeof(CrmContext))]
-    partial class CrmContextModelSnapshot : ModelSnapshot
+    [Migration("20170807214421_addTemplateCrm2")]
+    partial class addTemplateCrm2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

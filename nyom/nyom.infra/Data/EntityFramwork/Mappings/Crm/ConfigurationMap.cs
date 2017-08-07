@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using nyom.domain.Configuration;
-
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using nyom.domain.Crm.Configuration;
 using nyom.infra.Data.EntityFramwork.Extensions;
 
-namespace nyom.infra.Data.EntityFramwork.Mapping
+namespace nyom.infra.Data.EntityFramwork.Mappings.Crm
 {
 	public class ConfigurationMap : EntityTypeConfiguration<Configuration>
 	{

@@ -20,6 +20,11 @@ namespace nyom.infra.Data.EntityFramwork.Mappings.Crm
 				.HasMaxLength(100)
 				.HasColumnType("varchar(100)");
 
+			builder.Property(c => c.Mensagem)
+				.IsRequired()
+				.HasMaxLength(100)
+				.HasColumnType("varchar(100)");
+
 			builder.Property(c => c.Status)
 				.IsRequired();
 

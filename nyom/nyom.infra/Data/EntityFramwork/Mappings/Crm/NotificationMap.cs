@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using nyom.domain.Crm.Notifications;
 using nyom.infra.Data.EntityFramwork.Extensions;
-using nyom.domain.Notifications;
 
-namespace nyom.infra.Data.EntityFramwork.Mapping
+namespace nyom.infra.Data.EntityFramwork.Mappings.Crm
 {
     public class NotificationMap : EntityTypeConfiguration<Notification>
 	{

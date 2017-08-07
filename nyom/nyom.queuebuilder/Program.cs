@@ -1,13 +1,5 @@
-﻿using RabbitMQ.Client;
-using System;
-using Microsoft.EntityFrameworkCore;
+﻿using System;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using nyom.domain.core.Interfaces;
-using nyom.domain.core.Models;
-using nyom.domain.Notifications;
-using nyom.infra.Data.EntityFramwork.Context;
-using nyom.infra.Data.EntityFramwork.Repositories;
 
 namespace nyom.queuebuilder
 {

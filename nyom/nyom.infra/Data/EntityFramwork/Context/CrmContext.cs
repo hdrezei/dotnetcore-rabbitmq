@@ -6,7 +6,6 @@ using nyom.domain.Crm.Notifications;
 using nyom.domain.Crm.Pessoa;
 using nyom.domain.Crm.Templates;
 using nyom.infra.Data.EntityFramwork.Extensions;
-using nyom.infra.Data.EntityFramwork.Mapping;
 using nyom.infra.Data.EntityFramwork.Mappings;
 using nyom.infra.Data.EntityFramwork.Mappings.Crm;
 
