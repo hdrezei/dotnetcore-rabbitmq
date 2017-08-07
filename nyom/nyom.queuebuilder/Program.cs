@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using RabbitMQ.Client;
+using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nyom.domain.core.Interfaces;
 using nyom.domain.core.Models;
-using nyom.domain.Crm.Notifications;
+using nyom.domain.Notifications;
 using nyom.infra.Data.EntityFramwork.Context;
 using nyom.infra.Data.EntityFramwork.Repositories;
 
@@ -12,48 +14,40 @@ namespace nyom.queuebuilder
 	internal class Program
 	{
 		public static IConfigurationRoot Configuration { get; set; }
-		private static ServiceCollection _serviceProvider;
+		private static IServiceProvider _serviceProvider;
 
 		private static void Main(string[] args)
 		{
-			var builder = new ConfigurationBuilder()
-				.AddJsonFile("appsettings.json", false, true);
-			Configuration = builder.Build();
+			//var builder = new ConfigurationBuilder()
+			//	.AddJsonFile("appsettings.json", false, true);
+			//Configuration = builder.Build();
 
-			var serviceCollection = new ServiceCollection();
+			//_serviceProvider = new ServiceCollection()
+			//	.AddDbContext<NyomContext>(o => o.UseSqlServer(Configuration["DefaultConnection"]))
+			//	.BuildServiceProvider();
 
-			ConfigureServices(serviceCollection);
+			//var serviceCollection = new ServiceCollection();
 
-			var serviceProvider = serviceCollection.BuildServiceProvider();
+			//serviceCollection.AddDbContext<NyomContext>(options =>
+			//	options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-			serviceProvider.GetService<NotificationProvider>().Start();
+			//ConfigureServices(serviceCollection);
+			
+			//var serviceProvider = serviceCollection.BuildServiceProvider();
 
-
-			_serviceProvider = new ServiceCollection();
-
-			_serviceProvider.AddDbContext<CrmContext>(o => o.UseSqlServer(Configuration["DefaultConnection"]))
-				.BuildServiceProvider();
-
-			_serviceProvider.AddDbContext<WorkflowContext>(o => o.UseSqlServer(Configuration["DefaultConnection2"]))
-				.BuildServiceProvider();
-
-
-			serviceCollection.AddDbContext<CrmContext>(options =>
-				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-			serviceCollection.AddDbContext<WorkflowContext>(options =>
-				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection2")));
+			//serviceProvider.GetService<NotificationProvider>().Start();
 		}
 
-		private static void ConfigureServices(IServiceCollection serviceCollection)
-		{
-			serviceCollection.AddTransient<INotificationService, NotificationService>();
-			serviceCollection.AddTransient<INotificationRepository, NotificationRepository>();
-			serviceCollection.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBaseCrm<>));
-			//serviceCollection.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBaseWorkflow<>));
-			serviceCollection.AddTransient(typeof(IServiceBase<>), typeof(ServiceBase<>));
-			serviceCollection.AddTransient<NotificationProvider>();
-		}
+		//private static void ConfigureServices(IServiceCollection serviceCollection)
+		//{
+			
+		//	serviceCollection.AddTransient<INotificationService, NotificationService>();
+		//	serviceCollection.AddTransient<INotificationRepository, NotificationRepository>();
+		//	serviceCollection.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+		//	serviceCollection.AddTransient(typeof(IServiceBase<>), typeof(ServiceBase<>));
+			
+		//	serviceCollection.AddTransient<NotificationProvider>();
+		//}
 	}
     //class Program
     //{

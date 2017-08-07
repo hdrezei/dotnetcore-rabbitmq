@@ -1,4 +1,4 @@
-﻿using nyom.domain.Crm.Notifications;
+﻿using nyom.domain.Notifications;
 using nyom.infra.Data.EntityFramwork.Context;
 
 namespace nyom.infra.Data.EntityFramwork.Repositories

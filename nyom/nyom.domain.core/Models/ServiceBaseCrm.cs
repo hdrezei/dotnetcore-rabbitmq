@@ -5,11 +5,11 @@ using nyom.domain.core.Interfaces;
 
 namespace nyom.domain.core.Models
 {
-	public class ServiceBase<TEntity> :IServiceBase<TEntity> where TEntity : class
+	public class ServiceBaseCrm<TEntity> :IServiceBaseCrm<TEntity> where TEntity : class
     {
-	    private readonly IRepositoryBase<TEntity> _repositoryBase;
+	    private readonly IRepositoryBaseCrm<TEntity> _repositoryBase;
 
-	    public ServiceBase(IRepositoryBase<TEntity> repositoryBase)
+	    public ServiceBaseCrm(IRepositoryBaseCrm<TEntity> repositoryBase)
 	    {
 		    _repositoryBase = repositoryBase;
 	    }

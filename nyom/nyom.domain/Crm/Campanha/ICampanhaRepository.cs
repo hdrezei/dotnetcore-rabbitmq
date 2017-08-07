@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Crm.Campanha
 {
-	public interface ICampanhaRepository :IRepositoryBase<Crm.Campanha.Campanha>
+	public interface ICampanhaRepository :IRepositoryBaseCrm<Campanha>
 	{
 		
 	}

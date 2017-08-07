@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Workflow.Campanha
 {
-	public interface ICampanhaRepository :IRepositoryBase<domain.Workflow.Campanha.Campanha>
+	public interface ICampanhaRepository :IRepositoryBaseWorkflow<Campanha>
 	{
 		
 	}

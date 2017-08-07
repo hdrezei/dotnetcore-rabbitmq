@@ -7,7 +7,7 @@ using nyom.infra.Data.EntityFramwork.Context;
 
 namespace nyom.infra.Data.EntityFramwork.Repositories
 {
-    public class RepositoryBaseWorkflow<TEntity> : IRepositoryBase<TEntity> where TEntity : class
+    public class RepositoryBaseWorkflow<TEntity> : IRepositoryBaseWorkflow<TEntity> where TEntity : class
     {
 	    
 	    protected WorkflowContext Db;

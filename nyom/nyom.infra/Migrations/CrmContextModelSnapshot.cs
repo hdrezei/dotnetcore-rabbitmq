@@ -16,29 +16,7 @@ namespace nyom.infra.Migrations
                 .HasAnnotation("ProductVersion", "1.1.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("nyom.domain.Nyom.Campanha.Campanha", b =>
-                {
-                    b.Property<Guid>("CampanhaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("CampanhaId");
-
-                    b.Property<DateTime>("DataInicio");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasMaxLength(100);
-
-                    b.Property<bool>("Status");
-
-                    b.Property<Guid>("TemplateId");
-
-                    b.HasKey("CampanhaId");
-
-                    b.ToTable("Campanhas");
-                });
-
-            modelBuilder.Entity("nyom.domain.Nyom.Configuration.Configuration", b =>
+            modelBuilder.Entity("nyom.domain.Configuration.Configuration", b =>
                 {
                     b.Property<Guid>("ConfigurationId")
                         .ValueGeneratedOnAdd()
@@ -87,10 +65,82 @@ namespace nyom.infra.Migrations
 
                     b.HasKey("ConfigurationId");
 
+                    b.ToTable("Configuration");
+                });
+
+            modelBuilder.Entity("nyom.domain.Crm.Campanha.Campanha", b =>
+                {
+                    b.Property<Guid>("CampanhaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("CampanhaId");
+
+                    b.Property<DateTime>("DataInicio");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<int>("Publico");
+
+                    b.Property<int>("Status");
+
+                    b.Property<Guid>("TemplateId");
+
+                    b.HasKey("CampanhaId");
+
+                    b.ToTable("Campanhas");
+                });
+
+            modelBuilder.Entity("nyom.domain.Crm.Configuration.Configuration", b =>
+                {
+                    b.Property<Guid>("ConfigurationId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("AutoScaleChannels");
+
+                    b.Property<int>("Channels");
+
+                    b.Property<bool>("ConexaoAtiva");
+
+                    b.Property<int>("ConnectionTimeout");
+
+                    b.Property<int>("FeedbackIntervalMinutes");
+
+                    b.Property<DateTime>("HoraFim");
+
+                    b.Property<DateTime>("HoraInicio");
+
+                    b.Property<int>("IdMaquina");
+
+                    b.Property<int>("IdleTimeOut");
+
+                    b.Property<int>("MaxAutoScaleChannels");
+
+                    b.Property<int>("MaxConnectionAttempts");
+
+                    b.Property<int>("MaxNotificationRequeues");
+
+                    b.Property<int>("MillisecondsToWaitBeforeMessageDeclaredSuccess");
+
+                    b.Property<int>("MinAvgTimeToScaleChannels");
+
+                    b.Property<int>("NotificationSendTimeout");
+
+                    b.Property<int>("QuantidadeEnvio");
+
+                    b.Property<int>("TempoProcessamento");
+
+                    b.Property<string>("TipoRobo");
+
+                    b.Property<bool>("UsaSandBox");
+
+                    b.HasKey("ConfigurationId");
+
                     b.ToTable("Configurations");
                 });
 
-            modelBuilder.Entity("nyom.domain.Nyom.Empresa.Empresa", b =>
+            modelBuilder.Entity("nyom.domain.Crm.Empresa.Empresa", b =>
                 {
                     b.Property<Guid>("EmpresaId")
                         .ValueGeneratedOnAdd()
@@ -122,7 +172,7 @@ namespace nyom.infra.Migrations
                     b.ToTable("Empresas");
                 });
 
-            modelBuilder.Entity("nyom.domain.Nyom.Notifications.Notification", b =>
+            modelBuilder.Entity("nyom.domain.Crm.Notifications.Notification", b =>
                 {
                     b.Property<Guid>("NotificationId")
                         .ValueGeneratedOnAdd();
@@ -135,38 +185,26 @@ namespace nyom.infra.Migrations
 
                     b.Property<int>("CodigoTemplate");
 
-                    b.Property<string>("Contexto")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasMaxLength(100);
+                    b.Property<string>("Contexto");
 
                     b.Property<int>("IdServidor");
 
                     b.Property<int>("MaxRegistros");
 
-                    b.Property<string>("NomeRobo")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasMaxLength(100);
+                    b.Property<string>("NomeRobo");
 
                     b.Property<int>("Plataforma");
 
-                    b.Property<string>("ThreadName")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasMaxLength(100);
+                    b.Property<string>("ThreadName");
 
-                    b.Property<string>("TokenPush")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasMaxLength(100);
+                    b.Property<string>("TokenPush");
 
                     b.HasKey("NotificationId");
 
                     b.ToTable("Notifications");
                 });
 
-            modelBuilder.Entity("nyom.domain.Nyom.Pessoa.Pessoa", b =>
+            modelBuilder.Entity("nyom.domain.Crm.Pessoa.Pessoa", b =>
                 {
                     b.Property<Guid>("PessoaId")
                         .ValueGeneratedOnAdd()
@@ -227,6 +265,70 @@ namespace nyom.infra.Migrations
                     b.HasKey("PessoaId");
 
                     b.ToTable("Pessoas");
+                });
+
+            modelBuilder.Entity("nyom.domain.Crm.Templates.Template", b =>
+                {
+                    b.Property<Guid>("TemplateId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("TemplateId");
+
+                    b.Property<DateTime>("DataCriacao");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<bool>("Status");
+
+                    b.HasKey("TemplateId");
+
+                    b.ToTable("Templates");
+                });
+
+            modelBuilder.Entity("nyom.domain.Notifications.Notification", b =>
+                {
+                    b.Property<Guid>("NotificationId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Cadastrado");
+
+                    b.Property<int>("CodigoAplicativo");
+
+                    b.Property<int>("CodigoNotificacao");
+
+                    b.Property<int>("CodigoTemplate");
+
+                    b.Property<string>("Contexto")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<int>("IdServidor");
+
+                    b.Property<int>("MaxRegistros");
+
+                    b.Property<string>("NomeRobo")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<int>("Plataforma");
+
+                    b.Property<string>("ThreadName")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("TokenPush")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("NotificationId");
+
+                    b.ToTable("Notification");
                 });
         }
     }

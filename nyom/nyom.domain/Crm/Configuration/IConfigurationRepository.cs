@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Crm.Configuration
 {
-	public interface IConfigurationRepository : IRepositoryBase<Crm.Configuration.Configuration>
+	public interface IConfigurationRepository : IRepositoryBaseCrm<Configuration>
 	{
 		
 	}

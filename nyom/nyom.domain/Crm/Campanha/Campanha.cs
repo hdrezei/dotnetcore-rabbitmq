@@ -11,8 +11,8 @@ namespace nyom.domain.Crm.Campanha
 		public Guid CampanhaId { get; set; }
 		public string Nome { get; set; }
 		public DateTime DataInicio { get; set; }
-		public bool Status { get; set; }
+		public int Status { get; set; }
 		public Guid TemplateId { get; set; }
-
+	    public int Publico { get; set; }
     }
 }

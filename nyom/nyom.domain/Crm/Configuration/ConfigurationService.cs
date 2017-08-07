@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Crm.Configuration
 {
-	public class ConfigurationService : ServiceBase<Crm.Configuration.Configuration>, IConfigurationService
+	public class ConfigurationService : ServiceBaseCrm<Crm.Configuration.Configuration>, IConfigurationService
 	{
 		private readonly IConfigurationRepository _configurationRepository;
 

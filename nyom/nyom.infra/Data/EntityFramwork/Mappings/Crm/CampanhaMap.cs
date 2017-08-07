@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using nyom.domain.Crm.Campanha;
 using nyom.infra.Data.EntityFramwork.Extensions;
 
-namespace nyom.infra.Data.EntityFramwork.Mappings
+namespace nyom.infra.Data.EntityFramwork.Mappings.Crm
 {
 	public class CampanhaMap : EntityTypeConfiguration<Campanha>
 	{
@@ -24,6 +24,9 @@ namespace nyom.infra.Data.EntityFramwork.Mappings
 				.IsRequired();
 
 			builder.Property(c => c.TemplateId)
+				.IsRequired();
+
+			builder.Property(c => c.Publico)
 				.IsRequired();
 		}
 	}

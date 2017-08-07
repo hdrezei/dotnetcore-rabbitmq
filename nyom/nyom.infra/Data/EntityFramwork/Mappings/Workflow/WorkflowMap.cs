@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using nyom.domain.Workflow.Workflow;
 using nyom.infra.Data.EntityFramwork.Extensions;
+using nyom.domain.Workflow.Workflow;
 
-namespace nyom.infra.Data.EntityFramwork.Mappings
+namespace nyom.infra.Data.EntityFramwork.Mappings.Workflow
 {
-	public class WorkflowMap : EntityTypeConfiguration<Workflow>
+	public class WorkflowMap : EntityTypeConfiguration<domain.Workflow.Workflow.Workflow>
 	{
-		public override void Map(EntityTypeBuilder<Workflow> builder)
+		public override void Map(EntityTypeBuilder<domain.Workflow.Workflow.Workflow> builder)
 		{
 			builder.Property(c => c.WorkflowId)
 				.HasColumnName("WorkflowId");

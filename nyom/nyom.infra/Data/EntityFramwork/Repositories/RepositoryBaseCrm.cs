@@ -8,7 +8,7 @@ using nyom.domain.core.Interfaces;
 
 namespace nyom.infra.Data.EntityFramwork.Repositories
 {
-	public class RepositoryBaseCrm<TEntity> : IRepositoryBase<TEntity> where TEntity : class
+	public class RepositoryBaseCrm<TEntity> : IRepositoryBaseCrm<TEntity> where TEntity : class
 	{
 		protected CrmContext Db;
 		protected DbSet<TEntity> DbSet;

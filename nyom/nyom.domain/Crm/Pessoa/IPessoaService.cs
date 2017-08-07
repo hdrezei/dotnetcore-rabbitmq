@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Nyom.Pessoa
 {
-	public interface IPessoaService : IServiceBase<Crm.Pessoa.Pessoa>
+	public interface IPessoaService : IServiceBaseCrm<Crm.Pessoa.Pessoa>
 	{
 		
 	}

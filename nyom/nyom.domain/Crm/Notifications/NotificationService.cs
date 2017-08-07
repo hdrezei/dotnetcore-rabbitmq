@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Crm.Notifications
 {
-    public class NotificationService : ServiceBase<Notification> ,INotificationService
+    public class NotificationService : ServiceBaseCrm<Notification> ,INotificationService
     {
 	    private readonly INotificationRepository _notificationRepository;
 

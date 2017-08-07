@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Workflow.Campanha
 {
-	public interface ICampanhaService : IServiceBase<domain.Workflow.Campanha.Campanha>
+	public interface ICampanhaService : IServiceBaseCrm<domain.Workflow.Campanha.Campanha>
 	{
 		
 	}

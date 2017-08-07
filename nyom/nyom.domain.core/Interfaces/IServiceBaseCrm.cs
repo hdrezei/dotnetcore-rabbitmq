@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace nyom.domain.core.Interfaces
 {
-	public interface IServiceBase<TEntity> : IDisposable where TEntity : class
+	public interface IServiceBaseCrm<TEntity> : IDisposable where TEntity : class
     {
         TEntity Get(Guid id);
         TEntity Find(Expression<Func<TEntity, bool>> predicate);

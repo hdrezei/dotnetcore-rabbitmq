@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using nyom.domain.Crm.Templates;
 using nyom.infra.Data.EntityFramwork.Extensions;
 
-namespace nyom.infra.Data.EntityFramwork.Mappings
+namespace nyom.infra.Data.EntityFramwork.Mappings.Crm
 {
 	public class TemplateMap : EntityTypeConfiguration<Template>
 	{

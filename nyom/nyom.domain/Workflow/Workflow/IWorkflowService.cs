@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Workflow.Workflow
 {
-	public interface IWorkflowService : IServiceBase<Workflow>
+	public interface IWorkflowService : IServiceBaseCrm<Workflow>
 	{
 		
 	}

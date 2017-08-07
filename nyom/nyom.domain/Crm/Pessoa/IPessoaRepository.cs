@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Crm.Pessoa
 {
-	public interface IPessoaRepository : IRepositoryBase<Pessoa>
+	public interface IPessoaRepository : IRepositoryBaseCrm<Pessoa>
 	{
 		
 	}

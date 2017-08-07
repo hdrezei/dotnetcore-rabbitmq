@@ -3,6 +3,7 @@ using nyom.domain.Crm.Campanha;
 using nyom.domain.Workflow.Workflow;
 using nyom.infra.Data.EntityFramwork.Extensions;
 using nyom.infra.Data.EntityFramwork.Mappings;
+using nyom.infra.Data.EntityFramwork.Mappings.Workflow;
 
 namespace nyom.infra.Data.EntityFramwork.Context
 {
