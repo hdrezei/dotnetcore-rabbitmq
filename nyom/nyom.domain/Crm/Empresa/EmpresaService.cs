@@ -1,6 +1,4 @@
-﻿using nyom.domain.core.Models;
-
-namespace nyom.domain.Crm.Empresa
+﻿namespace nyom.domain.Crm.Empresa
 {
 	public class EmpresaService : ServiceBaseCrm<Crm.Empresa.Empresa>, IEmpresaService
 	{

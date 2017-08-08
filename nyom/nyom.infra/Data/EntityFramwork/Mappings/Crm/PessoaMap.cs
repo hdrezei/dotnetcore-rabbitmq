@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using nyom.domain.Crm.Pessoa;
-using nyom.domain.Nyom.Pessoa;
 using nyom.infra.Data.EntityFramwork.Extensions;
 
-namespace nyom.infra.Data.EntityFramwork.Mappings
+namespace nyom.infra.Data.EntityFramwork.Mappings.Crm
 {
 	public class PessoaMap : EntityTypeConfiguration<Pessoa>
 	{

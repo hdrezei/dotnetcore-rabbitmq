@@ -14,7 +14,6 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\nyom.domain.core\nyom.domain.core.csproj" />
     <ProjectReference Include="..\nyom.domain\nyom.domain.csproj" />
   </ItemGroup>
 </Project>

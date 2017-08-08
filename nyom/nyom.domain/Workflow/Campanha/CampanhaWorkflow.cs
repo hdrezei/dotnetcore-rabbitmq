@@ -2,9 +2,9 @@
 
 namespace nyom.domain.Workflow.Campanha
 {
-    public class Campanha
+    public class CampanhaWorkflow
     {
-	    public Campanha()
+	    public CampanhaWorkflow()
 	    {
 		    CampanhaId = Guid.NewGuid();
 	    }

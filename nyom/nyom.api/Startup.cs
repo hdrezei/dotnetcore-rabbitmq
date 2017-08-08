@@ -5,9 +5,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using nyom.domain.core.Interfaces;
-using nyom.domain.core.Models;
+using nyom.domain.Crm.Configuration;
+using nyom.domain.Crm.Empresa;
+using nyom.domain.Crm.Notifications;
+using nyom.domain.Crm.Pessoa;
+using nyom.domain.Crm.Templates;
+using nyom.domain.Nyom.Pessoa;
 using nyom.domain.Workflow.Campanha;
 using nyom.domain.Workflow.Workflow;
+using nyom.domaincore.Models;
 using nyom.infra.Data.EntityFramwork.Context;
 using nyom.infra.Data.EntityFramwork.Repositories;
 using nyom.queuebuilder;
@@ -40,6 +46,28 @@ namespace nyom.api
 
 			services.AddTransient<IWorkflowService, WorkflowService>();
 			services.AddTransient<IWorkflowRepository, WorkflowRepository>();
+
+			services.AddTransient<ITemplateService, TemplateService>();
+			services.AddTransient<ITemplateRepository, TemplateRepository>();
+
+			services.AddTransient<IPessoaService, PessoaService>();
+			services.AddTransient<IPessoaRepository, PessoaRepository>();
+
+			services.AddTransient<IPessoaService, PessoaService>();
+			services.AddTransient<IPessoaRepository, PessoaRepository>();
+
+			services.AddTransient<INotificationService, NotificationService>();
+			services.AddTransient<INotificationRepository, NotificationRepository>();
+
+			services.AddTransient<IEmpresaService, EmpresaService>();
+			services.AddTransient<IEmpresaRepository, EmpresaRepository>();
+
+			services.AddTransient<IConfigurationService, ConfigurationService>();
+			services.AddTransient<IConfigurationRepository, ConfigurationRepository>();
+
+			services.AddTransient<ICampanhaWorkflowService, CampanhaWorkflowService>();
+			//services.AddTransient<ICampanhaRepository, CampanhaRepository>();
+
 			services.AddTransient(typeof(IRepositoryBaseCrm<>), typeof(RepositoryBaseCrm<>));
 			services.AddTransient(typeof(IServiceBaseCrm<>), typeof(ServiceBaseCrm<>));
 			services.AddTransient(typeof(IRepositoryBaseWorkflow<>), typeof(RepositoryBaseWorkflow<>));
@@ -49,7 +77,7 @@ namespace nyom.api
 
 			var serviceCollection = new ServiceCollection();
 			var serviceProvider = serviceCollection.BuildServiceProvider();
-			serviceProvider.GetService<Campanhas>().BuscaCampanha();
+			serviceProvider.GetService<Campanhas>().StartTimer();
 
 			// Add framework services.
 			services.AddMvc();

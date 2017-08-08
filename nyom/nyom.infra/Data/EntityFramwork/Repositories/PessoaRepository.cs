@@ -1,5 +1,4 @@
 ﻿using nyom.domain.Crm.Pessoa;
-using nyom.domain.Nyom.Pessoa;
 using nyom.infra.Data.EntityFramwork.Context;
 
 namespace nyom.infra.Data.EntityFramwork.Repositories

@@ -20,7 +20,7 @@ namespace nyom.infra.Data.EntityFramwork.Context
 
 		public DbSet<Configuration> Configurations { get; set; }
 		public DbSet<Notification> Notifications { get; set; }
-		public DbSet<Campanha> Campanhas { get; set; }
+		public DbSet<CampanhaCrm> Campanhas { get; set; }
 		public DbSet<Empresa> Empresas { get; set; }
 		public DbSet<Pessoa> Pessoas { get; set; }
 

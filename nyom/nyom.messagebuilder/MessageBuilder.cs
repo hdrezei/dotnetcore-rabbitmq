@@ -14,11 +14,7 @@ namespace nyom.messagebuilder
 
 		public void MontarMensaagens(Guid campanhaId, Guid templateId, int publico)
 		{
-			var dadosTemplate = _templateservice.Get(templateId);
-
-
-
-
+			//var dadosTemplate = _templateservice.Get(templateId);
 		}
 	}
 }

@@ -2,9 +2,9 @@
 
 namespace nyom.domain.Crm.Campanha
 {
-    public class Campanha
+    public class CampanhaCrm
     {
-	    public Campanha()
+	    public CampanhaCrm()
 	    {
 		    CampanhaId = Guid.NewGuid();
 	    }

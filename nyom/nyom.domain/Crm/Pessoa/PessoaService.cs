@@ -1,5 +1,4 @@
-﻿using nyom.domain.core.Models;
-using nyom.domain.Nyom.Pessoa;
+﻿using nyom.domain.Nyom.Pessoa;
 
 namespace nyom.domain.Crm.Pessoa
 {

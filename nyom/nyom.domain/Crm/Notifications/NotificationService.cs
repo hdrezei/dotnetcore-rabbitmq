@@ -1,6 +1,4 @@
-﻿using nyom.domain.core.Models;
-
-namespace nyom.domain.Crm.Notifications
+﻿namespace nyom.domain.Crm.Notifications
 {
     public class NotificationService : ServiceBaseCrm<Notification> ,INotificationService
     {

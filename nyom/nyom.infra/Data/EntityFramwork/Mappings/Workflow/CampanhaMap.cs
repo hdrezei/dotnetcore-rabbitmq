@@ -5,9 +5,9 @@ using nyom.infra.Data.EntityFramwork.Extensions;
 
 namespace nyom.infra.Data.EntityFramwork.Mappings.Workflow
 {
-	public class CampanhaMap : EntityTypeConfiguration<Campanha>
+	public class CampanhaMap : EntityTypeConfiguration<CampanhaCrm>
 	{
-		public override void Map(EntityTypeBuilder<Campanha> builder)
+		public override void Map(EntityTypeBuilder<CampanhaCrm> builder)
 		{
 			builder.Property(c => c.CampanhaId)
 				.HasColumnName("CampanhaId");

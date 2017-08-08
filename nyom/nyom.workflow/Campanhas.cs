@@ -1,26 +1,34 @@
-﻿using nyom.domain.Workflow.Campanha;
-using nyom.messagebuilder;
+﻿using System;
+using System.Threading;
+using nyom.domain.Workflow.Campanha;
 
 namespace nyom.workflow
 {
 	public class Campanhas
 	{
+		private Timer _tm;
 
-		private readonly ICampanhaService _campanhaService;
+		private AutoResetEvent _autoEvent;
 
-		public Campanhas(ICampanhaService campanhaService)
+		private readonly ICampanhaWorkflowService _campanhaService;
+
+		public Campanhas(ICampanhaWorkflowService campanhaService)
 		{
 			_campanhaService = campanhaService;
+
 		}
 
-		public void BuscaCampanha()
+		public void StartTimer()
 		{
-			var dadosCampanha = _campanhaService.Find(a => a.Status.Equals(Status.Pronto));
+			_autoEvent = new AutoResetEvent(false);
+			_tm = new Timer(BuscarCampanhas, _autoEvent, 1000, 1000);
+			
+		}
 
-			var messageBuilder = new MessageBuilder();
-
-			messageBuilder.MontarMensaagens(dadosCampanha.CampanhaId, dadosCampanha.TemplateId, dadosCampanha.Publico);
-
+		public void BuscarCampanhas(object stateInfo)
+		{
+			Console.WriteLine("Teste");
 		}
 	}
 }
+

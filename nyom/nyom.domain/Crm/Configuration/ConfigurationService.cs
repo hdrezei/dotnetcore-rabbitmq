@@ -1,6 +1,4 @@
-﻿using nyom.domain.core.Models;
-
-namespace nyom.domain.Crm.Configuration
+﻿namespace nyom.domain.Crm.Configuration
 {
 	public class ConfigurationService : ServiceBaseCrm<Crm.Configuration.Configuration>, IConfigurationService
 	{

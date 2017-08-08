@@ -1,4 +1,4 @@
-﻿using nyom.domain.core.Models;
+﻿using nyom.domaincore.Models;
 
 namespace nyom.domain.Workflow.Workflow
 {
