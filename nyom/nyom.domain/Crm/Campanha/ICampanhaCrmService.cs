@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Crm.Campanha
 {
-	public interface ICampanhaCrmService : IServiceBaseCrm<Crm.Campanha.CampanhaCrm>
+	public interface ICampanhaCrmService : IServiceBaseCrm<CampanhaCrm>
 	{
 		
 	}
