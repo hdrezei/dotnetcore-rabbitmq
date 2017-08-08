@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Workflow.Workflow
 {
-	public interface IWorkflowRepository : IRepositoryBase<Workflow>
+	public interface IWorkflowRepository : IRepositoryBaseWorkflow<Workflow>
 	{
 		
 	}

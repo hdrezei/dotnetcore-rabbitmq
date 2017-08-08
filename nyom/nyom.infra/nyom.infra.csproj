@@ -3,6 +3,10 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Data\EntityFramwork\Context\NyomContext.cs" />
+    <Compile Remove="Data\EntityFramwork\Context\NyomContextFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.2" />
@@ -10,7 +14,6 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\nyom.domain.core\nyom.domain.core.csproj" />
     <ProjectReference Include="..\nyom.domain\nyom.domain.csproj" />
   </ItemGroup>
 </Project>

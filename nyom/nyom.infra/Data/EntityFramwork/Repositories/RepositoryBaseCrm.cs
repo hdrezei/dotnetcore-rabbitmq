@@ -4,11 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using nyom.infra.Data.EntityFramwork.Context;
-using nyom.domain.core.Interfaces;
+using nyom.domaincore.Interfaces;
 
 namespace nyom.infra.Data.EntityFramwork.Repositories
 {
-	public class RepositoryBaseCrm<TEntity> : IRepositoryBase<TEntity> where TEntity : class
+	public class RepositoryBaseCrm<TEntity> : IRepositoryBaseCrm<TEntity> where TEntity : class
 	{
 		protected CrmContext Db;
 		protected DbSet<TEntity> DbSet;

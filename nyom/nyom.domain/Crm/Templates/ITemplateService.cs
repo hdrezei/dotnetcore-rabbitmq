@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Crm.Templates
 {
-	public interface ITemplateService : IServiceBase<Template>
+	public interface ITemplateService : IServiceBaseCrm<Template>
 	{
 		
 	}

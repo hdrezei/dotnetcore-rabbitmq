@@ -1,8 +1,8 @@
-﻿using nyom.domain.core.Models;
+﻿using nyom.domaincore.Models;
 
 namespace nyom.domain.Workflow.Workflow
 {
-	public class WorkflowService : ServiceBase<domain.Workflow.Workflow.Workflow>, IWorkflowService
+	public class WorkflowService : ServiceBaseWorkflow<Workflow>, IWorkflowService
 	{
 		private readonly IWorkflowRepository _workflowRepository;
 		public WorkflowService(IWorkflowRepository workflowRepository) : base(workflowRepository)

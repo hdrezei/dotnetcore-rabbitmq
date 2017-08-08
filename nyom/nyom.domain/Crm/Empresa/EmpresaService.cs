@@ -1,8 +1,6 @@
-﻿using nyom.domain.core.Models;
-
-namespace nyom.domain.Crm.Empresa
+﻿namespace nyom.domain.Crm.Empresa
 {
-	public class EmpresaService : ServiceBase<Crm.Empresa.Empresa>, IEmpresaService
+	public class EmpresaService : ServiceBaseCrm<Crm.Empresa.Empresa>, IEmpresaService
 	{
 		private readonly IEmpresaRepository _empresaRepository;
 		public EmpresaService(IEmpresaRepository empresaRepository) : base(empresaRepository)

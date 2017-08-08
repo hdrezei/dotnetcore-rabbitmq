@@ -4,10 +4,11 @@ using nyom.domain.Crm.Configuration;
 using nyom.domain.Crm.Empresa;
 using nyom.domain.Crm.Notifications;
 using nyom.domain.Crm.Pessoa;
-using nyom.domain.Nyom.Pessoa;
+using nyom.domain.Crm.Templates;
 using nyom.infra.Data.EntityFramwork.Extensions;
-using nyom.infra.Data.EntityFramwork.Mapping;
 using nyom.infra.Data.EntityFramwork.Mappings;
+using nyom.infra.Data.EntityFramwork.Mappings.Crm;
+
 
 namespace nyom.infra.Data.EntityFramwork.Context
 {
@@ -19,9 +20,11 @@ namespace nyom.infra.Data.EntityFramwork.Context
 
 		public DbSet<Configuration> Configurations { get; set; }
 		public DbSet<Notification> Notifications { get; set; }
-		public DbSet<Campanha> Campanhas { get; set; }
+		public DbSet<CampanhaCrm> Campanhas { get; set; }
 		public DbSet<Empresa> Empresas { get; set; }
 		public DbSet<Pessoa> Pessoas { get; set; }
+
+		public DbSet<Template> Templates { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -30,6 +33,7 @@ namespace nyom.infra.Data.EntityFramwork.Context
 			modelBuilder.AddConfiguration(new CampanhaMap());
 			modelBuilder.AddConfiguration(new EmpresaMap());
 			modelBuilder.AddConfiguration(new PessoaMap());
+			modelBuilder.AddConfiguration(new TemplateMap());
 
 			base.OnModelCreating(modelBuilder);
 		}

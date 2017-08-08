@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Crm.Templates
 {
-	public interface ITemplateRepository : IRepositoryBase<Template>
+	public interface ITemplateRepository : IRepositoryBaseCrm<Template>
 	{
 		
 	}

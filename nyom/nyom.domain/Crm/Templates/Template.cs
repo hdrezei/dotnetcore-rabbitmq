@@ -12,6 +12,7 @@ namespace nyom.domain.Crm.Templates
 	    public Guid TemplateId { get; set; }
 		public string Nome { get; set; }
 		public DateTime DataCriacao { get; set; }
-		public bool Status { get; set; }
+		public int Status { get; set; }
+		public string Mensagem { get; set; }
     }
 }

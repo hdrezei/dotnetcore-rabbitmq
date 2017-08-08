@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Crm.Configuration
 {
-	public interface IConfigurationService : IServiceBase<Crm.Configuration.Configuration>
+	public interface IConfigurationService : IServiceBaseCrm<Crm.Configuration.Configuration>
 	{
 		
 	}

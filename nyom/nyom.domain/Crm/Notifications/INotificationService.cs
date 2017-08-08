@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Crm.Notifications
 {
-	public interface INotificationService : IServiceBase<Notification>
+	public interface INotificationService : IServiceBaseCrm<Notification>
 	{
 		
 	}

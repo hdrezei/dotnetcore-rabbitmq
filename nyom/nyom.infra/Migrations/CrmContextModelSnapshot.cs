@@ -16,7 +16,7 @@ namespace nyom.infra.Migrations
                 .HasAnnotation("ProductVersion", "1.1.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("nyom.domain.Nyom.Campanha.Campanha", b =>
+            modelBuilder.Entity("nyom.domain.Crm.Campanha.Campanha", b =>
                 {
                     b.Property<Guid>("CampanhaId")
                         .ValueGeneratedOnAdd()
@@ -29,7 +29,9 @@ namespace nyom.infra.Migrations
                         .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<bool>("Status");
+                    b.Property<int>("Publico");
+
+                    b.Property<int>("Status");
 
                     b.Property<Guid>("TemplateId");
 
@@ -38,7 +40,7 @@ namespace nyom.infra.Migrations
                     b.ToTable("Campanhas");
                 });
 
-            modelBuilder.Entity("nyom.domain.Nyom.Configuration.Configuration", b =>
+            modelBuilder.Entity("nyom.domain.Crm.Configuration.Configuration", b =>
                 {
                     b.Property<Guid>("ConfigurationId")
                         .ValueGeneratedOnAdd()
@@ -90,7 +92,7 @@ namespace nyom.infra.Migrations
                     b.ToTable("Configurations");
                 });
 
-            modelBuilder.Entity("nyom.domain.Nyom.Empresa.Empresa", b =>
+            modelBuilder.Entity("nyom.domain.Crm.Empresa.Empresa", b =>
                 {
                     b.Property<Guid>("EmpresaId")
                         .ValueGeneratedOnAdd()
@@ -122,7 +124,7 @@ namespace nyom.infra.Migrations
                     b.ToTable("Empresas");
                 });
 
-            modelBuilder.Entity("nyom.domain.Nyom.Notifications.Notification", b =>
+            modelBuilder.Entity("nyom.domain.Crm.Notifications.Notification", b =>
                 {
                     b.Property<Guid>("NotificationId")
                         .ValueGeneratedOnAdd();
@@ -166,7 +168,7 @@ namespace nyom.infra.Migrations
                     b.ToTable("Notifications");
                 });
 
-            modelBuilder.Entity("nyom.domain.Nyom.Pessoa.Pessoa", b =>
+            modelBuilder.Entity("nyom.domain.Crm.Pessoa.Pessoa", b =>
                 {
                     b.Property<Guid>("PessoaId")
                         .ValueGeneratedOnAdd()
@@ -227,6 +229,31 @@ namespace nyom.infra.Migrations
                     b.HasKey("PessoaId");
 
                     b.ToTable("Pessoas");
+                });
+
+            modelBuilder.Entity("nyom.domain.Crm.Templates.Template", b =>
+                {
+                    b.Property<Guid>("TemplateId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("TemplateId");
+
+                    b.Property<DateTime>("DataCriacao");
+
+                    b.Property<string>("Mensagem")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<int>("Status");
+
+                    b.HasKey("TemplateId");
+
+                    b.ToTable("Templates");
                 });
         }
     }
