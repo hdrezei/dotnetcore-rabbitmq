@@ -1,8 +1,8 @@
-﻿using nyom.domain.Nyom.Pessoa;
+﻿using nyom.domaincore.Models;
 
 namespace nyom.domain.Crm.Pessoa
 {
-	public class PessoaService : ServiceBaseCrm<Crm.Pessoa.Pessoa>, IPessoaService
+	public class PessoaService : ServiceBaseCrm<Pessoa>, IPessoaService
 	{
 		private readonly IPessoaRepository _pessoaRepository;
 		public PessoaService(IPessoaRepository pessoaRepository) : base(pessoaRepository)

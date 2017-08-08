@@ -1,4 +1,6 @@
-﻿namespace nyom.domain.Crm.Templates
+﻿using nyom.domaincore.Models;
+
+namespace nyom.domain.Crm.Templates
 {
 	public class TemplateService : ServiceBaseCrm<Template>,ITemplateService
 	{

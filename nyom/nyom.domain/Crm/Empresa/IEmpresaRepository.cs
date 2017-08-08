@@ -1,4 +1,4 @@
-﻿using nyom.domain.core.Interfaces;
+﻿using nyom.domaincore.Interfaces;
 
 namespace nyom.domain.Crm.Empresa
 {

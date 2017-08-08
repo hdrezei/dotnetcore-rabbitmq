@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace nyom.workflowmanager
+﻿namespace nyom.workflowmanager
 {
     public class Class1
     {
