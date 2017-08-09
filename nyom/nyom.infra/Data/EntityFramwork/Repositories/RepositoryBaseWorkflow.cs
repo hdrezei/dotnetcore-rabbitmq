@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using nyom.domaincore.Interfaces;
+using nyom.domain.core.Interfaces;
 using nyom.infra.Data.EntityFramwork.Context;
 
 namespace nyom.infra.Data.EntityFramwork.Repositories
@@ -21,42 +22,52 @@ namespace nyom.infra.Data.EntityFramwork.Repositories
 
 	    public void Dispose()
 	    {
-		    throw new NotImplementedException();
-	    }
+			GC.SuppressFinalize(this);
+		}
 
 	    public TEntity Get(Guid id)
 	    {
-		    throw new NotImplementedException();
-	    }
+			return DbSet.Find(id);
+		}
 
 	    public TEntity Find(Expression<Func<TEntity, bool>> predicate)
 	    {
-		    throw new NotImplementedException();
-	    }
+			return DbSet.Where(predicate).AsTracking().SingleOrDefault();
+		}
 
 	    public ICollection<TEntity> All()
 	    {
-		    throw new NotImplementedException();
-	    }
+			return DbSet.AsTracking().ToList();
+		}
 
 	    public ICollection<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate)
 	    {
-		    throw new NotImplementedException();
-	    }
+			return DbSet.Where(predicate).AsTracking().ToList();
+		}
 
 	    public TEntity Save(TEntity entity)
 	    {
-		    throw new NotImplementedException();
-	    }
+			DbSet.Add(entity);
+		    Db.SaveChanges();
+		    return entity;
+		}
 
 	    public bool Delete(Guid id)
 	    {
-		    throw new NotImplementedException();
-	    }
+			return Delete(Get(id));
+		}
 
 	    public bool Delete(TEntity entity)
 	    {
-		    throw new NotImplementedException();
+			DbSet.Remove(entity);
+		    return true;
+		}
+	    public virtual TEntity Update(TEntity obj)
+	    {
+		    var entry = Db.Entry(obj);
+		    DbSet.Attach(obj);
+		    entry.State = EntityState.Modified;
+		    return obj;
 	    }
-    }
+	}
 }

@@ -4,16 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using nyom.domain.Crm.Empresa;
-using nyom.domain.Crm.Pessoa;
-using nyom.domain.Crm.Templates;
-using nyom.domain.Workflow.Campanha;
-using nyom.domain.Workflow.Workflow;
-using nyom.domaincore.Interfaces;
-using nyom.domaincore.Models;
 using nyom.infra.Data.EntityFramwork.Context;
-using nyom.infra.Data.EntityFramwork.Repositories;
-using nyom.workflow;
 
 namespace nyom.api
 {

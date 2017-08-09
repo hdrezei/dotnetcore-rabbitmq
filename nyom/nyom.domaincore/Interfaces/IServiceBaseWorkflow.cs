@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace nyom.domaincore.Interfaces
+namespace nyom.domain.core.Interfaces
 {
 	public interface IServiceBaseWorkflow<TEntity> : IDisposable where TEntity : class
 	{
@@ -13,5 +13,6 @@ namespace nyom.domaincore.Interfaces
 		TEntity Save(TEntity entity);
 		bool Delete(Guid id);
 		bool Delete(TEntity entity);
+		TEntity Update(TEntity entity);
 	}
 }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using nyom.domaincore.Interfaces;
+using nyom.domain.core.Interfaces;
 
-namespace nyom.domaincore.Models
+namespace nyom.domain.core.Models
 {
 	public class ServiceBaseWorkflow<TEntity> : IServiceBaseCrm<TEntity> where TEntity : class
 	{

@@ -1,5 +1,5 @@
 ﻿
-using nyom.domaincore.Interfaces;
+using nyom.domain.core.Interfaces;
 
 namespace nyom.domain.Workflow.Workflow
 {

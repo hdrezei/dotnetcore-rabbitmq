@@ -1,20 +1,29 @@
 ﻿using nyom.domain.Crm.Templates;
 using System;
+using nyom.domain.Workflow.Campanha;
 
 namespace nyom.messagebuilder
 {
 	public class MessageBuilder
 	{
 		private readonly ITemplateService _templateservice;
+		private readonly ICampanhaWorkflowService _campanhaWorkflowService;
 
-		public MessageBuilder(ITemplateService templateservice)
+		public MessageBuilder(ICampanhaWorkflowService campanhaWorkflowService)
 		{
-			_templateservice = templateservice;
+			_campanhaWorkflowService = campanhaWorkflowService;
 		}
 
-		public void MontarMensaagens(Guid campanhaId, Guid templateId, int publico)
+		public MessageBuilder(ITemplateService templateservice, ICampanhaWorkflowService campanhaWorkflowService)
 		{
-			//var dadosTemplate = _templateservice.Get(templateId);
+			_templateservice = templateservice;
+			_campanhaWorkflowService = campanhaWorkflowService;
+		}
+
+		public void MontarMensaagens(Guid campanhaId)
+		{
+			var dadosCampanha = _campanhaWorkflowService.FindAll(a=>a.CampanhaId.Equals(campanhaId));
+
 		}
 	}
 }

@@ -20,7 +20,6 @@
   <ItemGroup>
     <ProjectReference Include="..\nyom.infra\nyom.infra.csproj" />
     <ProjectReference Include="..\nyom.queuebuilder\nyom.queuebuilder.csproj" />
-    <ProjectReference Include="..\nyom.workflow\nyom.workflow.csproj" />
   </ItemGroup>
 
 </Project>

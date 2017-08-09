@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\nyom.domaincore\nyom.domaincore.csproj" />
+    <ProjectReference Include="..\nyom.domaincore\nyom.domain.core.csproj" />
   </ItemGroup>
 
 </Project>

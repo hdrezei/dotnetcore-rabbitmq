@@ -3,7 +3,7 @@ using nyom.domain.Crm.Templates;
 using nyom.domain.Workflow.Campanha;
 using nyom.infra.CrossCutting.Helper;
 
-namespace nyom.workflow
+namespace nyom.workflow.control
 {
 	public class Campanhas
 	{
@@ -21,16 +21,19 @@ namespace nyom.workflow
 		public void Start()
 		{
 			_autoEvent = new AutoResetEvent(false);
-			_tm = new Timer(BuscarCampanhas, _autoEvent, 1000, 1000);
+			_tm = new Timer(BuscarCampanhas, _autoEvent, 3600, 3600);
 		}
 
 		public void BuscarCampanhas(object stateInfo)
 		{
-			var dadosCampanha = _campanhaWorkflowService.Find(a => a.Status.Equals(Status.Pronto));
+			var dadosCampanha = _campanhaWorkflowService.FindAll(a => a.Status.Equals(WorkflowStatus.Ready));
 			if (dadosCampanha == null) return;
-			DockerHelper.Run(dadosCampanha.CampanhaId);
-			DockerHelper.Inspect();
-			DockerHelper.Execute();
+			foreach (var item in dadosCampanha)
+			{
+				DockerHelper.Run(item.CampanhaId,"nyom.workflow.manager");
+				DockerHelper.Inspect("nyom.workflow.manager");
+				DockerHelper.Execute("nyom.workflow.manager");
+			}
 		}
 	}
 }

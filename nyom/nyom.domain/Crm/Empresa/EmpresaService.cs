@@ -1,4 +1,4 @@
-﻿using nyom.domaincore.Models;
+﻿using nyom.domain.core.Models;
 
 namespace nyom.domain.Crm.Empresa
 {

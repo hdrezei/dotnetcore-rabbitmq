@@ -2,18 +2,18 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using nyom.domain.core.Interfaces;
+using nyom.domain.core.Models;
 using nyom.domain.Crm.Campanha;
 using nyom.domain.Crm.Empresa;
 using nyom.domain.Crm.Pessoa;
 using nyom.domain.Crm.Templates;
 using nyom.domain.Workflow.Campanha;
 using nyom.domain.Workflow.Workflow;
-using nyom.domaincore.Interfaces;
-using nyom.domaincore.Models;
 using nyom.infra.Data.EntityFramwork.Context;
 using nyom.infra.Data.EntityFramwork.Repositories;
 
-namespace nyom.workflow
+namespace nyom.workflow.control
 {
 	public class Program
 	{
