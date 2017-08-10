@@ -2,12 +2,7 @@
 using RabbitMQ.Client.Events;
 using System;
 using System.Text;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace nyom.pushsender
 {

@@ -27,9 +27,9 @@ services:
     networks: 
       - net.workflow 
   
-  nyom.api.crm: 
+  nyom.api: 
     image: microsoft/aspnetcore 
-    container_name: nyom.api.crm 
+    container_name: nyom.api
     ports: 
       - 5000:5000 
     links: 
@@ -37,15 +37,25 @@ services:
     networks: 
       - net.workflow 
   
-  nyom.workflow: 
-    image: nyom.workflow 
-    container_name: nyom.workflow 
+  nyom.workflow.control: 
+    image: nyom.workflow.control 
+    container_name: nyom.workflow.control 
     ports: 
       - 5600:5600 
     links: 
       - mssql.workflow 
     networks: 
-      - net.workflow 
+      - net.workflow
+      
+  nyom.workflow.manager: 
+    image: nyom.workflow.manager 
+    container_name: nyom.workflow.manager 
+    ports: 
+      - 5700:5700 
+    links: 
+      - mssql.crm
+    networks: 
+      - net.workflow
   
   mongo.messages: 
     image: mongo:latest 

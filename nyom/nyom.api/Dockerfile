@@ -1,7 +1,5 @@
 FROM microsoft/aspnetcore-build
-ARG source
-WORKDIR /app
-ENV ASPNETCORE_URLS http://*:5000
-EXPOSE 5000
+RUN mkdir /nyom
+WORKDIR /nyom
 ENTRYPOINT ["dotnet", "nyom.api.dll"]
-COPY ${source:-obj/Docker/publish} .
+COPY /bin/Release/netcoreapp1.1/publish/ /nyom

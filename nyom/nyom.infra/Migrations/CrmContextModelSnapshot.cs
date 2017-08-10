@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using nyom.infra.Data.EntityFramwork.Context;
 
 namespace nyom.infra.Migrations

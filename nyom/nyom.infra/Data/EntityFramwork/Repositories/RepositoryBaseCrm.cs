@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using nyom.domain.core.EntityFramework.Interfaces;
+using nyom.domain.core.Interfaces;
 using nyom.infra.Data.EntityFramwork.Context;
-using nyom.domaincore.Interfaces;
 
 namespace nyom.infra.Data.EntityFramwork.Repositories
 {
@@ -54,6 +55,15 @@ namespace nyom.infra.Data.EntityFramwork.Repositories
 		{
 			return DbSet.Find(id);
 		}
+
+		public virtual TEntity Update(TEntity obj)
+		{
+			var entry = Db.Entry(obj);
+			DbSet.Attach(obj);
+			entry.State = EntityState.Modified;
+			return obj;
+		}
+
 
 		public TEntity Save(TEntity entity)
 		{
