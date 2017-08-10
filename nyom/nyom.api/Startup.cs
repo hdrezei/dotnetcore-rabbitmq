@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using nyom.infra.Data.EntityFramwork.Context;
+using nyom.infra.Data.MongoDb.Messages.Context;
 
 namespace nyom.api
 {
@@ -33,6 +34,7 @@ namespace nyom.api
 			
 			// Add framework services.
 			services.AddMvc();
+			//services.AddMongo(Configuration.GetSection("MongoMessage"));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

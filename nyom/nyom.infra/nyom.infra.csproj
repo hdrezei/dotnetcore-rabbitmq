@@ -12,9 +12,14 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.2" />
+    <PackageReference Include="mongocsharpdriver" Version="2.4.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\nyom.domaincore\nyom.domain.core.csproj" />
     <ProjectReference Include="..\nyom.domain\nyom.domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\MongoDb\Logs\" />
+    <Folder Include="Data\MongoDb\Results\" />
   </ItemGroup>
 </Project>

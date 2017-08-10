@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using nyom.domain.core.EntityFramework.Interfaces;
 using nyom.domain.core.Interfaces;
 using nyom.infra.Data.EntityFramwork.Context;
 

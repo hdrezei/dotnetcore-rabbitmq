@@ -56,5 +56,10 @@ namespace nyom.domain.core.Models
 		{
 			return _repositoryBase.Delete(entity);
 		}
+
+		public TEntity Update(TEntity entity)
+		{
+			return _repositoryBase.Update(entity);
+		}
 	}
 }

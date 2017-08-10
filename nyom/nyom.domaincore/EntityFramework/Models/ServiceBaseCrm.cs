@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using nyom.domain.core.EntityFramework.Interfaces;
 using nyom.domain.core.Interfaces;
 
 namespace nyom.domain.core.Models
@@ -55,6 +56,11 @@ namespace nyom.domain.core.Models
 	    public bool Delete(TEntity entity)
 	    {
 		    return _repositoryBase.Delete(entity);
+	    }
+
+	    public TEntity Update(TEntity entity)
+	    {
+		    return _repositoryBase.Update(entity);
 	    }
     }
 }
