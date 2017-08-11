@@ -7,7 +7,7 @@ using nyom.domain.core.MongoDb.Message.Interface;
 
 namespace nyom.infra.Data.MongoDb.Messages.Repositories
 {
-	public abstract class MongoMessageRepositoryBase<TEntity> : IReposittoryBaseMongoMessage<TEntity, string>
+	public abstract class MongoMessageRepositoryBase<TEntity> : IRepositoryBaseMongoMessage<TEntity, string>
 		where TEntity : IEntity
 	{
 		protected abstract IMongoCollection<TEntity> Collection { get; }

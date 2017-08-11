@@ -7,9 +7,9 @@ namespace nyom.domain.core.MongoDb.Message.Models
 {
 	public class ServiceBaseMongoMessage<TEntity> : IServiceBaseMongoMessage<TEntity,string> where TEntity : IEntity
 	{
-		private readonly IReposittoryBaseMongoMessage<TEntity,string> _reposittoryBaseMongoMessage;
+		private readonly IRepositoryBaseMongoMessage<TEntity,string> _reposittoryBaseMongoMessage;
 
-		public ServiceBaseMongoMessage(IReposittoryBaseMongoMessage<TEntity,string> reposittoryBaseMongoMessage)
+		public ServiceBaseMongoMessage(IRepositoryBaseMongoMessage<TEntity,string> reposittoryBaseMongoMessage)
 		{
 			_reposittoryBaseMongoMessage = reposittoryBaseMongoMessage;
 		}

@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace nyom.domain.core.MongoDb.Message.Interface
 {
-	public interface IReposittoryBaseMongoMessage<TEntity,in TKey> where TEntity : IEntity<TKey>
+	public interface IRepositoryBaseMongoMessage<TEntity,in TKey> where TEntity : IEntity<TKey>
 	{
 		TEntity Get(Guid id);
 		TEntity Find(Expression<Func<TEntity, bool>> predicate);
