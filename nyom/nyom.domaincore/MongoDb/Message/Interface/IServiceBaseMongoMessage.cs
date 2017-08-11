@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace nyom.domain.core.EntityFramework.Interfaces
+namespace nyom.domain.core.MongoDb.Message.Interface
 {
-	public interface IServiceBaseWorkflow<TEntity> : IDisposable where TEntity : class
+	public interface IServiceBaseMongoMessage<TEntity, in TKey> where TEntity : IEntity<TKey>
 	{
 		TEntity Get(Guid id);
 		TEntity Find(Expression<Func<TEntity, bool>> predicate);
 		IEnumerable<TEntity> All();
 		IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate);
 		TEntity Save(TEntity entity);
-		bool Delete(Guid id);
-		bool Delete(TEntity entity);
+		void Delete(Guid id);
+		void Delete(TEntity entity);
 		TEntity Update(TEntity entity);
 	}
 }

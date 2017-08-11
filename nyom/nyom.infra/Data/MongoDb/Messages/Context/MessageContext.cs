@@ -4,11 +4,11 @@ using MongoDB.Driver;
 
 namespace nyom.infra.Data.MongoDb.Messages.Context
 {
-    public class MesssageContext : IMongoDatabase
+    public class MessageContext 
     {
 	    public MongoDatabase MgDatabase;
 	    public IConfigurationRoot Configuration { get; }
-		public MesssageContext(IConfigurationRoot configuration)
+		public MessageContext(IConfigurationRoot configuration)
 	    {
 		    Configuration = configuration;
 		    var mongoUrl = new MongoUrl(Configuration.GetConnectionString("MongoMessage"));
@@ -17,7 +17,7 @@ namespace nyom.infra.Data.MongoDb.Messages.Context
 		    MgDatabase = server.GetDatabase(mongoUrl.DatabaseName);
 		}
 
-		public MesssageContext()
+		public MessageContext()
 		{
 		}
 	}

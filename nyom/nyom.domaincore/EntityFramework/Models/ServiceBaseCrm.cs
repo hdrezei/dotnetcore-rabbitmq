@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using nyom.domain.core.EntityFramework.Interfaces;
-using nyom.domain.core.Interfaces;
 
-namespace nyom.domain.core.Models
+namespace nyom.domain.core.EntityFramework.Models
 {
 	public class ServiceBaseCrm<TEntity> :IServiceBaseCrm<TEntity> where TEntity : class
     {

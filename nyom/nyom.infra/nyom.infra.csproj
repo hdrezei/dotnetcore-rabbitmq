@@ -21,5 +21,6 @@
   <ItemGroup>
     <Folder Include="Data\MongoDb\Logs\" />
     <Folder Include="Data\MongoDb\Results\" />
+    <Folder Include="Repositories\Messages\MongoDb\Data\" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using nyom.domain.core.EntityFramework.Interfaces;
 using nyom.domain.core.Interfaces;
 
 namespace nyom.domain.core.Models

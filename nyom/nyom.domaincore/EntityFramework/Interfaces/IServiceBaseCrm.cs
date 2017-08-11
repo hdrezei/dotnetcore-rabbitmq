@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace nyom.domain.core.Interfaces
+namespace nyom.domain.core.EntityFramework.Interfaces
 {
 	public interface IServiceBaseCrm<TEntity> : IDisposable where TEntity : class
     {
