@@ -12,7 +12,7 @@ namespace nyom.domain.core.MongoDb.Message.Interface
 		ICollection<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate);
 		void Save(TEntity entity);
 		void Delete(Guid id);
-		bool Delete(TEntity entity);
+		void Delete(TEntity entity);
 		TEntity Update(TEntity entity);
 	}
 }
