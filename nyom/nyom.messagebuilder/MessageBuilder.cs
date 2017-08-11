@@ -1,5 +1,6 @@
 ﻿using nyom.domain.Crm.Templates;
 using System;
+using System.Threading.Tasks.Dataflow;
 using nyom.domain.Crm.Pessoa;
 using nyom.domain.MongoMessage;
 using nyom.domain.Workflow.Campanha;
@@ -35,7 +36,17 @@ namespace nyom.messagebuilder
 
 			foreach (var itens in listaPessoas)
 			{
-				
+				Message message = new Message()
+				{
+					CampanhaId = Guid.NewGuid().ToString(),
+					DataCriacao = DateTime.Now,
+					DataEntregaMensagens = DateTime.Now,
+					Id = Guid.NewGuid().ToString(),
+					Mensagem = "Teste",
+					Status = 1,
+					TemplateId = dadosTemplate.TemplateId.ToString()
+				};
+				_messageService.Save(message);
 			}
 
 
