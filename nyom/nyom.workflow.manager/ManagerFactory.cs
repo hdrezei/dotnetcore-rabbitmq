@@ -29,10 +29,10 @@ namespace nyom.workflow.manager
 					DockerHelper.CriarContainerDocker(id, "nyom.pushsender");
 					break;
 				case WorkflowStatus.PushSenderCompleted:
-					ManagerServices.AtualizarStatusCampanha(id, WorkflowStatus.PushSender);
+					ManagerServices.AtualizarStatusCampanha(id, WorkflowStatus.LoggingCleanup);
 					DockerHelper.CriarContainerDocker(id, "nyom.mongo.logs");
 					break;
-				case WorkflowStatus.LoggingCleanup:
+				case WorkflowStatus.LoggingCleanupCompleted:
 					ManagerServices.AtualizarStatusCampanha(id, WorkflowStatus.Finished);
 					break;
 				case WorkflowStatus.Finished:
