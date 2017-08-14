@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using nyom.infra.Data.EntityFramwork.Context;
-using nyom.infra.Data.MongoDb.Messages.Context;
 
 namespace nyom.api
 {

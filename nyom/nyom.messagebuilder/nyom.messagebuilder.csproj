@@ -1,11 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\nyom.domain\nyom.domain.csproj" />
+    <ProjectReference Include="..\nyom.infra\nyom.infra.csproj" />
+    <ProjectReference Include="..\nyom.workflow.manager\nyom.workflow.manager.csproj" />
   </ItemGroup>
 
 </Project>
