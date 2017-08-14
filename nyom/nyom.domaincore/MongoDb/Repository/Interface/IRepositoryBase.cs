@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using nyom.domain.core.MongoDb.Message.Interface;
+using nyom.domain.core.MongoDb.IEntity;
 
 namespace nyom.domain.core.MongoDb.Repository.Interface
 {
