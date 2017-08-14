@@ -15,5 +15,7 @@ namespace nyom.domain.core.MongoDb.IEntity
 		DateTime DataCriacao { get; set; }
 		DateTime DataEntregaMensagens { get; set; }
 		Enum Status { get; set; }
+
+		//https://www.codeproject.com/Articles/1077319/Csharp-MongoDB-Polymorphic-Collections-with-Generi
 	}
 }
