@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using nyom.domain.core.MongoDb.Message.Interface;
-using nyom.domain.core.MongoDb.Message.Models;
+﻿using nyom.domain.core.MongoDb.Message.Models;
 
 namespace nyom.domain.MongoMessage
 {

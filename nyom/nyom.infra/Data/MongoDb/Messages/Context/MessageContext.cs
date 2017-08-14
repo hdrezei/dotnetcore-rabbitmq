@@ -16,9 +16,5 @@ namespace nyom.infra.Data.MongoDb.Messages.Context
 		    var server = client.GetServer();
 		    MgDatabase = server.GetDatabase(mongoUrl.DatabaseName);
 		}
-
-		public MessageContext()
-		{
-		}
 	}
 }

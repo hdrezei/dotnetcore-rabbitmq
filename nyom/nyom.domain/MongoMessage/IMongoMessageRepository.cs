@@ -4,6 +4,5 @@ namespace nyom.domain.MongoMessage
 {
 	public interface IMongoMessageRepository: IRepositoryBaseMongoMessage<Message,string>
 	{
-		
 	}
 }

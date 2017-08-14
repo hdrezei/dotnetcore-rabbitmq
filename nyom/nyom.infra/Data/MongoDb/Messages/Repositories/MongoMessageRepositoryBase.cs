@@ -12,9 +12,6 @@ namespace nyom.infra.Data.MongoDb.Messages.Repositories
 	{
 		protected abstract IMongoCollection<TEntity> Collection { get; }
 
-
-		
-
 		public TEntity Get(Guid id)
 		{
 			return Collection.Find(a => a.Id.Equals(id)).FirstOrDefault();
@@ -50,12 +47,12 @@ namespace nyom.infra.Data.MongoDb.Messages.Repositories
 
 		public void Delete(Guid id)
 		{
-			 Collection.DeleteOne(x => x.Id.Equals(id));
+			Collection.DeleteOne(x => x.Id.Equals(id));
 		}
 
 		public void Delete(TEntity entity)
 		{
-			 Collection.DeleteOne(a => a.Id.Equals(entity.Id));
+			Collection.DeleteOne(a => a.Id.Equals(entity.Id));
 		}
 
 		public TEntity Update(TEntity entity)

@@ -10,15 +10,14 @@ namespace nyom.infra.Data.MongoDb.Messages.Repositories
 	{
 		private readonly MessageContext _messageContext;
 		private const string MessageCollectionName = "Message";
-		public MongoMessageRepository(IRepositoryBaseMongoMessage<Message, string> reposittoryBaseMongoMessage, MessageContext messageContext) : base(reposittoryBaseMongoMessage)
+
+		public MongoMessageRepository(IRepositoryBaseMongoMessage<Message, string> reposittoryBaseMongoMessage,
+			MessageContext messageContext) : base(reposittoryBaseMongoMessage)
 		{
 			_messageContext = messageContext;
 		}
 
 		protected MongoCollection<Message> Collection =>
 			_messageContext.MgDatabase.GetCollection<Message>(MessageCollectionName);
-
-
-		
 	}
 }

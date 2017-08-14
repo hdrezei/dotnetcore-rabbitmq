@@ -1,7 +1,6 @@
-﻿using nyom.domain.Crm.Templates;
-using System;
-using System.Threading.Tasks.Dataflow;
+﻿using System;
 using nyom.domain.Crm.Pessoa;
+using nyom.domain.Crm.Templates;
 using nyom.domain.MongoMessage;
 using nyom.domain.Workflow.Campanha;
 
@@ -16,10 +15,10 @@ namespace nyom.messagebuilder
 
 		public MessageBuilder()
 		{
-			
 		}
 
-		public MessageBuilder(ITemplateService templateservice, ICampanhaWorkflowService campanhaWorkflowService, IPessoaService pessoaService, IMongoMessageService messageService)
+		public MessageBuilder(ITemplateService templateservice, ICampanhaWorkflowService campanhaWorkflowService,
+			IPessoaService pessoaService, IMongoMessageService messageService)
 		{
 			_templateservice = templateservice;
 			_campanhaWorkflowService = campanhaWorkflowService;
@@ -36,7 +35,7 @@ namespace nyom.messagebuilder
 
 			foreach (var itens in listaPessoas)
 			{
-				Message message = new Message()
+				var message = new Message
 				{
 					CampanhaId = Guid.NewGuid().ToString(),
 					DataCriacao = DateTime.Now,
@@ -48,9 +47,6 @@ namespace nyom.messagebuilder
 				};
 				_messageService.Save(message);
 			}
-
-
-
 		}
 	}
 }

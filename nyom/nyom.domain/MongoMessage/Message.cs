@@ -7,7 +7,6 @@ namespace nyom.domain.MongoMessage
 {
 	public class Message : IEntity
 	{ 
-
 	    [BsonRepresentation(BsonType.ObjectId)]
 	    public string Id { get; set; }
 		public string TemplateId { get; set; }
