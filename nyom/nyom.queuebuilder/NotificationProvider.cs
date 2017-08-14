@@ -2,8 +2,6 @@
 {
 	public class NotificationProvider
 	{
-
-
 		public void Start()
 		{
 			EnviarNotificacoesAFila();

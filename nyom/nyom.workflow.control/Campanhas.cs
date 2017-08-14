@@ -2,6 +2,7 @@
 using nyom.domain.Crm.Templates;
 using nyom.domain.Workflow.Campanha;
 using nyom.infra.CrossCutting.Helper;
+using nyom.workflow.manager;
 
 namespace nyom.workflow.control
 {
@@ -9,13 +10,13 @@ namespace nyom.workflow.control
 	{
 		private Timer _tm;
 		private AutoResetEvent _autoEvent;
-		private readonly ITemplateService _templateService;
 		private readonly ICampanhaWorkflowService _campanhaWorkflowService;
+		private readonly IManagerFactory _managerFactory;
 
-		public Campanhas(ITemplateService templateService, ICampanhaWorkflowService campanhaWorkflowService)
+		public Campanhas(ICampanhaWorkflowService campanhaWorkflowService, IManagerFactory managerFactory)
 		{
-			_templateService = templateService;
 			_campanhaWorkflowService = campanhaWorkflowService;
+			_managerFactory = managerFactory;
 		}
 
 		public void Start()
@@ -30,9 +31,7 @@ namespace nyom.workflow.control
 			if (dadosCampanha == null) return;
 			foreach (var item in dadosCampanha)
 			{
-				DockerHelper.Run(item.CampanhaId,"nyom.workflow.manager");
-				DockerHelper.Inspect("nyom.workflow.manager");
-				DockerHelper.Execute("nyom.workflow.manager");
+				_managerFactory.VerificarStatusCampanha(item.CampanhaId, item.Status);
 			}
 		}
 	}

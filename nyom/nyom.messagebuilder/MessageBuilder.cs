@@ -16,10 +16,6 @@ namespace nyom.messagebuilder
 		private readonly IMessageService _messageService;
 		private readonly IManagerServices _managerServices;
 
-		public MessageBuilder()
-		{
-		}
-
 		public MessageBuilder(ITemplateService templateservice, ICampanhaWorkflowService campanhaWorkflowService,
 			IPessoaService pessoaService, IMessageService messageService, IManagerServices managerServices)
 		{
@@ -34,7 +30,6 @@ namespace nyom.messagebuilder
 		{
 			var dadosCampanha = _campanhaWorkflowService.Get(campanhaId);
 			var dadosTemplate = _templateservice.Get(dadosCampanha.TemplateId);
-
 			var listaPessoas = _pessoaService.All();
 
 			foreach (var itens in listaPessoas)

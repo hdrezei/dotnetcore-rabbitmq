@@ -6,15 +6,15 @@ using nyom.domain.core.MongoDb.Repository.Interface;
 
 namespace nyom.domain.core.MongoDb.Repository.Models
 {
-	public class ServiceBase<TEntity> : IServiceBase<TEntity,string> where TEntity : IEntity
+	public class ServiceBase<TEntity> : IServiceBase<TEntity, string> where TEntity : IEntity
 	{
-		private readonly IRepositoryBase<TEntity,string> _reposittoryBaseMongoMessage;
+		private readonly IRepositoryBase<TEntity, string> _reposittoryBaseMongoMessage;
 
-		public ServiceBase(IRepositoryBase<TEntity,string> reposittoryBaseMongoMessage)
+		public ServiceBase(IRepositoryBase<TEntity, string> reposittoryBaseMongoMessage)
 		{
 			_reposittoryBaseMongoMessage = reposittoryBaseMongoMessage;
 		}
-		
+
 		public TEntity Get(Guid id)
 		{
 			return _reposittoryBaseMongoMessage.Get(id);
@@ -42,12 +42,12 @@ namespace nyom.domain.core.MongoDb.Repository.Models
 
 		public void Delete(Guid id)
 		{
-			 _reposittoryBaseMongoMessage.Delete(id);
+			_reposittoryBaseMongoMessage.Delete(id);
 		}
 
 		public void Delete(TEntity entity)
 		{
-			 _reposittoryBaseMongoMessage.Delete(entity);
+			_reposittoryBaseMongoMessage.Delete(entity);
 		}
 
 		public TEntity Update(TEntity entity)

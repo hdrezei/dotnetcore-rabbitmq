@@ -8,11 +8,11 @@ namespace nyom.infra.Data.MongoDb.Repositories
 {
 	public class MessageRepository : ServiceBase<Message>
 	{
-		private readonly MongoContext _mongoContext;
+		private readonly MongoMessageContext _mongoContext;
 		private const string CollectionName = "Message";
 
 		public MessageRepository(IRepositoryBase<Message, string> repositoryBase,
-			MongoContext mongoContext) : base(repositoryBase)
+			MongoMessageContext mongoContext) : base(repositoryBase)
 		{
 			_mongoContext = mongoContext;
 		}

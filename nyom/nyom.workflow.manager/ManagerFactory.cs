@@ -6,19 +6,21 @@ namespace nyom.workflow.manager
 	public class ManagerFactory : IManagerFactory
 	{
 		private readonly IManagerServices _managerServices;
+		private readonly IDockerHelper _dockerHelper;
 
-		public ManagerFactory(IManagerServices managerServices)
+		public ManagerFactory(IManagerServices managerServices, IDockerHelper dockerHelper)
 		{
 			_managerServices = managerServices;
+			_dockerHelper = dockerHelper;
 		}
 
-		public  void VerificarStatusCampanha(Guid id, Enum workflowStatus)
+		public void VerificarStatusCampanha(Guid id, Enum workflowStatus)
 		{
 			switch (workflowStatus)
 			{
 				case WorkflowStatus.Ready:
 					_managerServices.AtualizarStatusCampanha(id, WorkflowStatus.MessageBuilder);
-					DockerHelper.CriarContainerDocker(id, "nyom.messagebuilder");
+					_dockerHelper.CriarContainerDocker(id, "nyom.messagebuilder");
 					break;
 
 				case WorkflowStatus.MessageBuilder:
@@ -28,16 +30,16 @@ namespace nyom.workflow.manager
 
 				case WorkflowStatus.MessageBuilderCompleted:
 					_managerServices.AtualizarStatusCampanha(id, WorkflowStatus.QueueBuilder);
-					DockerHelper.CriarContainerDocker(id, "nyom.queuebuilder");
+					_dockerHelper.CriarContainerDocker(id, "nyom.queuebuilder");
 					break;
 
 				case WorkflowStatus.QueueBuilderCompleted:
 					_managerServices.AtualizarStatusCampanha(id, WorkflowStatus.PushSender);
-					DockerHelper.CriarContainerDocker(id, "nyom.pushsender");
+					_dockerHelper.CriarContainerDocker(id, "nyom.pushsender");
 					break;
 				case WorkflowStatus.PushSenderCompleted:
-					ManagerServices.AtualizarStatusCampanha(id, WorkflowStatus.LoggingCleanup);
-					DockerHelper.CriarContainerDocker(id, "nyom.mongo.logs");
+					_managerServices.AtualizarStatusCampanha(id, WorkflowStatus.LoggingCleanup);
+					_dockerHelper.CriarContainerDocker(id, "nyom.mongo.logs");
 					break;
 				case WorkflowStatus.LoggingCleanupCompleted:
 					_managerServices.AtualizarStatusCampanha(id, WorkflowStatus.Finished);

@@ -9,11 +9,11 @@ namespace nyom.infra.Data.MongoDb.Repositories
 {
 	public class LogsRepository : ServiceBase<Logs>
 	{
-		private readonly MongoContext _mongoContext;
+		private readonly MongoMessageContext _mongoContext;
 		private const string CollectionName = "Logs";
 
 		public LogsRepository(IRepositoryBase<Logs, string> repositoryBase,
-			MongoContext mongoContext) : base(repositoryBase)
+			MongoMessageContext mongoContext) : base(repositoryBase)
 		{
 			_mongoContext = mongoContext;
 		}

@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using nyom.domain.Workflow.Campanha;
 using nyom.infra.CrossCutting.Helper;
 
 namespace nyom.workflow.manager
 {
-    public class ManagerServices : IManagerServices
+	public class ManagerServices : IManagerServices
 	{
 	    private static ICampanhaWorkflowRepository _campanhaWorkflowRepository;
 

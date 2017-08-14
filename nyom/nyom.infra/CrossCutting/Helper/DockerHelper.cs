@@ -3,9 +3,9 @@ using System.Diagnostics;
 
 namespace nyom.infra.CrossCutting.Helper
 {
-	public static class DockerHelper
+	public  class DockerHelper : IDockerHelper
 	{
-		public static void Run(Guid dadosCampanhaCampanhaId,string servico)
+		public  void Run(Guid dadosCampanhaCampanhaId,string servico)
 		{
 			using (var processo = new Process())
 			{
@@ -18,7 +18,7 @@ namespace nyom.infra.CrossCutting.Helper
 			}
 		}
 
-		public static void Inspect(string servico)
+		public  void Inspect(string servico)
 		{
 			using (var processo = new Process())
 			{
@@ -31,7 +31,7 @@ namespace nyom.infra.CrossCutting.Helper
 			}
 		}
 
-		public static void Execute(string servico)
+		public  void Execute(string servico)
 		{
 			using (var processo = new Process())
 			{
@@ -44,7 +44,7 @@ namespace nyom.infra.CrossCutting.Helper
 			}
 		}
 
-		public static void  CriarContainerDocker(Guid id, string servico)
+		public  void  CriarContainerDocker(Guid id, string servico)
 		{
 			Run(id,servico);
 			Inspect(servico);
