@@ -10,7 +10,8 @@
 		PushSender,
 		PushSenderCompleted,
 		LoggingCleanup,
-		Finished,
+		LoggingCleanupCompleted,
+        Finished,
 		Error
     }
 }
