@@ -28,7 +28,7 @@ services:
       - net.workflow 
   
   nyom.api: 
-    image: microsoft/aspnetcore 
+    image: nyom.api 
     container_name: nyom.api
     ports: 
       - 5000:5000 

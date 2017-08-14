@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using nyom.domain.core.MongoDb.Message.Interface;
+using nyom.domain.core.MongoDb.Repository.Interface;
 
-namespace nyom.domain.core.MongoDb.Message.Models
+namespace nyom.domain.core.MongoDb.Repository.Models
 {
-	public class ServiceBaseMongoMessage<TEntity> : IServiceBaseMongoMessage<TEntity,string> where TEntity : IEntity
+	public class ServiceBase<TEntity> : IServiceBase<TEntity,string> where TEntity : IEntity
 	{
-		private readonly IRepositoryBaseMongoMessage<TEntity,string> _reposittoryBaseMongoMessage;
+		private readonly IRepositoryBase<TEntity,string> _reposittoryBaseMongoMessage;
 
-		public ServiceBaseMongoMessage(IRepositoryBaseMongoMessage<TEntity,string> reposittoryBaseMongoMessage)
+		public ServiceBase(IRepositoryBase<TEntity,string> reposittoryBaseMongoMessage)
 		{
 			_reposittoryBaseMongoMessage = reposittoryBaseMongoMessage;
 		}

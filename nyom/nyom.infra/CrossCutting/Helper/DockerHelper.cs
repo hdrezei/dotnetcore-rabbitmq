@@ -49,9 +49,6 @@ namespace nyom.infra.CrossCutting.Helper
 			Run(id,servico);
 			Inspect(servico);
 			Execute(servico);
-
-		}
-
-		
+		}		
 	}
 }

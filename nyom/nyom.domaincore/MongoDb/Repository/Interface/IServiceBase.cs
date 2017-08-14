@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using nyom.domain.core.MongoDb.Message.Interface;
 
-namespace nyom.domain.core.MongoDb.Message.Interface
+namespace nyom.domain.core.MongoDb.Repository.Interface
 {
-	public interface IServiceBaseMongoMessage<TEntity, in TKey> where TEntity : IEntity<TKey>
+	public interface IServiceBase<TEntity, in TKey> where TEntity : IEntity<TKey>
 	{
 		TEntity Get(Guid id);
 		TEntity Find(Expression<Func<TEntity, bool>> predicate);

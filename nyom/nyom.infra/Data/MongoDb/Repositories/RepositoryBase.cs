@@ -4,10 +4,11 @@ using System.Linq.Expressions;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using nyom.domain.core.MongoDb.Message.Interface;
+using nyom.domain.core.MongoDb.Repository.Interface;
 
-namespace nyom.infra.Data.MongoDb.Messages.Repositories
+namespace nyom.infra.Data.MongoDb.Repositories
 {
-	public abstract class MongoMessageRepositoryBase<TEntity> : IRepositoryBaseMongoMessage<TEntity, string>
+	public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity, string>
 		where TEntity : IEntity
 	{
 		protected abstract IMongoCollection<TEntity> Collection { get; }
