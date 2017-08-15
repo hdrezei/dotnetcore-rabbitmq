@@ -1,21 +1,11 @@
-﻿using System;
-
-namespace nyom.domain.core.MongoDb.IEntity
+﻿namespace nyom.domain.core.MongoDb.IEntity
 {
 	public interface IEntity<TKey>
 	{
 		TKey Id { get; set; }
 	}
 
-	public interface IEntityCommom : IEntity<ObjectId>
+	public interface IEntity : IEntity<string>
 	{
-		string TemplateId { get; set; }
-		string CampanhaId { get; set; }
-		string Mensagem { get; set; }
-		DateTime DataCriacao { get; set; }
-		DateTime DataEntregaMensagens { get; set; }
-		Enum Status { get; set; }
-
-		//https://www.codeproject.com/Articles/1077319/Csharp-MongoDB-Polymorphic-Collections-with-Generi
 	}
 }

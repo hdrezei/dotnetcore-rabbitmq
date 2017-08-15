@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Message
 {
-	public interface IMessageService :IServiceBase<Message,string>
+	public interface IMessageService :IServiceBase<Message>
 	{
 	}
 }

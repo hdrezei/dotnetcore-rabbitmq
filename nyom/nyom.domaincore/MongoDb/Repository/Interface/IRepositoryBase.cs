@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using nyom.domain.core.MongoDb.IEntity;
 
 namespace nyom.domain.core.MongoDb.Repository.Interface
 {
-	public interface IRepositoryBase<TEntity,in TKey> where TEntity : IEntity<TKey>
+	public interface IRepositoryBase<TEntity> : IDisposable
 	{
-		TEntity Get(Guid id);
-		TEntity Find(Expression<Func<TEntity, bool>> predicate);
-		ICollection<TEntity> All();
-		ICollection<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate);
-		TEntity Save(TEntity entity);
-		void Delete(Guid id);
-		void Delete(TEntity entity);
-		TEntity Update(TEntity entity);
+		Task<IEnumerable<TEntity>> GetAllAsync();
+		Task<TEntity> GetOneAsync(TEntity context);
+		Task<TEntity> GetOneAsync(string id);
+		Task<TEntity> SaveOneAsync(TEntity Context);
+		Task<TEntity> RemoveOneAsync(TEntity context);
+		Task<TEntity> RemoveOneAsync(string id);
+		
 	}
 }

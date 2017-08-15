@@ -1,69 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using nyom.domain.core.MongoDb.Message.Interface;
+using nyom.domain.core.MongoDb.IEntity;
 using nyom.domain.core.MongoDb.Repository.Interface;
+using nyom.infra.Data.MongoDb.Context;
+using nyom.infra.Data.MongoDb.Settings;
 
 namespace nyom.infra.Data.MongoDb.Repositories
 {
-	public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity, string>
+	public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
 		where TEntity : IEntity
 	{
-		protected abstract IMongoCollection<TEntity> Collection { get; }
+		
+		protected readonly MongoMessageContext<TEntity> _context = null;
 
-		public TEntity Get(Guid id)
+		protected RepositoryBase(IOptions<MongoDbSettings> settings, string collectionName)
 		{
-			return Collection.Find(a => a.Id.Equals(id)).FirstOrDefault();
+			_context = new MongoMessageContext<TEntity>(settings,collectionName);
+		}
+		
+		public void Dispose()
+		{
+			throw new NotImplementedException();
 		}
 
-		public TEntity Find(Expression<Func<TEntity, bool>> predicate)
+		public async Task<IEnumerable<TEntity>> GetAllAsync()
 		{
-			return Collection.Find(predicate).FirstOrDefault();
+			return await _context.Collection.Find(f => true).ToListAsync();
 		}
 
-		public ICollection<TEntity> All()
+		public async Task<TEntity> GetOneAsync(TEntity context)
 		{
-			return Collection.Find(new BsonDocument()).ToList();
+			return await _context.Collection.Find(new BsonDocument("_id", context.Id)).FirstOrDefaultAsync();
 		}
 
-		public ICollection<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate)
+		public async Task<TEntity> GetOneAsync(string id)
 		{
-			return Collection.Find(predicate).ToList();
+			return await _context.Collection.Find(f => f.Id.Equals(id)).FirstOrDefaultAsync();
 		}
 
-		public TEntity Save(TEntity entity)
+		public async Task<TEntity> SaveOneAsync(TEntity Context)
 		{
-			Collection.ReplaceOneAsync(
-				x => x.Id.Equals(entity.Id),
-				entity,
-				new UpdateOptions
-				{
-					IsUpsert = true
-				});
-
-			return entity;
+			 await _context.Collection.InsertOneAsync(Context);
+			return Context;
 		}
-
-		public void Delete(Guid id)
+		public async Task<TEntity> RemoveOneAsync(TEntity context)
 		{
-			Collection.DeleteOne(x => x.Id.Equals(id));
+			return await _context.Collection.FindOneAndDeleteAsync(context.Id);
+			
 		}
-
-		public void Delete(TEntity entity)
+		public async Task<TEntity> RemoveOneAsync(string id)
 		{
-			Collection.DeleteOne(a => a.Id.Equals(entity.Id));
-		}
-
-		public TEntity Update(TEntity entity)
-		{
-			Collection.ReplaceOneAsync(x => x.Id.Equals(entity.Id), entity, new UpdateOptions
-			{
-				IsUpsert = true
-			});
-
-			return entity;
+			return await _context.Collection.FindOneAndDeleteAsync(id);
 		}
 	}
 }

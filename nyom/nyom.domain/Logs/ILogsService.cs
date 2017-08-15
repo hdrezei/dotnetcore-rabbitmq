@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Logs
 {
-	public interface ILogsService :IServiceBase<Logs,string>
+	public interface ILogsService :IServiceBase<Logs>
 	{
 		
 	}

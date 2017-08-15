@@ -39,12 +39,12 @@ namespace nyom.messagebuilder
 					CampanhaId = Guid.NewGuid().ToString(),
 					DataCriacao = DateTime.Now,
 					DataEntregaMensagens = DateTime.Now,
-					Id = Guid.NewGuid().ToString(),
+					Id = dadosCampanha.CampanhaId.ToString(),
 					Mensagem = "Teste",
 					Status = MessageBuilderCompleted,
 					TemplateId = dadosTemplate.TemplateId.ToString()
 				};
-				_messageService.Save(message);
+				_messageService.SaveOneAsync(message);
 			}
 
 			_managerServices.AtualizarStatusCampanha(dadosCampanha.CampanhaId, MessageBuilderCompleted);

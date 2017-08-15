@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Logs
 {
-	public interface ILogsRepository : IRepositoryBase<Logs,string>
+	public interface ILogsRepository : IRepositoryBase<Logs>
 	{
 		
 	}

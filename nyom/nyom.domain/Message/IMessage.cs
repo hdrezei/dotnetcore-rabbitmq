@@ -4,7 +4,7 @@ using nyom.domain.core.MongoDb.IEntity;
 
 namespace nyom.domain.Message
 {
-	public interface IMessage : IEntityCommom
+	public interface IMessage : IEntity
 	{
 		
 	}

@@ -1,4 +1,5 @@
-﻿using nyom.domain.core.MongoDb.Message.Interface;
+﻿using nyom.domain.core.MongoDb.IEntity;
+
 
 namespace nyom.domain.Results
 {

@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Results
 {
-	public interface IResultsRepository : IRepositoryBase<Results,string>
+	public interface IResultsRepository : IRepositoryBase<Results>
 	{
 		
 	}

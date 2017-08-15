@@ -1,58 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using nyom.domain.core.MongoDb.Message.Interface;
+using System.Threading.Tasks;
+using nyom.domain.core.MongoDb.IEntity;
+
 using nyom.domain.core.MongoDb.Repository.Interface;
 
 namespace nyom.domain.core.MongoDb.Repository.Models
 {
-	public class ServiceBase<TEntity> : IServiceBase<TEntity, string> where TEntity : IEntity
+	public class ServiceBase<TEntity> : IServiceBase<TEntity>
 	{
-		private readonly IRepositoryBase<TEntity, string> _reposittoryBaseMongoMessage;
+		private readonly IRepositoryBase<TEntity> _repositoryBase;
 
-		public ServiceBase(IRepositoryBase<TEntity, string> reposittoryBaseMongoMessage)
+		public ServiceBase(IRepositoryBase<TEntity> repositoryBase)
 		{
-			_reposittoryBaseMongoMessage = reposittoryBaseMongoMessage;
+			_repositoryBase = repositoryBase;
 		}
 
-		public TEntity Get(Guid id)
+
+		public Task<IEnumerable<TEntity>> GetAllAsync()
 		{
-			return _reposittoryBaseMongoMessage.Get(id);
+			return _repositoryBase.GetAllAsync();
 		}
 
-		public TEntity Find(Expression<Func<TEntity, bool>> predicate)
+		public Task<TEntity> GetOneAsync(TEntity context)
 		{
-			return _reposittoryBaseMongoMessage.Find(predicate);
+			return _repositoryBase.GetOneAsync(context);
 		}
 
-		public IEnumerable<TEntity> All()
+		public Task<TEntity> GetOneAsync(string id)
 		{
-			return _reposittoryBaseMongoMessage.All();
+			return _repositoryBase.GetOneAsync(id);
 		}
 
-		public IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate)
+		public Task<TEntity> SaveOneAsync(TEntity context)
 		{
-			return _reposittoryBaseMongoMessage.FindAll(predicate);
+			return _repositoryBase.SaveOneAsync(context);
 		}
 
-		public TEntity Save(TEntity entity)
+		public Task<TEntity> RemoveOneAsync(TEntity context)
 		{
-			return _reposittoryBaseMongoMessage.Save(entity);
+			return _repositoryBase.RemoveOneAsync(context);
 		}
 
-		public void Delete(Guid id)
+		public Task<TEntity> RemoveOneAsync(string id)
 		{
-			_reposittoryBaseMongoMessage.Delete(id);
-		}
-
-		public void Delete(TEntity entity)
-		{
-			_reposittoryBaseMongoMessage.Delete(entity);
-		}
-
-		public TEntity Update(TEntity entity)
-		{
-			return _reposittoryBaseMongoMessage.Update(entity);
+			return _repositoryBase.RemoveOneAsync(id);
 		}
 	}
 }

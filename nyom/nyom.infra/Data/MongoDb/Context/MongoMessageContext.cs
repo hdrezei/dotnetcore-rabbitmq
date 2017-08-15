@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using nyom.infra.Data.MongoDb.Settings;
 
 namespace nyom.infra.Data.MongoDb.Context
 {
@@ -18,21 +20,25 @@ namespace nyom.infra.Data.MongoDb.Context
 	//}
 
 
-	public class MongoMessageContext<T> : IMongoContext<T>
+	public class MongoMessageContext<TEntity> 
 	{
-		public IMongoDatabase Database { get; }
-		public IMongoCollection<T> Collection { get; }
-		public IConfigurationRoot Configuration { get; }
-		public MongoDatabase MgDatabase;
-		public MongoMessageContext(IConfigurationRoot configuration, string collectionName)
+		private IMongoDatabase _database = null;
+		
+		private readonly string _collectionName =null;
+
+		public MongoMessageContext (IOptions<MongoDbSettings> settings, string collectionName)
 		{
-			Configuration = configuration;
-			var mongoUrl = new MongoUrl(Configuration.GetConnectionString("MongoMessage"));
-			var client = new MongoClient(mongoUrl);
-			var server = client.GetServer();
-			MgDatabase = server.GetDatabase(mongoUrl.DatabaseName);
-			Collection = Database.GetCollection<T>(collectionName);
+			
+			var client = new MongoClient(settings.Value.ConnectionString);
+			if (client != null)
+			{
+				_database = client.GetDatabase(settings.Value.Database);
+			}
+
+			_collectionName = collectionName;
 		}
+
+		public IMongoCollection<TEntity> Collection => _database.GetCollection<TEntity>(_collectionName);
 	}
 
 }
