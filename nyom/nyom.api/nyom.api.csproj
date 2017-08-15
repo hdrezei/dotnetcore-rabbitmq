@@ -21,6 +21,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\nyom.infra\nyom.infra.csproj" />
+    <ProjectReference Include="..\nyom.workflow.control\nyom.workflow.control.csproj" />
+    <ProjectReference Include="..\nyom.workflow.manager\nyom.workflow.manager.csproj" />
   </ItemGroup>
 
 </Project>

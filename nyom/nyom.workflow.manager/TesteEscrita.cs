@@ -4,9 +4,6 @@ using nyom.infra.CrossCutting.Helper;
 
 namespace nyom.workflow.manager
 {
-
-	
-
 	public class TesteEscrita
 	{
 		private readonly IMessageService _messageService;
@@ -16,12 +13,11 @@ namespace nyom.workflow.manager
 			_messageService = messageService;
 		}
 
-
 		public void TesteEscritaMongo()
 		{
-			for (int i = 0; i <= 1000; i++)
+			for (var i = 0; i <= 1000; i++)
 			{
-				Message message = new Message()
+				var message = new Message
 				{
 					CampanhaId = i.ToString(),
 					DataEntregaMensagens = DateTime.Now,
@@ -33,9 +29,6 @@ namespace nyom.workflow.manager
 				};
 				_messageService.SaveOneAsync(message);
 			}
-			
 		}
-
-
 	}
 }
