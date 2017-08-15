@@ -1,4 +1,5 @@
-﻿using nyom.domain.core.Models;
+﻿using System.Collections;
+using nyom.domain.core.Models;
 
 namespace nyom.domain.Workflow.Campanha
 {
@@ -8,6 +9,11 @@ namespace nyom.domain.Workflow.Campanha
 		public CampanhaWorkflowService(ICampanhaWorkflowRepository campanhaRepository) : base(campanhaRepository)
 		{
 			_campanhaRepository = campanhaRepository;
+		}
+
+		public IEnumerable GetAll()
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 }

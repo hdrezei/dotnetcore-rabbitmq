@@ -63,7 +63,7 @@ services:
     volumes: 
       - ./data/db/messages:/data/db 
     ports: 
-      - 27017:27017 
+      - 27015:27015 
     networks: 
       - net.workflow 
   
@@ -82,7 +82,7 @@ services:
     volumes: 
       - ./data/db/logs:/data/db 
     ports: 
-      - 27018:27017 
+      - 27018:27019 
     networks: 
       - net.workflow 
   

@@ -1,5 +1,5 @@
-FROM microsoft/dotnet:1.1-runtime
-ARG source
-WORKDIR /app
-COPY ${source:-obj/Docker/publish} .
-ENTRYPOINT ["dotnet", "nyom.queuebuilder.dll"]
+FROM microsoft/dotnet:latest
+RUN mkdir /nyom
+WORKDIR /nyom
+COPY /bin/Release/netcoreapp2.0/publish/ /nyom
+ENTRYPOINT ["dotnet","nyom.queuebuilder.dll"]

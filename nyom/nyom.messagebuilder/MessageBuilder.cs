@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using nyom.domain.Crm.Pessoa;
 using nyom.domain.Crm.Templates;
 using nyom.domain.Message;
@@ -26,28 +27,41 @@ namespace nyom.messagebuilder
 			_managerServices = managerServices;
 		}
 
-		public void MontarMensaagens(Guid campanhaId)
+		public void MontarMensagens(Guid campanhaId)
 		{
 			var dadosCampanha = _campanhaWorkflowService.Get(campanhaId);
-			var dadosTemplate = _templateservice.Get(dadosCampanha.TemplateId);
-			var listaPessoas = _pessoaService.All();
+			if (dadosCampanha == null)
+				return;
 
+			var dadosTemplate = _templateservice.Get(dadosCampanha.TemplateId);
+			if (dadosTemplate == null)
+				return;
+
+			var listaPessoas = _pessoaService.All();
+			if (listaPessoas == null)
+				return;
+
+			SalvarMensagens(listaPessoas, dadosCampanha, dadosTemplate);
+
+			_managerServices.AtualizarStatusCampanha(dadosCampanha.CampanhaId, MessageBuilderCompleted);
+		}
+
+		private void SalvarMensagens(IEnumerable<Pessoa> listaPessoas, CampanhaWorkflow dadosCampanha, Template dadosTemplate)
+		{
 			foreach (var itens in listaPessoas)
 			{
 				var message = new Message
 				{
-					CampanhaId = Guid.NewGuid().ToString(),
-					DataCriacao = DateTime.Now,
+					CampanhaId = dadosCampanha.CampanhaId.ToString(),
+					DataCriacao = dadosCampanha.DataInicio,
 					DataEntregaMensagens = DateTime.Now,
 					Id = dadosCampanha.CampanhaId.ToString(),
-					Mensagem = "Teste",
+					Mensagem = dadosTemplate.Mensagem,
 					Status = MessageBuilderCompleted,
 					TemplateId = dadosTemplate.TemplateId.ToString()
 				};
 				_messageService.SaveOneAsync(message);
 			}
-
-			_managerServices.AtualizarStatusCampanha(dadosCampanha.CampanhaId, MessageBuilderCompleted);
 		}
 	}
 }

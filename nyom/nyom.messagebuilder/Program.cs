@@ -30,7 +30,7 @@ namespace nyom.messagebuilder
 			var mb = new MessageBuilder(_templateservice, _campanhaWorkflowService, _pessoaService, _messageService,
 				_managerServices);
 			var id = new Guid(args[0]);
-			mb.MontarMensaagens(id);
+			mb.MontarMensagens(id);
 		}
 	}
 }

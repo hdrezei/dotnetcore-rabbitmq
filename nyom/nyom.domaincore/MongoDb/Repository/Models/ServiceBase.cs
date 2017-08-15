@@ -20,7 +20,7 @@ namespace nyom.domain.core.MongoDb.Repository.Models
 
 		public Task<IEnumerable<TEntity>> GetAllAsync()
 		{
-			return _repositoryBase.GetAllAsync();
+			throw new NotImplementedException();
 		}
 
 		public Task<TEntity> GetOneAsync(TEntity context)
@@ -46,6 +46,11 @@ namespace nyom.domain.core.MongoDb.Repository.Models
 		public Task<TEntity> RemoveOneAsync(string id)
 		{
 			return _repositoryBase.RemoveOneAsync(id);
+		}
+
+		public IList<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate)
+		{
+			return _repositoryBase.FindAll(predicate);
 		}
 	}
 }
