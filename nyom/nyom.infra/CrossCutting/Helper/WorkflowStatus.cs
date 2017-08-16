@@ -3,6 +3,8 @@
     public enum WorkflowStatus
     {
 		Ready,
+	    WorkflowManager,
+		WorkFlowManagerCompleted,
 		MessageBuilder,
 		MessageBuilderCompleted,
 		QueueBuilder,
@@ -13,5 +15,5 @@
 		LoggingCleanupCompleted,
         Finished,
 		Error
-    }
+	}
 }

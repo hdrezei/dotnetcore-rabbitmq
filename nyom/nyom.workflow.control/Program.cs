@@ -19,7 +19,9 @@ using nyom.infra.CrossCutting.Helper;
 using nyom.infra.Data.EntityFramwork.Context;
 using nyom.infra.Data.EntityFramwork.Repositories;
 using nyom.infra.Data.MongoDb.Repositories;
-using nyom.workflow.manager;
+using nyom.workflow.manager.Factory;
+using nyom.workflow.manager.Interfaces;
+using nyom.workflow.manager.Services;
 
 namespace nyom.workflow.control
 {

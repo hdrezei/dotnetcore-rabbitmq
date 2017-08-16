@@ -1,12 +1,32 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using nyom.domain.core.EntityFramework.Interfaces;
+using nyom.domain.core.EntityFramework.Models;
+using nyom.domain.core.Interfaces;
+using nyom.domain.core.Models;
 using nyom.domain.core.MongoDb.Repository.Interface;
+using nyom.domain.core.MongoDb.Repository.Models;
+using nyom.domain.Crm.Campanha;
+using nyom.domain.Crm.Empresa;
+using nyom.domain.Crm.Pessoa;
+using nyom.domain.Crm.Templates;
 using nyom.domain.Message;
+using nyom.domain.Workflow.Campanha;
+using nyom.domain.Workflow.Workflow;
+using nyom.infra.CrossCutting.Helper;
 using nyom.infra.Data.EntityFramwork.Context;
+using nyom.infra.Data.EntityFramwork.Repositories;
 using nyom.infra.Data.MongoDb.Repositories;
+using nyom.infra.Data.MongoDb.Settings;
+using nyom.workflow.manager;
+using nyom.workflow.manager.Factory;
+using nyom.workflow.manager.Interfaces;
+using nyom.workflow.manager.Services;
 
 namespace nyom.api
 {
@@ -29,35 +49,35 @@ namespace nyom.api
 
 			services.AddMvc();
 
-			//services.AddTransient<IWorkflowService, WorkflowService>();
-			//services.AddTransient<IWorkflowRepository, WorkflowRepository>();
-			//services.AddTransient<ITemplateService, TemplateService>();
-			//services.AddTransient<ITemplateRepository, TemplateRepository>();
-			//services.AddTransient<IPessoaService, PessoaService>();
-			//services.AddTransient<IPessoaRepository, PessoaRepository>();
-			//services.AddTransient<IEmpresaService, EmpresaService>();
-			//services.AddTransient<IEmpresaRepository, EmpresaRepository>();
-			//services.AddTransient<ICampanhaWorkflowService, CampanhaWorkflowService>();
-			//services.AddTransient<ICampanhaWorkflowRepository, CampanhaWorkflowRepository>();
-			//services.AddTransient<ICampanhaCrmService, CampanhaCrmService>();
-			//services.AddTransient<ICampanhaCrmRepository, CampanhaCrmRepository>();
-			//services.AddTransient<IManagerFactory, ManagerFactory>();
-			//services.AddTransient<IManagerServices, ManagerServices>();
+			services.AddScoped<IWorkflowService, WorkflowService>();
+			services.AddScoped<IWorkflowRepository, WorkflowRepository>();
+			services.AddScoped<ITemplateService, TemplateService>();
+			services.AddScoped<ITemplateRepository, TemplateRepository>();
+			services.AddScoped<IPessoaService, PessoaService>();
+			services.AddScoped<IPessoaRepository, PessoaRepository>();
+			services.AddScoped<IEmpresaService, EmpresaService>();
+			services.AddScoped<IEmpresaRepository, EmpresaRepository>();
+			services.AddScoped<ICampanhaWorkflowService, CampanhaWorkflowService>();
+			services.AddScoped<ICampanhaWorkflowRepository, CampanhaWorkflowRepository>();
+			services.AddScoped<ICampanhaCrmService, CampanhaCrmService>();
+			services.AddScoped<ICampanhaCrmRepository, CampanhaCrmRepository>();
+			services.AddScoped<IManagerFactory, ManagerFactory>();
+			services.AddScoped<IManagerServices, ManagerServices>();
 			services.AddScoped<IMessageService, MessageServices>();
-			//services.AddTransient<IDockerHelper, DockerHelper>();
+			services.AddScoped<IDockerHelper, DockerHelper>();
+			services.AddScoped(typeof(IServiceBaseCrm<>), typeof(ServiceBaseWorkflow<>));
 			services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
-			//services.AddTransient(typeof(IServiceBase<>), typeof(ServiceBase<>));
-			//services.AddTransient(typeof(IRepositoryBaseCrm<>), typeof(RepositoryBaseCrm<>));
-			//services.AddTransient(typeof(IServiceBaseCrm<>), typeof(ServiceBaseCrm<>));
-			//services.AddTransient(typeof(IRepositoryBaseWorkflow<>), typeof(RepositoryBaseWorkflow<>));
-			//services.AddTransient(typeof(IServiceBaseCrm<>), typeof(ServiceBaseWorkflow<>));
+			services.AddScoped(typeof(IServiceBase<>), typeof(ServiceBase<>));
+			services.AddScoped(typeof(IRepositoryBaseCrm<>), typeof(RepositoryBaseCrm<>));
+			services.AddScoped(typeof(IServiceBaseCrm<>), typeof(ServiceBaseCrm<>));
+			services.AddScoped(typeof(IRepositoryBaseWorkflow<>), typeof(RepositoryBaseWorkflow<>));
+			services.AddScoped(typeof(IServiceBaseCrm<>), typeof(ServiceBaseWorkflow<>));
 
+			//services.AddScoped(typeof(IMessageRepository), typeof(RepositoryBase<Message>));
+			services.AddScoped<IMessageRepository, MessageRepository>();
+			services.Configure<IOptions<MongoDbSettings>>(
+				(o) => new MessageRepository(o, Environment.GetEnvironmentVariable("CAMPANHA")));
 
-
-			
-			
-
-			
 		}
 	
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)

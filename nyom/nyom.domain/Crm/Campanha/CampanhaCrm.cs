@@ -14,5 +14,6 @@ namespace nyom.domain.Crm.Campanha
 		public Enum Status { get; set; }
 		public Guid TemplateId { get; set; }
 	    public int Publico { get; set; }
-    }
+		public DateTime DataCriacao { get; set; }
+	}
 }

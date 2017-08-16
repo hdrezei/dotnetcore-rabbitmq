@@ -15,5 +15,6 @@ namespace nyom.domain.Workflow.Campanha
 	    public Guid TemplateId { get; set; }
 	    public int Publico { get; set; }
 	    public Enum Status { get; set; }
+	    public DateTime DataCriacao { get; set; }
     }
 }

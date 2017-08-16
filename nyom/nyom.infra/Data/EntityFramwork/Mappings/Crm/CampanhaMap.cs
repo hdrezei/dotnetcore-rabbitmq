@@ -15,6 +15,9 @@ namespace nyom.infra.Data.EntityFramwork.Mappings.Crm
 			builder.Property(c => c.DataInicio)
 				.IsRequired();
 
+			builder.Property(c => c.DataCriacao)
+				.IsRequired();
+
 			builder.Property(c => c.Nome)
 				.IsRequired()
 				.HasMaxLength(100)

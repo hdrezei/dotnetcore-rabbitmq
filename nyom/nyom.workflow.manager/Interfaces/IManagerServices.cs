@@ -1,7 +1,7 @@
 ﻿using System;
 using nyom.infra.CrossCutting.Helper;
 
-namespace nyom.workflow.manager
+namespace nyom.workflow.manager.Interfaces
 {
 	public interface IManagerServices
 	{

@@ -13,7 +13,7 @@ using nyom.infra.Data.MongoDb.Settings;
 
 namespace nyom.infra.Data.MongoDb.Repositories
 {
-	public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
+	public  class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
 		where TEntity : IEntity
 	{
 		protected readonly MongoMessageContext<TEntity> _context;

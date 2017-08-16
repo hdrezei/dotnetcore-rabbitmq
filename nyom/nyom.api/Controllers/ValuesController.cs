@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using nyom.domain.Message;
 using nyom.infra.CrossCutting.Helper;
 
 namespace nyom.api.Controllers
 {
-    [Route("api/[controller]")]
+	[Route("api/[controller]")]
     public class ValuesController : Controller
     {
 	    private readonly IMessageService _messageService;

@@ -10,7 +10,7 @@ namespace nyom.infra.CrossCutting.Helper
 			using (var processo = new Process())
 			{
 				processo.StartInfo.FileName = Environment.GetEnvironmentVariable("comspec");
-				processo.StartInfo.Arguments = string.Format("docker run {0} --alias={1}  --net {2} -link {3}", servico, dadosCampanhaCampanhaId, "net.workflow", "mssql.workflow");
+				processo.StartInfo.Arguments = string.Format("docker run {0} --alias={1}  --net {2} -link {3} -e CAMPANHA={1}" , servico, dadosCampanhaCampanhaId, "net.workflow", "mssql.workflow");
 				processo.StartInfo.RedirectStandardOutput = true;
 				processo.StartInfo.UseShellExecute = false;
 				processo.StartInfo.CreateNoWindow = true;

@@ -1,35 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using nyom.domain.Crm.Campanha;
 using nyom.domain.Crm.Pessoa;
 using nyom.domain.Crm.Templates;
 using nyom.domain.Message;
-using nyom.domain.Workflow.Campanha;
-using nyom.workflow.manager;
+using Newtonsoft.Json;
 using static nyom.infra.CrossCutting.Helper.WorkflowStatus;
 
 namespace nyom.messagebuilder
 {
-	public class MessageBuilder
+	public class Builder
 	{
 		private readonly ITemplateService _templateservice;
-		private readonly ICampanhaWorkflowService _campanhaWorkflowService;
+		private readonly ICampanhaCrmService _campanhaCrmService;
 		private readonly IPessoaService _pessoaService;
 		private readonly IMessageService _messageService;
-		private readonly IManagerServices _managerServices;
 
-		public MessageBuilder(ITemplateService templateservice, ICampanhaWorkflowService campanhaWorkflowService,
-			IPessoaService pessoaService, IMessageService messageService, IManagerServices managerServices)
+		public Builder(ITemplateService templateservice, ICampanhaCrmService campanhaCrmService,
+			IPessoaService pessoaService, IMessageService messageService)
 		{
 			_templateservice = templateservice;
-			_campanhaWorkflowService = campanhaWorkflowService;
+			_campanhaCrmService = campanhaCrmService;
 			_pessoaService = pessoaService;
 			_messageService = messageService;
-			_managerServices = managerServices;
 		}
 
-		public void MontarMensagens(Guid campanhaId)
+		public void MontarMensagens(string campanhaId)
 		{
-			var dadosCampanha = _campanhaWorkflowService.Get(campanhaId);
+			var id = new Guid(campanhaId);
+
+			var dadosCampanha = _campanhaCrmService.Get(id);
 			if (dadosCampanha == null)
 				return;
 
@@ -43,10 +44,28 @@ namespace nyom.messagebuilder
 
 			SalvarMensagens(listaPessoas, dadosCampanha, dadosTemplate);
 
-			_managerServices.AtualizarStatusCampanha(dadosCampanha.CampanhaId, MessageBuilderCompleted);
+			AtualizarStatusApi(dadosCampanha.CampanhaId);
 		}
 
-		private void SalvarMensagens(IEnumerable<Pessoa> listaPessoas, CampanhaWorkflow dadosCampanha, Template dadosTemplate)
+		public void AtualizarStatusApi(Guid dadosCampanhaCampanhaId)
+		{
+			using (var client = new HttpClient())
+			{
+				using (var response = client.GetAsync("http://localhost:52032/api/MessageBuilder/AtualizarCampanha/"+dadosCampanhaCampanhaId))
+				{
+					if (response.IsCompletedSuccessfully)
+					{
+						//Log positivo
+					}
+					else
+					{
+						//Log negativo
+					}
+				} 
+			}
+		}
+
+		private void SalvarMensagens(IEnumerable<Pessoa> listaPessoas, CampanhaCrm dadosCampanha, Template dadosTemplate)
 		{
 			foreach (var itens in listaPessoas)
 			{

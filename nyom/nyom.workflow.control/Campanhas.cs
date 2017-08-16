@@ -1,10 +1,10 @@
-﻿using System.Threading;
-using nyom.domain.Crm.Templates;
+﻿using System.Linq;
+using System.Threading;
 using nyom.domain.Message;
 using nyom.domain.Workflow.Campanha;
 using nyom.infra.CrossCutting.Helper;
-using nyom.messagebuilder;
 using nyom.workflow.manager;
+using nyom.workflow.manager.Interfaces;
 
 namespace nyom.workflow.control
 {
@@ -13,35 +13,31 @@ namespace nyom.workflow.control
 		private Timer _tm;
 		private AutoResetEvent _autoEvent;
 		private readonly ICampanhaWorkflowService _campanhaWorkflowService;
-		private readonly IManagerFactory _managerFactory;
-		private readonly IMessageService _messageService;
+		private readonly IManagerServices _managerServices;
+		private readonly IDockerHelper _dockerHelper;
 
-		public Campanhas(ICampanhaWorkflowService campanhaWorkflowService, IManagerFactory managerFactory, IMessageService messageService)
+		public Campanhas(ICampanhaWorkflowService campanhaWorkflowService,
+			IManagerServices managerServices, IDockerHelper dockerHelper)
 		{
 			_campanhaWorkflowService = campanhaWorkflowService;
-			_managerFactory = managerFactory;
-			_messageService = messageService;
+			_managerServices = managerServices;
+			_dockerHelper = dockerHelper;
 		}
 
 		public void Start()
 		{
-			TesteEscrita te = new TesteEscrita(_messageService);
-			te.TesteEscritaMongo();
-
-			//_autoEvent = new AutoResetEvent(false);
-			//_tm = new Timer(, _autoEvent, 3600, 3600);
-
-
+			_autoEvent = new AutoResetEvent(false);
+			_tm = new Timer(BuscarCampanhas, _autoEvent, 3600, 3600);
 		}
 
 		public void BuscarCampanhas(object stateInfo)
 		{
-			var dadosCampanha = _campanhaWorkflowService.All();
+			var dadosCampanha = _campanhaWorkflowService.FindAll(a => a.Status.Equals(WorkflowStatus.Ready))
+				.OrderByDescending(a => a.DataCriacao).SingleOrDefault();
 			if (dadosCampanha == null) return;
-			foreach (var item in dadosCampanha)
-			{
-				_managerFactory.VerificarStatusCampanha(item.CampanhaId, item.Status);
-			}
+			
+			_managerServices.AtualizarStatusCampanha(dadosCampanha.CampanhaId, WorkflowStatus.WorkflowManager);
+			_dockerHelper.CriarContainerDocker(dadosCampanha.CampanhaId, "nyom.workflow.manager");
 		}
 	}
 }

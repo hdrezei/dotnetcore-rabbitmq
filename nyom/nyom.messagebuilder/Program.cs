@@ -1,36 +1,83 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using nyom.domain.core.EntityFramework.Interfaces;
+using nyom.domain.core.EntityFramework.Models;
+using nyom.domain.core.Interfaces;
+using nyom.domain.core.Models;
+using nyom.domain.core.MongoDb.Repository.Interface;
+using nyom.domain.core.MongoDb.Repository.Models;
+using nyom.domain.Crm.Campanha;
+using nyom.domain.Crm.Empresa;
 using nyom.domain.Crm.Pessoa;
 using nyom.domain.Crm.Templates;
 using nyom.domain.Message;
 using nyom.domain.Workflow.Campanha;
-using nyom.workflow.manager;
+using nyom.domain.Workflow.Workflow;
+using nyom.infra.CrossCutting.Helper;
+using nyom.infra.Data.EntityFramwork.Context;
+using nyom.infra.Data.EntityFramwork.Repositories;
+using nyom.infra.Data.MongoDb.Repositories;
+using nyom.workflow.manager.Factory;
+using nyom.workflow.manager.Interfaces;
+using nyom.workflow.manager.Services;
 
 namespace nyom.messagebuilder
 {
 	public class Program
 	{
-		private static ITemplateService _templateservice;
-		private static ICampanhaWorkflowService _campanhaWorkflowService;
-		private static IPessoaService _pessoaService;
-		private static IMessageService _messageService;
-		private static IManagerServices _managerServices;
+		public static IConfigurationRoot Configuration { get; set; }
+		private static IServiceProvider _serviceProvider;
 
-		public Program(IManagerServices managerServices, IMessageService messageService, IPessoaService pessoaService,
-			ICampanhaWorkflowService campanhaWorkflowService, ITemplateService templateservice)
+		private static void Main(string[] args)
 		{
-			_managerServices = managerServices;
-			_messageService = messageService;
-			_pessoaService = pessoaService;
-			_campanhaWorkflowService = campanhaWorkflowService;
-			_templateservice = templateservice;
+			var builder = new ConfigurationBuilder()
+				.AddJsonFile("appsettings.json", false, true);
+			Configuration = builder.Build();
+
+			_serviceProvider = new ServiceCollection()
+				.AddDbContext<CrmContext>(o => o.UseSqlServer(Configuration["CrmConnection"]))
+				.BuildServiceProvider();
+
+			var serviceCollection = new ServiceCollection();
+
+			serviceCollection.AddDbContext<WorkflowContext>(options =>
+				options.UseSqlServer(Configuration.GetConnectionString("WorkflowConnection")));
+
+			ConfigureServices(serviceCollection);
+			
+			var serviceProvider = serviceCollection.BuildServiceProvider();
+
+			serviceProvider.GetService<Builder>().MontarMensagens(Environment.GetEnvironmentVariable("CAMPANHA"));
 		}
 
-		public static void Main(string[] args)
+		private static void ConfigureServices(IServiceCollection services)
 		{
-			var mb = new MessageBuilder(_templateservice, _campanhaWorkflowService, _pessoaService, _messageService,
-				_managerServices);
-			var id = new Guid(args[0]);
-			mb.MontarMensagens(id);
+			services.AddTransient<IWorkflowService, WorkflowService>();
+			services.AddTransient<IWorkflowRepository, WorkflowRepository>();
+			services.AddTransient<ITemplateService, TemplateService>();
+			services.AddTransient<ITemplateRepository, TemplateRepository>();
+			services.AddTransient<IPessoaService, PessoaService>();
+			services.AddTransient<IPessoaRepository, PessoaRepository>();
+			services.AddTransient<IEmpresaService, EmpresaService>();
+			services.AddTransient<IEmpresaRepository, EmpresaRepository>();
+			services.AddTransient<ICampanhaWorkflowService, CampanhaWorkflowService>();
+			services.AddTransient<ICampanhaWorkflowRepository, CampanhaWorkflowRepository>();
+			services.AddTransient<ICampanhaCrmService, CampanhaCrmService>();
+			services.AddTransient<ICampanhaCrmRepository, CampanhaCrmRepository>();
+			services.AddTransient(typeof(IManagerFactory), typeof(ManagerFactory));
+			services.AddTransient(typeof(IManagerServices), typeof(ManagerServices));
+			services.AddTransient(typeof(IMessageService), typeof(MessageServices));
+			services.AddTransient(typeof(IDockerHelper), typeof(DockerHelper));
+			services.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+			services.AddTransient(typeof(IServiceBase<>), typeof(ServiceBase<>));
+			services.AddTransient(typeof(IRepositoryBaseCrm<>), typeof(RepositoryBaseCrm<>));
+			services.AddTransient(typeof(IServiceBaseCrm<>), typeof(ServiceBaseCrm<>));
+			services.AddTransient(typeof(IRepositoryBaseWorkflow<>), typeof(RepositoryBaseWorkflow<>));
+			services.AddTransient(typeof(IServiceBaseCrm<>), typeof(ServiceBaseWorkflow<>));
+
+			services.AddTransient<Builder>();
 		}
 	}
 }
