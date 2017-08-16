@@ -1,16 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\nyom.domain\nyom.domain.csproj" />
     <ProjectReference Include="..\nyom.infra\nyom.infra.csproj" />
+    <ProjectReference Include="..\nyom.messagebuilder\nyom.messagebuilder.csproj" />
+    <ProjectReference Include="..\nyom.workflow.manager\nyom.workflow.manager.csproj" />
   </ItemGroup>
 
 </Project>

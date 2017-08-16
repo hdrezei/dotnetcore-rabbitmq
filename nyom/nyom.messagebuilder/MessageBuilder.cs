@@ -1,9 +1,11 @@
-﻿using nyom.domain.Crm.Templates;
-using System;
-using System.Threading.Tasks.Dataflow;
+﻿using System;
+using System.Collections.Generic;
 using nyom.domain.Crm.Pessoa;
-using nyom.domain.MongoMessage;
+using nyom.domain.Crm.Templates;
+using nyom.domain.Message;
 using nyom.domain.Workflow.Campanha;
+using nyom.workflow.manager;
+using static nyom.infra.CrossCutting.Helper.WorkflowStatus;
 
 namespace nyom.messagebuilder
 {
@@ -12,45 +14,54 @@ namespace nyom.messagebuilder
 		private readonly ITemplateService _templateservice;
 		private readonly ICampanhaWorkflowService _campanhaWorkflowService;
 		private readonly IPessoaService _pessoaService;
-		private readonly IMongoMessageService _messageService;
+		private readonly IMessageService _messageService;
+		private readonly IManagerServices _managerServices;
 
-		public MessageBuilder()
-		{
-			
-		}
-
-		public MessageBuilder(ITemplateService templateservice, ICampanhaWorkflowService campanhaWorkflowService, IPessoaService pessoaService, IMongoMessageService messageService)
+		public MessageBuilder(ITemplateService templateservice, ICampanhaWorkflowService campanhaWorkflowService,
+			IPessoaService pessoaService, IMessageService messageService, IManagerServices managerServices)
 		{
 			_templateservice = templateservice;
 			_campanhaWorkflowService = campanhaWorkflowService;
 			_pessoaService = pessoaService;
 			_messageService = messageService;
+			_managerServices = managerServices;
 		}
 
-		public void MontarMensaagens(Guid campanhaId)
+		public void MontarMensagens(Guid campanhaId)
 		{
 			var dadosCampanha = _campanhaWorkflowService.Get(campanhaId);
+			if (dadosCampanha == null)
+				return;
+
 			var dadosTemplate = _templateservice.Get(dadosCampanha.TemplateId);
+			if (dadosTemplate == null)
+				return;
 
 			var listaPessoas = _pessoaService.All();
+			if (listaPessoas == null)
+				return;
 
+			SalvarMensagens(listaPessoas, dadosCampanha, dadosTemplate);
+
+			_managerServices.AtualizarStatusCampanha(dadosCampanha.CampanhaId, MessageBuilderCompleted);
+		}
+
+		private void SalvarMensagens(IEnumerable<Pessoa> listaPessoas, CampanhaWorkflow dadosCampanha, Template dadosTemplate)
+		{
 			foreach (var itens in listaPessoas)
 			{
-				Message message = new Message()
+				var message = new Message
 				{
-					CampanhaId = Guid.NewGuid().ToString(),
-					DataCriacao = DateTime.Now,
+					CampanhaId = dadosCampanha.CampanhaId.ToString(),
+					DataCriacao = dadosCampanha.DataInicio,
 					DataEntregaMensagens = DateTime.Now,
-					Id = Guid.NewGuid().ToString(),
-					Mensagem = "Teste",
-					Status = 1,
+					Id = dadosCampanha.CampanhaId.ToString(),
+					Mensagem = dadosTemplate.Mensagem,
+					Status = MessageBuilderCompleted,
 					TemplateId = dadosTemplate.TemplateId.ToString()
 				};
-				_messageService.Save(message);
+				_messageService.SaveOneAsync(message);
 			}
-
-
-
 		}
 	}
 }

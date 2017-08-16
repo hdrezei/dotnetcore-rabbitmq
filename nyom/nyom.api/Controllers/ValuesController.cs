@@ -1,17 +1,44 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using nyom.domain.Message;
+using nyom.infra.CrossCutting.Helper;
 
 namespace nyom.api.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        // GET api/values
+	    private readonly IMessageService _messageService;
+
+	    public ValuesController(IMessageService messageService)
+	    {
+		    _messageService = messageService;
+	    }
+
+	    // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
-        }
+           
+			for (var i = 0; i <= 10; i++)
+			{
+				var message = new Message
+				{
+					CampanhaId = i.ToString(),
+					DataEntregaMensagens = DateTime.Now,
+					DataCriacao = DateTime.Now,
+					Id = i.ToString(),
+					Mensagem = "teste",
+					Status = WorkflowStatus.Finished,
+					TemplateId = i.ToString()
+				};
+				_messageService.SaveOneAsync(message);
+			}
+	        return new string[] { "value1", "value2" };
+		}
 
         // GET api/values/5
         [HttpGet("{id}")]

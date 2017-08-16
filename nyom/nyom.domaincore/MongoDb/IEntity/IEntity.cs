@@ -1,4 +1,4 @@
-﻿namespace nyom.domain.core.MongoDb.Message.Interface
+﻿namespace nyom.domain.core.MongoDb.IEntity
 {
 	public interface IEntity<TKey>
 	{

@@ -1,5 +1,12 @@
-FROM microsoft/aspnetcore-build
+FROM microsoft/aspnetcore:2.0
 RUN mkdir /nyom
 WORKDIR /nyom
+COPY /bin/Release/netcoreapp2.0/ /nyom
 ENTRYPOINT ["dotnet", "nyom.api.dll"]
-COPY /bin/Release/netcoreapp1.1/publish/ /nyom
+
+#
+#FROM microsoft/dotnet:latest
+#RUN mkdir /nyom
+#WORKDIR /nyom
+#COPY /bin/Release/netcoreapp2.0/publish/ /nyom
+#ENTRYPOINT ["dotnet","nyom.api.dll"]

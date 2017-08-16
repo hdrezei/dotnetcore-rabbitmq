@@ -1,7 +1,10 @@
 ﻿using System.Threading;
 using nyom.domain.Crm.Templates;
+using nyom.domain.Message;
 using nyom.domain.Workflow.Campanha;
 using nyom.infra.CrossCutting.Helper;
+using nyom.messagebuilder;
+using nyom.workflow.manager;
 
 namespace nyom.workflow.control
 {
@@ -9,30 +12,35 @@ namespace nyom.workflow.control
 	{
 		private Timer _tm;
 		private AutoResetEvent _autoEvent;
-		private readonly ITemplateService _templateService;
 		private readonly ICampanhaWorkflowService _campanhaWorkflowService;
+		private readonly IManagerFactory _managerFactory;
+		private readonly IMessageService _messageService;
 
-		public Campanhas(ITemplateService templateService, ICampanhaWorkflowService campanhaWorkflowService)
+		public Campanhas(ICampanhaWorkflowService campanhaWorkflowService, IManagerFactory managerFactory, IMessageService messageService)
 		{
-			_templateService = templateService;
 			_campanhaWorkflowService = campanhaWorkflowService;
+			_managerFactory = managerFactory;
+			_messageService = messageService;
 		}
 
 		public void Start()
 		{
-			_autoEvent = new AutoResetEvent(false);
-			_tm = new Timer(BuscarCampanhas, _autoEvent, 3600, 3600);
+			TesteEscrita te = new TesteEscrita(_messageService);
+			te.TesteEscritaMongo();
+
+			//_autoEvent = new AutoResetEvent(false);
+			//_tm = new Timer(, _autoEvent, 3600, 3600);
+
+
 		}
 
 		public void BuscarCampanhas(object stateInfo)
 		{
-			var dadosCampanha = _campanhaWorkflowService.FindAll(a => a.Status.Equals(WorkflowStatus.Ready));
+			var dadosCampanha = _campanhaWorkflowService.All();
 			if (dadosCampanha == null) return;
 			foreach (var item in dadosCampanha)
 			{
-				DockerHelper.Run(item.CampanhaId,"nyom.workflow.manager");
-				DockerHelper.Inspect("nyom.workflow.manager");
-				DockerHelper.Execute("nyom.workflow.manager");
+				_managerFactory.VerificarStatusCampanha(item.CampanhaId, item.Status);
 			}
 		}
 	}

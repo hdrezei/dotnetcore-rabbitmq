@@ -1,12 +1,16 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace nyom.infra.Data.EntityFramwork.Context
 {
-	public class WorkflowContextFactory : IDbContextFactory<WorkflowContext>
+	public class WorkflowContextFactory : IDesignTimeDbContextFactory<WorkflowContext>
 	{
-		public WorkflowContext Create(DbContextFactoryOptions options)
+		//public WorkflowContext Create(DbContextFactoryOptions options)
+		//{
+			
+		//}
+
+		public WorkflowContext CreateDbContext(string[] args)
 		{
 			var optionsBuilder = new DbContextOptionsBuilder<WorkflowContext>();
 

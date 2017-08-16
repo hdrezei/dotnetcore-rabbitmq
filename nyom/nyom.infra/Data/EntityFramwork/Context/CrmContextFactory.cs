@@ -1,11 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace nyom.infra.Data.EntityFramwork.Context
 {
-	public class CrmContextFactory : IDbContextFactory<CrmContext>
+	public class CrmContextFactory : IDesignTimeDbContextFactory<CrmContext>
 	{
-		public CrmContext Create(DbContextFactoryOptions options)
+		//public CrmContext Create(DbContextFactoryOptions options)
+		//{
+		
+		//}
+
+		public CrmContext CreateDbContext(string[] args)
 		{
 			var optionsBuilder = new DbContextOptionsBuilder<CrmContext>();
 

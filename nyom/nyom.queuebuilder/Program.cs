@@ -1,45 +1,27 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
+using nyom.domain.Message;
 
 namespace nyom.queuebuilder
 {
-	internal class Program
+	public class Program
 	{
-		public static IConfigurationRoot Configuration { get; set; }
-		private static IServiceProvider _serviceProvider;
+
+		private static IMessageService _messageService;
+
+		public Program(IMessageService messageService)
+		{
+			_messageService = messageService;
+		}
 
 		private static void Main(string[] args)
 		{
-			//var builder = new ConfigurationBuilder()
-			//	.AddJsonFile("appsettings.json", false, true);
-			//Configuration = builder.Build();
-
-			//_serviceProvider = new ServiceCollection()
-			//	.AddDbContext<NyomContext>(o => o.UseSqlServer(Configuration["DefaultConnection"]))
-			//	.BuildServiceProvider();
-
-			//var serviceCollection = new ServiceCollection();
-
-			//serviceCollection.AddDbContext<NyomContext>(options =>
-			//	options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-			//ConfigureServices(serviceCollection);
-			
-			//var serviceProvider = serviceCollection.BuildServiceProvider();
-
-			//serviceProvider.GetService<NotificationProvider>().Start();
+			var qb = new QueueBuilder(_messageService);
+			var id = new Guid(args[0]);
+			qb.EnfileirarMensagens(id);
 		}
 
-		//private static void ConfigureServices(IServiceCollection serviceCollection)
-		//{
-			
-		//	serviceCollection.AddTransient<INotificationService, NotificationService>();
-		//	serviceCollection.AddTransient<INotificationRepository, NotificationRepository>();
-		//	serviceCollection.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
-		//	serviceCollection.AddTransient(typeof(IServiceBase<>), typeof(ServiceBase<>));
-			
-		//	serviceCollection.AddTransient<NotificationProvider>();
-		//}
+		
 	}
     //class Program
     //{
