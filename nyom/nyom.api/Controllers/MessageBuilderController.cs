@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using nyom.domain;
 using nyom.domain.Workflow.Campanha;
 using nyom.infra.CrossCutting.Helper;
 
@@ -23,7 +24,7 @@ namespace nyom.api.Controllers
 			try
 			{
 				var dadosCampanha = _campanhaWorkflowService.Find(a => a.CampanhaId.Equals(value));
-				dadosCampanha.Status = WorkflowStatus.MessageBuilderCompleted;
+				dadosCampanha.Status = Convert.ToInt32(WorkflowStatus.MessageBuilderCompleted);
 				_campanhaWorkflowService.Update(dadosCampanha);
 
 				return  HttpStatusCode.OK;

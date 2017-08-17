@@ -8,13 +8,7 @@ using nyom.domain.core.Interfaces;
 using nyom.domain.core.Models;
 using nyom.domain.core.MongoDb.Repository.Interface;
 using nyom.domain.core.MongoDb.Repository.Models;
-using nyom.domain.Crm.Campanha;
-using nyom.domain.Crm.Empresa;
-using nyom.domain.Crm.Pessoa;
-using nyom.domain.Crm.Templates;
-using nyom.domain.Message;
 using nyom.domain.Workflow.Campanha;
-using nyom.domain.Workflow.Workflow;
 using nyom.infra.CrossCutting.Helper;
 using nyom.infra.Data.EntityFramwork.Context;
 using nyom.infra.Data.EntityFramwork.Repositories;
@@ -27,19 +21,23 @@ namespace nyom.workflow.manager
 {
 	public class Program
 	{
-		public static IConfigurationRoot Configuration { get; set; }
 		private static IServiceProvider _serviceProvider;
 
-		// create service collection
+		public Program(IConfiguration configuration)
+		{
+			Configuration = configuration;
+		}
 
-		private static void Main(string[] args)
+		public static IConfiguration Configuration { get; set; }
+		
+		private static void Main()
 		{
 			var builder = new ConfigurationBuilder()
 				.AddJsonFile("appsettings.json", false, true);
 			Configuration = builder.Build();
 
 			_serviceProvider = new ServiceCollection()
-				.AddDbContext<CrmContext>(o => o.UseSqlServer(Configuration["CrmConnection"]))
+				.AddDbContext<CrmContext>(o => o.UseSqlServer(Configuration.GetConnectionString("CrmConnection")))
 				.BuildServiceProvider();
 
 			var serviceCollection = new ServiceCollection();
@@ -48,38 +46,25 @@ namespace nyom.workflow.manager
 				options.UseSqlServer(Configuration.GetConnectionString("WorkflowConnection")));
 
 			ConfigureServices(serviceCollection);
-			
+
 			var serviceProvider = serviceCollection.BuildServiceProvider();
 
-			serviceProvider.GetService<ManagerFactory>().VerificarStatusCampanha(Environment.GetEnvironmentVariable("CAMPANHA"));
+			serviceProvider.GetService<ManagerServices>().Start(Environment.GetEnvironmentVariable("CAMPANHA"));
 		}
 
 		private static void ConfigureServices(IServiceCollection services)
 		{
-			services.AddTransient<IWorkflowService, WorkflowService>();
-			services.AddTransient<IWorkflowRepository, WorkflowRepository>();
-			services.AddTransient<ITemplateService, TemplateService>();
-			services.AddTransient<ITemplateRepository, TemplateRepository>();
-			services.AddTransient<IPessoaService, PessoaService>();
-			services.AddTransient<IPessoaRepository, PessoaRepository>();
-			services.AddTransient<IEmpresaService, EmpresaService>();
-			services.AddTransient<IEmpresaRepository, EmpresaRepository>();
-			services.AddTransient<ICampanhaWorkflowService, CampanhaWorkflowService>();
-			services.AddTransient<ICampanhaWorkflowRepository, CampanhaWorkflowRepository>();
-			services.AddTransient<ICampanhaCrmService, CampanhaCrmService>();
-			services.AddTransient<ICampanhaCrmRepository, CampanhaCrmRepository>();
-			services.AddTransient(typeof(IManagerFactory), typeof(ManagerFactory));
-			services.AddTransient(typeof(IManagerServices), typeof(ManagerServices));
-			services.AddTransient(typeof(IMessageService), typeof(MessageServices));
-			services.AddTransient(typeof(IDockerHelper), typeof(DockerHelper));
-			services.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
-			services.AddTransient(typeof(IServiceBase<>), typeof(ServiceBase<>));
-			services.AddTransient(typeof(IRepositoryBaseCrm<>), typeof(RepositoryBaseCrm<>));
-			services.AddTransient(typeof(IServiceBaseCrm<>), typeof(ServiceBaseCrm<>));
-			services.AddTransient(typeof(IRepositoryBaseWorkflow<>), typeof(RepositoryBaseWorkflow<>));
-			services.AddTransient(typeof(IServiceBaseCrm<>), typeof(ServiceBaseWorkflow<>));
-
-			services.AddTransient<ManagerFactory>();
+			services.AddScoped<ICampanhaWorkflowRepository, CampanhaWorkflowRepository>();
+			services.AddScoped<ICampanhaWorkflowService, CampanhaWorkflowService>();
+			services.AddScoped<IManagerFactory, ManagerFactory>();
+			services.AddScoped<IDockerHelper, DockerHelper>();
+			services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+			services.AddScoped(typeof(IServiceBase<>), typeof(ServiceBase<>));
+			services.AddScoped(typeof(IRepositoryBaseCrm<>), typeof(RepositoryBaseCrm<>));
+			services.AddScoped(typeof(IServiceBaseCrm<>), typeof(ServiceBaseCrm<>));
+			services.AddScoped(typeof(IRepositoryBaseWorkflow<>), typeof(RepositoryBaseWorkflow<>));
+			services.AddScoped(typeof(IServiceBaseWorkflow<>), typeof(ServiceBaseWorkflow<>));
+			services.AddScoped<ManagerServices>();
 		}
 	}
 }

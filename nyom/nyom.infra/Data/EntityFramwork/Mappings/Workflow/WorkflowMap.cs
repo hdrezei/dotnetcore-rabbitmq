@@ -8,6 +8,8 @@ namespace nyom.infra.Data.EntityFramwork.Mappings.Workflow
 	{
 		public override void Map(EntityTypeBuilder<domain.Workflow.Workflow.Workflow> builder)
 		{
+			builder.HasKey(c => c.WorkflowId);
+
 			builder.Property(c => c.WorkflowId)
 				.HasColumnName("WorkflowId");
 
@@ -15,6 +17,9 @@ namespace nyom.infra.Data.EntityFramwork.Mappings.Workflow
 				.IsRequired();
 
 			builder.Property(c => c.TemplateId)
+				.IsRequired();
+
+			builder.Property(c => c.Publico)
 				.IsRequired();
 
 			builder.Property(c => c.Status)

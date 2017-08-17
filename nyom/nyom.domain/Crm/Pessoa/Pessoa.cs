@@ -21,6 +21,6 @@ namespace nyom.domain.Crm.Pessoa
 	    public string CEP { get; set; }	
 		public string Cidade { get; set; }
 		public string Estado { get; set; }
-		public object CampanhaId { get; set; }
+		public Guid CampanhaId { get; set; }
 	}
 }

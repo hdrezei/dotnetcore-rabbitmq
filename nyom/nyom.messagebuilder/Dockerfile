@@ -1,5 +1,5 @@
-﻿FROM microsoft/dotnet
+FROM microsoft/dotnet:latest
 RUN mkdir /nyom
 WORKDIR /nyom
 COPY /bin/Release/netcoreapp2.0/publish/ /nyom
-ENTRYPOINT ["dotnet","nyom.workflow.manager.dll"]
+ENTRYPOINT ["dotnet","nyom.messagebuilder.dll"]

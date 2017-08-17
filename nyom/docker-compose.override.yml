@@ -53,10 +53,20 @@ services:
     ports: 
       - 5700:5700 
     links: 
+      - mssql.workflow 
+    networks: 
+      - net.workflow  
+
+  nyom.messagebuilder: 
+    image: nyom.messagebuilder 
+    container_name: nyom.messagebuilder 
+    ports: 
+      - 5800:5800 
+    links: 
       - mssql.crm
     networks: 
       - net.workflow
-  
+
   mongo.messages: 
     image: mongo:latest 
     container_name: mongo.messages 

@@ -1,4 +1,5 @@
 ﻿using System;
+using nyom.domain;
 using nyom.domain.Message;
 using nyom.domain.Workflow.Workflow;
 using nyom.infra.CrossCutting.Helper;

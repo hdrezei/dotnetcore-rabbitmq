@@ -9,6 +9,8 @@ namespace nyom.infra.Data.EntityFramwork.Mappings.Crm
 	{
 		public override void Map(EntityTypeBuilder<Pessoa> builder)
 		{
+			builder.HasKey(c => c.PessoaId);
+
 			builder.Property(c => c.PessoaId)
 				.HasColumnName("PessoaId");
 
