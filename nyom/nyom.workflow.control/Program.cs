@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using nyom.domain.core.EntityFramework.Interfaces;
 using nyom.domain.core.EntityFramework.Models;
 using nyom.domain.core.Interfaces;
-using nyom.domain.core.Models;
 using nyom.domain.core.MongoDb.Repository.Interface;
 using nyom.domain.core.MongoDb.Repository.Models;
 using nyom.domain.Workflow.Campanha;

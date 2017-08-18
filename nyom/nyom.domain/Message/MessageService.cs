@@ -2,10 +2,10 @@
 
 namespace nyom.domain.Message
 {
-	public class MessageServices : ServiceBase<Message>, IMessageService
+	public class MessageService : ServiceBase<Message>, IMessageService
 	{
 		private readonly IMessageRepository _messageRepository;
-		public MessageServices(IMessageRepository messageRepository) : base(messageRepository)
+		public MessageService(IMessageRepository messageRepository) : base(messageRepository)
 		{
 			_messageRepository = messageRepository;
 		}

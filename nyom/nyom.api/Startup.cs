@@ -8,7 +8,6 @@ using Microsoft.Extensions.Options;
 using nyom.domain.core.EntityFramework.Interfaces;
 using nyom.domain.core.EntityFramework.Models;
 using nyom.domain.core.Interfaces;
-using nyom.domain.core.Models;
 using nyom.domain.core.MongoDb.Repository.Interface;
 using nyom.domain.core.MongoDb.Repository.Models;
 using nyom.domain.Crm.Campanha;
@@ -23,10 +22,8 @@ using nyom.infra.Data.EntityFramwork.Context;
 using nyom.infra.Data.EntityFramwork.Repositories;
 using nyom.infra.Data.MongoDb.Repositories;
 using nyom.infra.Data.MongoDb.Settings;
-using nyom.workflow.manager;
 using nyom.workflow.manager.Factory;
 using nyom.workflow.manager.Interfaces;
-using nyom.workflow.manager.Services;
 
 namespace nyom.api
 {
@@ -62,8 +59,8 @@ namespace nyom.api
 			services.AddScoped<ICampanhaCrmService, CampanhaCrmService>();
 			services.AddScoped<ICampanhaCrmRepository, CampanhaCrmRepository>();
 			services.AddScoped<IManagerFactory, ManagerFactory>();
-			services.AddScoped<IManagerServices, ManagerServices>();
-			services.AddScoped<IMessageService, MessageServices>();
+			//services.AddScoped<IManagerServices, ManagerServices>();
+			services.AddScoped<IMessageService, MessageService>();
 			services.AddScoped<IDockerHelper, DockerHelper>();
 			services.AddScoped(typeof(IServiceBaseCrm<>), typeof(ServiceBaseWorkflow<>));
 			services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));

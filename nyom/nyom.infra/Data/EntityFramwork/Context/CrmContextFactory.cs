@@ -6,11 +6,6 @@ namespace nyom.infra.Data.EntityFramwork.Context
 {
 	public class CrmContextFactory : IDesignTimeDbContextFactory<CrmContext>
 	{
-		//public CrmContext Create(DbContextFactoryOptions options)
-		//{
-		
-		//}
-
 		public CrmContext CreateDbContext(string[] args)
 		{
 			var optionsBuilder = new DbContextOptionsBuilder<CrmContext>();
