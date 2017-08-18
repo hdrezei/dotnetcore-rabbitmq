@@ -17,6 +17,9 @@ namespace nyom.infra.Data.EntityFramwork.Mappings.Workflow
 			builder.Property(c => c.TemplateId)
 				.IsRequired();
 
+			builder.Property(c => c.Publico)
+				.IsRequired();
+
 			builder.Property(c => c.Status)
 				.IsRequired();
 		}

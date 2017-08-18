@@ -12,6 +12,6 @@ namespace nyom.domain.Workflow.Workflow
 		public Guid TemplateId { get; set; }
 		public Guid CampanhaId { get; set; }
 		public int Status { get; set; }
-		public object Publico { get; set; }
+		public int Publico { get; set; }
 	}
 }
