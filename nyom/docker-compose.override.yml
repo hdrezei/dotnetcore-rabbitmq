@@ -51,7 +51,7 @@ services:
     image: nyom.workflow.manager 
     container_name: nyom.workflow.manager 
     ports: 
-      - 5700:5700 
+      - 5701:5701 
     links: 
       - mssql.workflow 
     networks: 
