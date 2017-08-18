@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using nyom.domain;
 using nyom.domain.Message;
 using nyom.infra.CrossCutting.Helper;
 

@@ -1,11 +1,9 @@
-﻿using System;
-using nyom.domain.Workflow.Campanha;
-using nyom.infra.CrossCutting.Helper;
+﻿using nyom.domain.Workflow.Campanha;
 using nyom.workflow.manager.Interfaces;
 
 namespace nyom.workflow.manager.Services
 {
-	public class ManagerServices : IManagerServices
+	public class ManagerServices 
 	{
 	    private static ICampanhaWorkflowRepository _campanhaWorkflowRepository;
 		private static IManagerFactory _managerFactory;
@@ -17,22 +15,9 @@ namespace nyom.workflow.manager.Services
 
 	    }
 
-		public void Start(string Id)
+		public void Start(string id)
 		{
-			var dadosCampanha = _campanhaWorkflowRepository.Find(a => a.CampanhaId.Equals(Id));
-
-			_managerFactory.VerificarStatusCampanha(dadosCampanha.CampanhaId.ToString());
+			_managerFactory.VerificarStatusCampanha(id);
 		}
-
-
-
-		public void AtualizarStatusCampanha(Guid id, WorkflowStatus status)
-	    {
-		    var dadosCampanha = _campanhaWorkflowRepository.Get(id);
-		    dadosCampanha.Status = status;
-		    _campanhaWorkflowRepository.Save(dadosCampanha);
-	    }
-
-		
 	}
 }

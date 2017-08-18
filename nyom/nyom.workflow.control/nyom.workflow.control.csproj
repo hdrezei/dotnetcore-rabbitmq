@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <ApplicationIcon />
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <StartupObject />
   </PropertyGroup>
 
@@ -26,6 +26,10 @@
     <ProjectReference Include="..\nyom.infra\nyom.infra.csproj" />
     <ProjectReference Include="..\nyom.messagebuilder\nyom.messagebuilder.csproj" />
     <ProjectReference Include="..\nyom.workflow.manager\nyom.workflow.manager.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.NETCore.App" Version="2.0.0" />
   </ItemGroup>
 
 </Project>

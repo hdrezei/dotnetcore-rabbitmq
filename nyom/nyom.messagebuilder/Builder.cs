@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using nyom.domain;
 using nyom.domain.Crm.Campanha;
 using nyom.domain.Crm.Pessoa;
 using nyom.domain.Crm.Templates;
 using nyom.domain.Message;
-using Newtonsoft.Json;
-using static nyom.infra.CrossCutting.Helper.WorkflowStatus;
+
 
 namespace nyom.messagebuilder
 {
@@ -76,7 +76,7 @@ namespace nyom.messagebuilder
 					DataEntregaMensagens = DateTime.Now,
 					Id = dadosCampanha.CampanhaId.ToString(),
 					Mensagem = dadosTemplate.Mensagem,
-					Status = MessageBuilderCompleted,
+					Status = WorkflowStatus.MessageBuilderCompleted,
 					TemplateId = dadosTemplate.TemplateId.ToString()
 				};
 				_messageService.SaveOneAsync(message);

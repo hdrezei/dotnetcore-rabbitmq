@@ -1,42 +1,43 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
-using nyom.domain.Message;
+using nyom.domain;
 using nyom.domain.Workflow.Campanha;
 using nyom.infra.CrossCutting.Helper;
-using nyom.workflow.manager;
-using nyom.workflow.manager.Interfaces;
 
 namespace nyom.workflow.control
 {
 	public class Campanhas
 	{
-		private Timer _tm;
-		private AutoResetEvent _autoEvent;
+		public AutoResetEvent AutoEvent;
 		private readonly ICampanhaWorkflowService _campanhaWorkflowService;
-		private readonly IManagerServices _managerServices;
 		private readonly IDockerHelper _dockerHelper;
 
 		public Campanhas(ICampanhaWorkflowService campanhaWorkflowService,
-			IManagerServices managerServices, IDockerHelper dockerHelper)
+			IDockerHelper dockerHelper)
 		{
 			_campanhaWorkflowService = campanhaWorkflowService;
-			_managerServices = managerServices;
 			_dockerHelper = dockerHelper;
 		}
 
 		public void Start()
 		{
-			_autoEvent = new AutoResetEvent(false);
-			_tm = new Timer(BuscarCampanhas, _autoEvent, 3600, 3600);
+			//AutoEvent = new AutoResetEvent(false);
+			//new Timer(BuscarCampanhas, AutoEvent, 3600, 3600);
+			//AutoEvent.WaitOne();
+
+			BuscarCampanhas();
 		}
 
-		public void BuscarCampanhas(object stateInfo)
+		//public void BuscarCampanhas(object stateInfo)
+		public void BuscarCampanhas()
 		{
-			var dadosCampanha = _campanhaWorkflowService.FindAll(a => a.Status.Equals(WorkflowStatus.Ready))
-				.OrderByDescending(a => a.DataCriacao).SingleOrDefault();
+			var dadosCampanha = _campanhaWorkflowService.FindAll(a => a.Status.Equals(Convert.ToInt16(WorkflowStatus.Ready)))
+				.OrderBy(a => a.DataCriacao).FirstOrDefault();
 			if (dadosCampanha == null) return;
-			
-			_managerServices.AtualizarStatusCampanha(dadosCampanha.CampanhaId, WorkflowStatus.WorkflowManager);
+
+			_campanhaWorkflowService.AtualizarStatusCampanha(dadosCampanha.CampanhaId, WorkflowStatus.WorkflowManager);
+
 			_dockerHelper.CriarContainerDocker(dadosCampanha.CampanhaId, "nyom.workflow.manager");
 		}
 	}

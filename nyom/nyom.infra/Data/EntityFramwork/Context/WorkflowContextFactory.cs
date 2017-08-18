@@ -14,7 +14,7 @@ namespace nyom.infra.Data.EntityFramwork.Context
 		{
 			var optionsBuilder = new DbContextOptionsBuilder<WorkflowContext>();
 
-			optionsBuilder.UseSqlServer("Server=mssql.workflow; Database=workflow; User ID=sa; Password=nyom.workflow-7410");
+			optionsBuilder.UseSqlServer("Server=localhost,1433; Database=workflow; User ID=sa; Password=nyom.workflow-7410");
 
 			return new WorkflowContext(optionsBuilder.Options);
 		}

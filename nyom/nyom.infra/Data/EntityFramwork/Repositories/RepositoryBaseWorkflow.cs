@@ -67,6 +67,7 @@ namespace nyom.infra.Data.EntityFramwork.Repositories
 		    var entry = Db.Entry(obj);
 		    DbSet.Attach(obj);
 		    entry.State = EntityState.Modified;
+		    Db.SaveChanges();
 		    return obj;
 	    }
 	}
