@@ -1,9 +1,8 @@
-﻿using nyom.domain.core.MongoDb.IEntity;
-
+﻿using nyom.domain.core.MongoDb.Repository.Interface;
 
 namespace nyom.domain.Logs
 {
-   public class Logs : IEntity
+   public class Logs : IEntity<string>
    {
 	    public string Id { get; set; }
 		public string LogMessage { get; set; }

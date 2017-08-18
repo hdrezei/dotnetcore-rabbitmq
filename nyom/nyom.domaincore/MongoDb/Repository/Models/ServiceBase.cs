@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using nyom.domain.core.MongoDb.IEntity;
-
 using nyom.domain.core.MongoDb.Repository.Interface;
 
 namespace nyom.domain.core.MongoDb.Repository.Models

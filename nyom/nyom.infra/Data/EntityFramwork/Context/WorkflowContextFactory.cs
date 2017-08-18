@@ -5,11 +5,7 @@ namespace nyom.infra.Data.EntityFramwork.Context
 {
 	public class WorkflowContextFactory : IDesignTimeDbContextFactory<WorkflowContext>
 	{
-		//public WorkflowContext Create(DbContextFactoryOptions options)
-		//{
-			
-		//}
-
+		
 		public WorkflowContext CreateDbContext(string[] args)
 		{
 			var optionsBuilder = new DbContextOptionsBuilder<WorkflowContext>();

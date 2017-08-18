@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using nyom.domain.core.MongoDb.IEntity;
 using nyom.domain.core.MongoDb.Repository.Interface;
 using nyom.infra.Data.MongoDb.Context;
 using nyom.infra.Data.MongoDb.Settings;
@@ -14,20 +13,20 @@ using nyom.infra.Data.MongoDb.Settings;
 namespace nyom.infra.Data.MongoDb.Repositories
 {
 	public  class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
-		where TEntity : IEntity
+		where TEntity : IEntity<string>
 	{
 		protected readonly MongoMessageContext<TEntity> _context;
+		protected string CollectionName => Environment.GetEnvironmentVariable("CAMPANHA");
 
-		protected RepositoryBase(IOptions<MongoDbSettings> settings, string collectionName)
+		protected RepositoryBase(IOptions<MongoDbSettings> settings)
 		{
-			_context = new MongoMessageContext<TEntity>(settings, collectionName);
+			_context = new MongoMessageContext<TEntity>(settings, CollectionName);
 		}
 
 		public void Dispose()
 		{
 			throw new NotImplementedException();
 		}
-
 
 		public IList<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate)
 		{
