@@ -29,6 +29,7 @@ namespace nyom.messagebuilder
 	public class Program
 	{
 		private static IServiceProvider _serviceProvider;
+		private static object _context;
 
 		public Program(IConfiguration configuration)
 		{
@@ -76,6 +77,7 @@ namespace nyom.messagebuilder
 			services.AddScoped(typeof(IServiceBaseCrm<>), typeof(ServiceBaseCrm<>));
 			services.AddScoped<Builder>();
 			services.AddScoped<IMessageRepository, MessageRepository>();
+			services.Configure<CrmContext>((o) => new TemplateRepository(o));
 		}
 	}
 }
