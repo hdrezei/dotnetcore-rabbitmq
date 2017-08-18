@@ -28,37 +28,48 @@ namespace nyom.workflow.manager.Factory
 
 			switch (workflowStatus)
 			{
-				case 1:
+				case (int)WorkflowStatus.Ready:
 					_campanhaWorkflowService.AtualizarStatusCampanha(Id, WorkflowStatus.MessageBuilder);
 					_dockerHelper.CriarContainerDocker(Id, "nyom.messagebuilder");
 					break;
 
-				case 3:
-				case 5:
-				case 7:
+				case (int)WorkflowStatus.MessageBuilder:
+				case (int)WorkflowStatus.QueueBuilder:
+				case (int)WorkflowStatus.PushSender:
+                case (int)WorkflowStatus.LoggingCleanup:
 					break;
 
-				case 4:
+				case (int)WorkflowStatus.MessageBuilderCompleted:
 					_campanhaWorkflowService.AtualizarStatusCampanha(Id, WorkflowStatus.QueueBuilder);
 					_dockerHelper.CriarContainerDocker(Id, "nyom.queuebuilder");
 					break;
 
-				case 6:
+				case (int)WorkflowStatus.QueueBuilderCompleted:
 					_campanhaWorkflowService.AtualizarStatusCampanha(Id, WorkflowStatus.PushSender);
 					_dockerHelper.CriarContainerDocker(Id, "nyom.pushsender");
 					break;
-				case 8:
+
+				case (int)WorkflowStatus.PushSenderCompleted:
 					_campanhaWorkflowService.AtualizarStatusCampanha(Id, WorkflowStatus.LoggingCleanup);
 					_dockerHelper.CriarContainerDocker(Id, "nyom.mongo.logs");
 					break;
-				case 10:
+
+				case (int)WorkflowStatus.LoggingCleanupCompleted:
 					_campanhaWorkflowService.AtualizarStatusCampanha(Id, WorkflowStatus.Finished);
 					break;
-				case 11:
+
+				case (int)WorkflowStatus.Finished:
 					break;
-				case 12:
+
+				case (int)WorkflowStatus.Error:
 					break;
-				default:
+
+                case (int)WorkflowStatus.Blocked:
+                    break;
+
+                case (int)WorkflowStatus.Cancelled:
+                    break;
+                default:
 					throw new ArgumentOutOfRangeException(nameof(workflowStatus), workflowStatus, null);
 			}
 		}
