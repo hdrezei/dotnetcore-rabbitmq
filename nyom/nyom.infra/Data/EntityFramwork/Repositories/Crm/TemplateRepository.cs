@@ -1,4 +1,5 @@
-﻿using nyom.domain.Crm.Templates;
+﻿using Microsoft.Extensions.Options;
+using nyom.domain.Crm.Templates;
 using nyom.infra.Data.EntityFramwork.Context;
 
 namespace nyom.infra.Data.EntityFramwork.Repositories

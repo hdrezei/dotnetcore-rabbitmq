@@ -10,7 +10,7 @@ using System;
 
 namespace nyom.infra.Migrations.Crm
 {
-    [DbContext(typeof(CrmContext))]
+  
     [Migration("20170817180832_CrmMigration17082017-2")]
     partial class CrmMigration170820172
     {

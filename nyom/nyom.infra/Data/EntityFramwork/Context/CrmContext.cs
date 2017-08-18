@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using nyom.domain.Crm.Campanha;
 using nyom.domain.Crm.Empresa;
 using nyom.domain.Crm.Pessoa;
@@ -11,10 +12,17 @@ namespace nyom.infra.Data.EntityFramwork.Context
 {
 	public class CrmContext : DbContext
 	{
+		private IOptions<ContextSettings> _settings;
+
 		public CrmContext(DbContextOptions options) : base(options)
 		{
 		}
-		
+
+		public CrmContext(IOptions<ContextSettings> settings, DbContextOptions options):base(options)
+		{
+			this._settings = settings;
+		}
+
 		public DbSet<CampanhaCrm> Campanhas { get; set; }
 		public DbSet<Empresa> Empresas { get; set; }
 		public DbSet<Pessoa> Pessoas { get; set; }

@@ -72,8 +72,8 @@ namespace nyom.api
 
 			//services.AddScoped(typeof(IMessageRepository), typeof(RepositoryBase<Message>));
 			services.AddScoped<IMessageRepository, MessageRepository>();
-			services.Configure<IOptions<MongoDbSettings>>(
-				(o) => new MessageRepository(o, Environment.GetEnvironmentVariable("CAMPANHA")));
+			////services.Configure<IOptions<MongoDbSettings>>(
+			////	(o) => new MessageRepository(o, Environment.GetEnvironmentVariable("CAMPANHA")));
 
 		}
 	

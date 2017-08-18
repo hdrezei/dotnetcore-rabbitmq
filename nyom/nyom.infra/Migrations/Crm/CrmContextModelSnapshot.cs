@@ -10,7 +10,7 @@ using System;
 
 namespace nyom.infra.Migrations.Crm
 {
-    [DbContext(typeof(CrmContext))]
+   
     partial class CrmContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
