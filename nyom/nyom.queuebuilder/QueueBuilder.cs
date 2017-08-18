@@ -3,27 +3,59 @@ using nyom.domain;
 using nyom.domain.Message;
 using nyom.domain.Workflow.Workflow;
 using nyom.infra.CrossCutting.Helper;
+using RabbitMQ.Client;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace nyom.queuebuilder
 {
-	public class QueueBuilder
-	{
+    public class QueueBuilder
+    {
+        private readonly IMessageService _messageService;
 
-		private readonly IMessageService _messageService;
+        public QueueBuilder(IMessageService messageService)
+        {
+            _messageService = messageService;
+        }
 
-		public QueueBuilder(IMessageService messageService)
-		{
-			_messageService = messageService;
-		}
+        public void EnfileirarMensagens(Guid id)
+        {
+            var messages = _messageService.FindAll(a => a.Status.Equals(WorkflowStatus.QueueBuilder));
 
-		public void EnfileirarMensagens(Guid id)
-		{
-			var mensagens = _messageService.FindAll(a => a.Status.Equals(WorkflowStatus.QueueBuilder));
-			if (mensagens == null)
-			{
-				return;
-			}
-			
-		}
-	}
+            if (messages == null)
+            {
+                return;
+            }
+
+            var factory = new ConnectionFactory() { HostName = "localhost", Port = 5672, UserName = "guest", Password = "guest" };
+
+            using (var connection = factory.CreateConnection())
+            {
+                using (var channel = connection.CreateModel())
+                {
+                    channel.QueueDeclare(queue: id.ToString(),
+                                         durable: false,
+                                         exclusive: false,
+                                         autoDelete: true,
+                                         arguments: null);
+
+                    // Log Splunk
+                    // Console.WriteLine(" [x] Sent {0}", args[0]);
+                    
+                    foreach (var message in messages)
+                    {
+                        var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message, Formatting.Indented));
+
+                        var properties = channel.CreateBasicProperties();
+                        properties.Persistent = true;
+
+                        channel.BasicPublish(exchange: "",
+                                             routingKey: id.ToString(),
+                                             basicProperties: null,
+                                             body: body);
+                    }
+                }
+            }
+        }
+    }
 }

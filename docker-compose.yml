@@ -37,8 +37,8 @@ services:
     networks:
       - net.workflow
 
-  nyom.workflow:
-    image: nyom.workflow
+  nyom.workflow.control:
+    image: nyom.workflow.control
     container_name: nyom.workflow
     ports:
       - 5600:5600
