@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace nyom.domain.Workflow.Campanha
 {
-    public class CampanhaWorkflow
+    public class CampanhaWorkflow : BaseEntity
     {
 	    public CampanhaWorkflow()
 	    {

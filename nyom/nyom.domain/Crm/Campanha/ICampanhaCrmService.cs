@@ -1,10 +1,8 @@
-﻿using System;
-using nyom.domain.core.EntityFramework.Interfaces;
-using nyom.domain.core.Interfaces;
+﻿using nyom.domain.core.EntityFramework.Interfaces;
 
 namespace nyom.domain.Crm.Campanha
 {
-	public interface ICampanhaCrmService : IServiceBaseCrm<CampanhaCrm>
+	public interface ICampanhaCrmService : IServiceBase<CampanhaCrm>
 	{
 	}
 }

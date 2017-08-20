@@ -1,13 +1,15 @@
-﻿using nyom.domain.core.EntityFramework.Models;
+﻿using nyom.domain.core.EntityFramework.Interfaces;
+using nyom.domain.core.EntityFramework.Models;
 
 namespace nyom.domain.Crm.Campanha
 {
-	public class CampanhaCrmService : ServiceBaseCrm<CampanhaCrm> , ICampanhaCrmService
+	public class CampanhaCrmService : ServiceBase<CampanhaCrm> , ICampanhaCrmService
 	{
 		private readonly ICampanhaCrmRepository _campanhaRepository;
+
 		public CampanhaCrmService(ICampanhaCrmRepository campanhaRepository) : base(campanhaRepository)
 		{
-			_campanhaRepository = campanhaRepository;
+		    _campanhaRepository = campanhaRepository;
 		}
 	}
 }

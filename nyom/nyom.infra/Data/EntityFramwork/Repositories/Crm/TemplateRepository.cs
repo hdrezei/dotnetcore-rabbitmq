@@ -1,12 +1,11 @@
-﻿using Microsoft.Extensions.Options;
-using nyom.domain.Crm.Templates;
+﻿using nyom.domain.Crm.Templates;
 using nyom.infra.Data.EntityFramwork.Context;
 
-namespace nyom.infra.Data.EntityFramwork.Repositories
+namespace nyom.infra.Data.EntityFramwork.Repositories.Crm
 {
-	public class TemplateRepository : RepositoryBaseCrm<Template>, ITemplateRepository
+	public class TemplateRepository : RepositoryBase<Template>, ITemplateRepository
 	{
-		public TemplateRepository(CrmContext context) : base(context)
+		public TemplateRepository(IDbContext context) : base(context)
 		{
 		}
 	}

@@ -1,10 +1,8 @@
-﻿
-using nyom.domain.core.Interfaces;
+﻿using nyom.domain.core.EntityFramework.Interfaces;
 
 namespace nyom.domain.Workflow.Workflow
 {
-	public interface IWorkflowRepository : IRepositoryBaseWorkflow<Workflow>
+	public interface IWorkflowRepository : IRepositoryBase<Workflow>
 	{
-		
 	}
 }

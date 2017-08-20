@@ -5,7 +5,7 @@ using nyom.infra.Data.EntityFramwork.Extensions;
 
 namespace nyom.infra.Data.EntityFramwork.Mappings.Workflow
 {
-	public class CampanhaMap : EntityTypeConfiguration<CampanhaWorkflow>
+	public class CampanhaWorkflowMap : EntityTypeConfiguration<CampanhaWorkflow>
 	{
 		public override void Map(EntityTypeBuilder<CampanhaWorkflow> builder)
 		{
@@ -33,6 +33,8 @@ namespace nyom.infra.Data.EntityFramwork.Mappings.Workflow
 
 			builder.Property(c => c.Publico)
 				.IsRequired();
+
+		    builder.ToTable("Campanha");
 		}
 	}
 }

@@ -1,11 +1,10 @@
 ﻿using nyom.domain.Workflow.Campanha;
-using nyom.infra.Data.EntityFramwork.Context;
 
-namespace nyom.infra.Data.EntityFramwork.Repositories
+namespace nyom.infra.Data.EntityFramwork.Repositories.Workflow
 {
-	public class CampanhaWorkflowRepository :RepositoryBaseWorkflow<CampanhaWorkflow>, ICampanhaWorkflowRepository
+	public class CampanhaWorkflowRepository :RepositoryBase<CampanhaWorkflow>, ICampanhaWorkflowRepository
 	{
-		public CampanhaWorkflowRepository(WorkflowContext context) : base(context)
+		public CampanhaWorkflowRepository(IDbContext context) : base(context)
 		{
 		}
 	}

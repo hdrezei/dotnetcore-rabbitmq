@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Crm.Pessoa
 {
-	public class PessoaService : ServiceBaseCrm<Pessoa>, IPessoaService
+	public class PessoaService : ServiceBase<Pessoa>, IPessoaService
 	{
 		private readonly IPessoaRepository _pessoaRepository;
 		public PessoaService(IPessoaRepository pessoaRepository) : base(pessoaRepository)

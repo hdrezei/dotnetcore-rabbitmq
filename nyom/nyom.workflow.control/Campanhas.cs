@@ -34,7 +34,12 @@ namespace nyom.workflow.control
 		{
 			var dadosCampanha = _campanhaWorkflowService.FindAll(a => a.Status.Equals(Convert.ToInt16(WorkflowStatus.Ready)))
 				.OrderBy(a => a.DataCriacao).FirstOrDefault();
-			if (dadosCampanha == null) return;
+		    if (dadosCampanha == null)
+		    {
+		        Console.WriteLine("Não há campanhas");
+		        return;
+            }
+		  
 
 			_campanhaWorkflowService.AtualizarStatusCampanha(dadosCampanha.CampanhaId, WorkflowStatus.WorkflowManager);
 

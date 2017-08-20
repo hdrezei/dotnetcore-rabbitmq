@@ -3,8 +3,17 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Data\EntityFramwork\Context\CrmContextFactory.cs" />
     <Compile Remove="Data\EntityFramwork\Context\NyomContext.cs" />
     <Compile Remove="Data\EntityFramwork\Context\NyomContextFactory.cs" />
+    <Compile Remove="Data\EntityFramwork\Context\WorkflowContextFactory.cs" />
+    <Compile Remove="Data\EntityFramwork\Repositories\RepositoryBaseCrm.cs" />
+    <Compile Remove="Data\EntityFramwork\Repositories\RepositoryBaseWorkflow.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.0" />

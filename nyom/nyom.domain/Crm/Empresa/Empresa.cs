@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Crm.Empresa
 {
-    public class Empresa
+    public class Empresa : BaseEntity
     {
 	    public Empresa()
 	    {

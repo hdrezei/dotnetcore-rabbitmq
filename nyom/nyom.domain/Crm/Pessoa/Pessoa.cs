@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Crm.Pessoa
 {
-    public class Pessoa
+    public class Pessoa : BaseEntity
     {
 	    public Pessoa()
 	    {

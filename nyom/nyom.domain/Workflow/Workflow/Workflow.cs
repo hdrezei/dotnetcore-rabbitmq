@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Workflow.Workflow
 {
-    public class Workflow
+    public class Workflow : BaseEntity
     {
 	    public Workflow()
 	    {

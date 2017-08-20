@@ -1,11 +1,8 @@
-﻿
-using nyom.domain.core.EntityFramework.Interfaces;
-using nyom.domain.core.Interfaces;
+﻿using nyom.domain.core.EntityFramework.Interfaces;
 
 namespace nyom.domain.Crm.Campanha
 {
-	public interface ICampanhaCrmRepository : IRepositoryBaseCrm<CampanhaCrm>
+	public interface ICampanhaCrmRepository : IRepositoryBase<CampanhaCrm>
 	{
-		
 	}
 }

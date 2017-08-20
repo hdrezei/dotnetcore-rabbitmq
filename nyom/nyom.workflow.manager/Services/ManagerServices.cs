@@ -5,14 +5,11 @@ namespace nyom.workflow.manager.Services
 {
 	public class ManagerServices 
 	{
-	    private static ICampanhaWorkflowRepository _campanhaWorkflowRepository;
-		private static IManagerFactory _managerFactory;
+	    private static IManagerFactory _managerFactory;
 
-	    public ManagerServices(ICampanhaWorkflowRepository campanhaWorkflowRepository, IManagerFactory managerFactory)
+	    public ManagerServices( IManagerFactory managerFactory)
 	    {
-		    _campanhaWorkflowRepository = campanhaWorkflowRepository;
-		    _managerFactory = managerFactory;
-
+	        _managerFactory = managerFactory;
 	    }
 
 		public void Start(string id)

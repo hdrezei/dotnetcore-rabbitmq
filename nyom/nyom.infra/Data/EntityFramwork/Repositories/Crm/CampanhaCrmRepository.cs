@@ -1,11 +1,10 @@
 ﻿using nyom.domain.Crm.Campanha;
-using nyom.infra.Data.EntityFramwork.Context;
 
-namespace nyom.infra.Data.EntityFramwork.Repositories
+namespace nyom.infra.Data.EntityFramwork.Repositories.Crm
 {
-	public class CampanhaCrmRepository : RepositoryBaseCrm<CampanhaCrm>, ICampanhaCrmRepository
+	public class CampanhaCrmRepository : RepositoryBase<CampanhaCrm>, ICampanhaCrmRepository
 	{
-		public CampanhaCrmRepository(CrmContext context) : base(context)
+		public CampanhaCrmRepository(IDbContext context) : base(context)
 		{
 		}
 	}

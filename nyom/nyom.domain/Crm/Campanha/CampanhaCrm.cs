@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace nyom.domain.Crm.Campanha
 {
-    public class CampanhaCrm
+    public class CampanhaCrm: BaseEntity
     {
 	    public CampanhaCrm()
 	    {

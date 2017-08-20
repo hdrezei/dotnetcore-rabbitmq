@@ -16,9 +16,10 @@ namespace nyom.infra.Data.MongoDb.Repositories
 		where TEntity : IEntity<string>
 	{
 		protected readonly MongoMessageContext<TEntity> _context;
-		protected string CollectionName => Environment.GetEnvironmentVariable("CAMPANHA");
+        //protected string CollectionName => Environment.GetEnvironmentVariable("CAMPANHA");
+	    protected string CollectionName => "Campanha";
 
-		protected RepositoryBase(IOptions<MongoDbSettings> settings)
+        protected RepositoryBase(IOptions<MongoDbSettings> settings)
 		{
 			_context = new MongoMessageContext<TEntity>(settings, CollectionName);
 		}

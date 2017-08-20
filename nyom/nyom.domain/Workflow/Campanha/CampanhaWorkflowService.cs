@@ -3,7 +3,7 @@ using nyom.domain.core.EntityFramework.Models;
 
 namespace nyom.domain.Workflow.Campanha
 {
-	public class CampanhaWorkflowService : ServiceBaseWorkflow<CampanhaWorkflow> , ICampanhaWorkflowService
+	public class CampanhaWorkflowService : ServiceBase<CampanhaWorkflow> , ICampanhaWorkflowService
 	{
 		private readonly ICampanhaWorkflowRepository _campanhaRepository;
 		public CampanhaWorkflowService(ICampanhaWorkflowRepository campanhaRepository) : base(campanhaRepository)

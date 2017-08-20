@@ -1,9 +1,8 @@
-﻿using nyom.domain.core.Interfaces;
+﻿using nyom.domain.core.EntityFramework.Interfaces;
 
 namespace nyom.domain.Workflow.Campanha
 {
-	public interface ICampanhaWorkflowRepository : IRepositoryBaseWorkflow<CampanhaWorkflow>
+	public interface ICampanhaWorkflowRepository : IRepositoryBase<CampanhaWorkflow>
 	{
-		
 	}
 }

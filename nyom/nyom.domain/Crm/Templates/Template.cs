@@ -2,7 +2,7 @@
 
 namespace nyom.domain.Crm.Templates
 {
-    public class Template
+    public class Template : BaseEntity
     {
 	    public Template()
 	    {

@@ -8,23 +8,18 @@ namespace nyom.infra.Data.MongoDb.Context
 
 	public class MongoMessageContext<TEntity>
 	{
-		private IMongoDatabase _database = null;
-
-		private readonly string _collectionName = null;
+		private readonly IMongoDatabase _database = null;
+	    public static IConfiguration Configuration { get; set; }
+        private readonly string _collectionName = null;
 
 		public MongoMessageContext(IOptions<MongoDbSettings> settings, string collectionName)
 		{
 
-			var client = new MongoClient(settings.Value.ConnectionString);
-			if (client != null)
-			{
-				_database = client.GetDatabase(settings.Value.Database);
-			}
-
-			_collectionName = collectionName;
+			//var client = new MongoClient(settings.Value.ConnectionString);
+            var client = new MongoClient("mongodb://localhost:27016/MongoMessage");
+            _database = client.GetDatabase("MongoMessage");
+		    _collectionName = collectionName;
 		}
-
 		public IMongoCollection<TEntity> Collection => _database.GetCollection<TEntity>(_collectionName);
 	}
-
 }

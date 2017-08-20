@@ -8,13 +8,11 @@ namespace nyom.workflow.manager.Factory
 {
 	public class ManagerFactory : IManagerFactory
 	{
-		
 		private readonly IDockerHelper _dockerHelper;
 		private readonly ICampanhaWorkflowService _campanhaWorkflowService;
 
 		public ManagerFactory( IDockerHelper dockerHelper, ICampanhaWorkflowService campanhaWorkflowService)
 		{
-			
 			_dockerHelper = dockerHelper;
 			_campanhaWorkflowService = campanhaWorkflowService;
 		}
@@ -22,13 +20,13 @@ namespace nyom.workflow.manager.Factory
 		public void VerificarStatusCampanha(string id)
 		{
 			//var Id = new Guid(id);
-			var Id = new Guid("4063debe-6ea0-4c54-b36e-2c65d0d6d060");
+			var Id = new Guid("0a120ae1-23c6-4dc6-a808-0de1db7ecd47");
 			var dadosCampanha = _campanhaWorkflowService.Find(a => a.CampanhaId.Equals(Id));
 			var workflowStatus = dadosCampanha.Status;
 
 			switch (workflowStatus)
 			{
-				case (int)WorkflowStatus.Ready:
+				case (int)WorkflowStatus.WorkflowManager:
 					_campanhaWorkflowService.AtualizarStatusCampanha(Id, WorkflowStatus.MessageBuilder);
 					_dockerHelper.CriarContainerDocker(Id, "nyom.messagebuilder");
 					break;

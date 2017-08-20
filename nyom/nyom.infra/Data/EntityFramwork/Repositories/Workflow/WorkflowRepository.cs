@@ -1,11 +1,11 @@
 ﻿using nyom.domain.Workflow.Workflow;
 using nyom.infra.Data.EntityFramwork.Context;
 
-namespace nyom.infra.Data.EntityFramwork.Repositories
+namespace nyom.infra.Data.EntityFramwork.Repositories.Workflow
 {
-	public class WorkflowRepository : RepositoryBaseWorkflow<Workflow>, IWorkflowRepository
+	public class WorkflowRepository : RepositoryBase<domain.Workflow.Workflow.Workflow>, IWorkflowRepository
 	{
-		public WorkflowRepository(WorkflowContext context) : base(context)
+		public WorkflowRepository(IDbContext context) : base(context)
 		{
 		}
 	}
