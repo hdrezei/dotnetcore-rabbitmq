@@ -52,6 +52,8 @@ services:
     container_name: mongo.messages
     volumes:
       - ./data/db/messages:/data/db
+    command:
+      --smallfiles  
     ports:
       - 27017:27017
     networks:
@@ -71,6 +73,8 @@ services:
     container_name: mongo.logs
     volumes:
       - ./data/db/logs:/data/db
+    command:
+      --smallfiles
     ports:
       - 27018:27017
     networks:
