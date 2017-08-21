@@ -10,6 +10,7 @@ using nyom.domain.Crm.Templates;
 using nyom.domain.Message;
 using nyom.infra;
 using nyom.infra.CrossCutting.Helper;
+using nyom.infra.CrossCutting.Services;
 using nyom.infra.Data.EntityFramwork.Context;
 using nyom.infra.Data.EntityFramwork.Repositories.Crm;
 using nyom.infra.Data.MongoDb.Repositories;
@@ -51,8 +52,6 @@ namespace nyom.messagebuilder
             services.AddOptions();
 
             services.AddSingleton<IConfiguration>(Configuration);
-           
-
             services.AddScoped<ITemplateService, TemplateService>();
             services.AddScoped<ITemplateRepository, TemplateRepository>();
             services.AddScoped<IPessoaService, PessoaService>();
@@ -62,6 +61,8 @@ namespace nyom.messagebuilder
             services.AddScoped<IManagerFactory, ManagerFactory>();
             services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<IDockerHelper, DockerHelper>();
+	        services.AddScoped<IAtualizarStatus, AtualizarStatus>();
+
             services.AddScoped(typeof(IRepositoryBase<>),
                 typeof(infra.Data.EntityFramwork.Repositories.RepositoryBase<>));
             services.AddScoped(typeof(IServiceBase<>), typeof(ServiceBase<>));
@@ -74,13 +75,9 @@ namespace nyom.messagebuilder
             services.AddScoped<Builder>();
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddTransient<IDbContext, CrmContext>();
-            //services.AddScoped(typeof(IOptions<>));
             services.Configure<MongoDbSettings>(options => Configuration.GetSection("MongoDbSettings").Bind(options));
             services.Configure<IOptions<MongoDbSettings>>(
                 o => new MessageRepository(o));
         }
-
-
     }
-    
 }

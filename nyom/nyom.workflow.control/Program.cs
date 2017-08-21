@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nyom.domain.Workflow.Campanha;
 using nyom.infra;
@@ -14,23 +12,15 @@ namespace nyom.workflow.control
 {
 	public class Program
 	{
-		private static IServiceProvider _serviceProvider;
-
-		public Program(IConfiguration configuration)
-		{
-			Configuration = configuration;
-		}
-
-		public static IConfiguration Configuration { get; set; }
+		public static IConfigurationRoot Configuration { get; set; }
 		// create service collection
 
 		private static void Main()
 		{
+			
 			var builder = new ConfigurationBuilder()
 				.AddJsonFile("appsettings.json", false, true);
 			Configuration = builder.Build();
-
-		   
 
             var serviceCollection = new ServiceCollection();
 			
@@ -43,8 +33,7 @@ namespace nyom.workflow.control
 
 		private static void ConfigureServices(IServiceCollection services)
 		{
-
-            services.AddScoped<ICampanhaWorkflowRepository, CampanhaWorkflowRepository>();
+			services.AddScoped<ICampanhaWorkflowRepository, CampanhaWorkflowRepository>();
 			services.AddScoped<ICampanhaWorkflowService, CampanhaWorkflowService>();
 			services.AddScoped<IManagerFactory, ManagerFactory>();
 			services.AddScoped<IDockerHelper, DockerHelper>();
@@ -52,5 +41,6 @@ namespace nyom.workflow.control
 			services.AddTransient<IDbContext, WorkflowContext>();
             services.AddScoped<Campanhas>();
 		}
+		
 	}
 }

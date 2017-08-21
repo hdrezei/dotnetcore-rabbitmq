@@ -26,7 +26,7 @@ namespace nyom.infra.Data.MongoDb.Repositories
 
 		public void Dispose()
 		{
-			throw new NotImplementedException();
+			GC.SuppressFinalize(this);
 		}
 
 		public IList<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate)
@@ -36,7 +36,6 @@ namespace nyom.infra.Data.MongoDb.Repositories
 				.Where(predicate.Compile())
 				.ToList();
 		}
-
 
 		public async Task<TEntity> GetOneAsync(TEntity context)
 		{

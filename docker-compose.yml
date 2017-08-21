@@ -51,11 +51,9 @@ services:
     image: mongo:latest
     container_name: mongo.messages
     volumes:
-      - ./data/db/messages:/data/db
-    command:
-      --smallfiles  
+      - ./data/db/messages:/data/db      
     ports:
-      - 27017:27017
+      - 27015:27017
     networks:
       - net.workflow
 
@@ -72,9 +70,7 @@ services:
     image: mongo:latest
     container_name: mongo.logs
     volumes:
-      - ./data/db/logs:/data/db
-    command:
-      --smallfiles
+      - ./data/db/logs:/data/db    
     ports:
       - 27018:27017
     networks:

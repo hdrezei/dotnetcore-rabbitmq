@@ -21,22 +21,7 @@ namespace nyom.api.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-           
-			for (var i = 0; i <= 10; i++)
-			{
-				var message = new Message
-				{
-					CampanhaId = i.ToString(),
-					DataEntregaMensagens = DateTime.Now,
-					DataCriacao = DateTime.Now,
-					Id = i.ToString(),
-					Mensagem = "teste",
-					Status = WorkflowStatus.Finished,
-					TemplateId = i.ToString()
-				};
-				_messageService.SaveOneAsync(message);
-			}
-	        return new string[] { "value1", "value2" };
+           return new string[] { "value1", "value2" };
 		}
 
         // GET api/values/5

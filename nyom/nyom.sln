@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.3
+VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nyom.pushsender", "nyom.pushsender\nyom.pushsender.csproj", "{CE28CD54-E412-4B0F-8FF5-E29C76E112D9}"
 EndProject
@@ -19,9 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nyom.workflow.control", "ny
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nyom.workflow.manager", "nyom.workflow.manager\nyom.workflow.manager.csproj", "{B5D39711-AFC6-4762-8376-BA0243F05262}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nyom.api", "nyom.api\nyom.api.csproj", "{F4FE6910-559E-433D-810F-0E94FE4CB694}"
-EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{583340AD-9863-4514-BBC9-8AD53210823E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nyom.api", "nyom.api\nyom.api.csproj", "{F4FE6910-559E-433D-810F-0E94FE4CB694}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,10 +63,6 @@ Global
 		{F4FE6910-559E-433D-810F-0E94FE4CB694}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4FE6910-559E-433D-810F-0E94FE4CB694}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4FE6910-559E-433D-810F-0E94FE4CB694}.Release|Any CPU.Build.0 = Release|Any CPU
-		{583340AD-9863-4514-BBC9-8AD53210823E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{583340AD-9863-4514-BBC9-8AD53210823E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{583340AD-9863-4514-BBC9-8AD53210823E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{583340AD-9863-4514-BBC9-8AD53210823E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

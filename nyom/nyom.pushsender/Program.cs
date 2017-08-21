@@ -1,59 +1,59 @@
-﻿using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System;
-using System.Text;
-using System.Threading;
+﻿using System;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using nyom.domain.core.EntityFramework.Models;
+using nyom.domain.core.MongoDb.Repository.Interface;
+using nyom.domain.Workflow.Campanha;
+using nyom.infra;
+using nyom.infra.CrossCutting.Helper;
+using nyom.infra.CrossCutting.Services;
+using nyom.infra.Data.EntityFramwork.Context;
+using nyom.infra.Data.EntityFramwork.Repositories;
+using nyom.infra.Data.EntityFramwork.Repositories.Workflow;
+using nyom.workflow.manager.Factory;
+using nyom.workflow.manager.Interfaces;
+using nyom.workflow.manager.Services;
 
 namespace nyom.pushsender
 {
-    class Program
-    {
-        public static void Main()
-        {
-            var factory = new ConnectionFactory() { HostName = "rabbit", Port = 5672, UserName = "guest", Password = "guest" };
+	public class Program
+	{
+		private static IServiceProvider _serviceProvider;
 
-            using (var connection = factory.CreateConnection())
-            {
-                using (var channel = connection.CreateModel())
-                {
-                    channel.QueueDeclare(queue: "CampanhaX",
-                                         durable: false,
-                                         exclusive: false,
-                                         autoDelete: true,
-                                         arguments: null);
+		public Program(IConfiguration configuration)
+		{
+			Configuration = configuration;
+		}
 
-                    channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
+		public static IConfiguration Configuration { get; set; }
 
-                    Console.WriteLine(" [*] Waiting for messages.");
-                    Console.WriteLine("Started " + DateTime.Now);
+		private static void Main()
+		{
+			var builder = new ConfigurationBuilder()
+				.AddJsonFile("appsettings.json", false, true);
+			Configuration = builder.Build();
 
-                    var consumer = new EventingBasicConsumer(channel);
+			var serviceCollection = new ServiceCollection();
 
-                    consumer.Received += (model, ea) =>
-                    {
-                        var body = ea.Body;
-                        var message = Encoding.UTF8.GetString(body);
-                        Console.WriteLine(" [x] Received {0}", message);
+			ConfigureServices(serviceCollection);
 
-                        int dots = message.Split('.').Length - 1;
-                        Thread.Sleep(dots * 1000);
+			var serviceProvider = serviceCollection.BuildServiceProvider();
 
-                        Console.WriteLine(" [x] Done");
+			serviceProvider.GetService<Sender>().PushMessages(new Guid(Environment.GetEnvironmentVariable("CAMPANHA")));
+		}
 
-                        channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
-                    };
+		private static void ConfigureServices(IServiceCollection services)
+		{
+			services.AddScoped<ICampanhaWorkflowRepository, CampanhaWorkflowRepository>();
+			services.AddScoped<ICampanhaWorkflowService, CampanhaWorkflowService>();
+			services.AddScoped<IManagerFactory, ManagerFactory>();
+			services.AddScoped<IDockerHelper, DockerHelper>();
+			services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+			services.AddScoped(typeof(IServiceBase<>), typeof(ServiceBase<>));
+			services.AddScoped<IDbContext, WorkflowContext>();
+			services.AddScoped<IAtualizarStatus, AtualizarStatus>();
 
-                    channel.BasicConsume(queue: "CampanhaX",
-                                         autoAck: false,
-                                         consumer: consumer);
-
-                    Console.WriteLine("Finished " + DateTime.Now);
-                    Console.WriteLine(" Press [enter] to exit.");
-                    Console.ReadLine();
-
-                    Thread.Sleep(500000000);
-                }
-            }
-        }
-    }
+			services.AddScoped<Sender>();
+		}
+	}
 }

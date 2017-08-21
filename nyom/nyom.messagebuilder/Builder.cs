@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using nyom.domain;
 using nyom.domain.Crm.Campanha;
 using nyom.domain.Crm.Pessoa;
 using nyom.domain.Crm.Templates;
 using nyom.domain.Message;
+using nyom.infra.CrossCutting.Services;
 
 namespace nyom.messagebuilder
 {
@@ -15,53 +18,63 @@ namespace nyom.messagebuilder
 		private readonly ICampanhaCrmService _campanhaCrmService;
 		private readonly IPessoaService _pessoaService;
 		private readonly IMessageService _messageService;
+		private readonly IAtualizarStatus _atualizarStatus;
 
 		public Builder(ITemplateService templateservice, ICampanhaCrmService campanhaCrmService,
-			IPessoaService pessoaService, IMessageService messageService)
+			IPessoaService pessoaService, IMessageService messageService, IAtualizarStatus atualizarStatus)
 		{
 			_templateservice = templateservice;
 			_campanhaCrmService = campanhaCrmService;
 			_pessoaService = pessoaService;
 			_messageService = messageService;
+			_atualizarStatus = atualizarStatus;
 		}
 
 		public void MontarMensagens(string campanhaId)
 		{
 			//var id = new Guid(campanhaId);
-            var id = new Guid("6E15D6B2-CD18-4048-8746-82084FECD4EC");
+			var id = new Guid("4063DEBE-6EA0-4C54-B36E-2C65D0D6D060");
 			var dadosCampanha = _campanhaCrmService.Get(id);
-			if (dadosCampanha == null)
+			if (dadosCampanha != null)
+			{
+				var dadosTemplate = _templateservice.Get(dadosCampanha.TemplateId);
+				if (dadosTemplate == null)
+				{
+					Console.WriteLine("Nenhum template foi encontrado");
+					Console.ReadKey();
+					return;
+				}
+
+				var listaPessoas = _pessoaService.All();
+				if (listaPessoas == null)
+				{
+					Console.WriteLine("Nenhuma lista de pessoas foi encontrada");
+					Console.ReadKey();
+					return;
+				}
+
+				SalvarMensagens(listaPessoas, dadosCampanha, dadosTemplate);
+				_atualizarStatus.AtualizarStatusApi(dadosCampanha.CampanhaId, (int) WorkflowStatus.MessageBuilderCompleted);
+			}
+			else
+			{
+				Console.WriteLine("Nenhuma campanha foi encontrada");
+				Console.ReadKey();
 				return;
-
-			var dadosTemplate = _templateservice.Get(dadosCampanha.TemplateId);
-			if (dadosTemplate == null)
-				return;
-
-			var listaPessoas = _pessoaService.All();
-			if (listaPessoas == null)
-				return;
-
-			SalvarMensagens(listaPessoas, dadosCampanha, dadosTemplate);
-
-			AtualizarStatusApi(dadosCampanha.CampanhaId);
+			}
 		}
 
-		public void AtualizarStatusApi(Guid dadosCampanhaCampanhaId)
+		public async Task AtualizarStatusApi(Guid dadosCampanhaCampanhaId,int status)
 		{
-			//using (var client = new HttpClient())
-			//{
-			//	using (var response = client.GetAsync("http://localhost:52032/api/MessageBuilder/AtualizarCampanha/"+dadosCampanhaCampanhaId))
-			//	{
-			//		if (response.IsCompletedSuccessfully)
-			//		{
-			//			//Log positivo
-			//		}
-			//		else
-			//		{
-			//			//Log negativo
-			//		}
-			//	} 
-			//}
+			using (var client = new HttpClient())
+			{
+				client.BaseAddress = new Uri("http://localhost:5000/");
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+				var response = await client.GetAsync("api/campanha?id=" + dadosCampanhaCampanhaId+"&status="+status);
+				Console.WriteLine(response.IsSuccessStatusCode ? "Status alterado com sucesso" : "Erro na alteração do Status");
+				Console.ReadKey();
+			}
 		}
 
 		private void SalvarMensagens(IEnumerable<Pessoa> listaPessoas, CampanhaCrm dadosCampanha, Template dadosTemplate)

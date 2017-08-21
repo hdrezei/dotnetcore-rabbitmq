@@ -1,13 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using nyom.domain;
-using nyom.domain.Crm.Campanha;
-using nyom.domain.Crm.Empresa;
-using nyom.domain.Crm.Pessoa;
-using nyom.domain.Crm.Templates;
 using nyom.domain.Workflow.Campanha;
 using nyom.domain.Workflow.Workflow;
 using nyom.infra.Data.EntityFramwork.Extensions;
