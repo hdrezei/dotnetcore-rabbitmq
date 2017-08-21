@@ -1,8 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using nyom.domain;
-using nyom.domain.Message;
 using nyom.infra.Data.MongoDb.Settings;
 
 namespace nyom.infra.Data.MongoDb.Context
