@@ -8,6 +8,6 @@ namespace nyom.infra.Data.MongoDb.Repositories
     {
 	    public MessageRepository(IOptions<MongoDbSettings> settings) : base(settings)
 	    {
-	    }
+        }
     }
 }
