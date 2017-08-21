@@ -29,7 +29,7 @@ namespace nyom.api.Controllers
 					CampanhaId = i.ToString(),
 					DataEntregaMensagens = DateTime.Now,
 					DataCriacao = DateTime.Now,
-					Id = i.ToString(),
+					//Id = i.ToString(),
 					Mensagem = "teste",
 					Status = WorkflowStatus.Finished,
 					TemplateId = i.ToString()

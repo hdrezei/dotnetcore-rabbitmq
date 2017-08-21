@@ -44,8 +44,6 @@ namespace nyom.workflow.manager
 
 		private static void ConfigureServices(IServiceCollection services)
 		{
-		    
-
             services.AddScoped<ICampanhaWorkflowRepository, CampanhaWorkflowRepository>();
 			services.AddScoped<ICampanhaWorkflowService, CampanhaWorkflowService>();
 			services.AddScoped<IManagerFactory, ManagerFactory>();

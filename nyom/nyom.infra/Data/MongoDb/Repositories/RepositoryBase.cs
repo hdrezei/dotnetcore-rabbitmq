@@ -13,11 +13,10 @@ using nyom.infra.Data.MongoDb.Settings;
 namespace nyom.infra.Data.MongoDb.Repositories
 {
 	public  class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
-		where TEntity : IEntity<string>
+		where TEntity : IEntity
 	{
 		protected readonly MongoMessageContext<TEntity> _context;
-        //protected string CollectionName => Environment.GetEnvironmentVariable("CAMPANHA");
-	    protected string CollectionName => "Campanha";
+        protected string CollectionName => "cc7dd79a-bbfa-4e17-b8e7-27d9e4b30dbb"; // Environment.GetEnvironmentVariable("CAMPANHA");
 
         protected RepositoryBase(IOptions<MongoDbSettings> settings)
 		{
@@ -26,7 +25,7 @@ namespace nyom.infra.Data.MongoDb.Repositories
 
 		public void Dispose()
 		{
-			throw new NotImplementedException();
+            GC.SuppressFinalize(this);
 		}
 
 		public IList<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate)
@@ -43,7 +42,7 @@ namespace nyom.infra.Data.MongoDb.Repositories
 			return await _context.Collection.Find(new BsonDocument("_id", context.Id)).FirstOrDefaultAsync();
 		}
 
-		public async Task<TEntity> GetOneAsync(string id)
+		public async Task<TEntity> GetOneAsync(Guid id)
 		{
 			return await _context.Collection.Find(f => f.Id.Equals(id)).FirstOrDefaultAsync();
 		}
@@ -53,15 +52,10 @@ namespace nyom.infra.Data.MongoDb.Repositories
 			await _context.Collection.InsertOneAsync(Context);
 			return Context;
 		}
-
-		public async Task<TEntity> RemoveOneAsync(TEntity context)
+        
+        public async Task<TEntity> RemoveOneAsync(Guid id)
 		{
-			return await _context.Collection.FindOneAndDeleteAsync(context.Id);
-		}
-
-		public async Task<TEntity> RemoveOneAsync(string id)
-		{
-			return await _context.Collection.FindOneAndDeleteAsync(id);
+			return await _context.Collection.FindOneAndDeleteAsync(f => f.Id.Equals(id));
 		}
 	}
 }

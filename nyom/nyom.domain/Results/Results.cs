@@ -1,9 +1,10 @@
 ﻿using nyom.domain.core.MongoDb.Repository.Interface;
+using System;
 
 namespace nyom.domain.Results
 {
-	public class Results : IEntity<string>
+	public class Results : IEntity
     {
-	    public string Id { get; set; }
+	    public Guid Id { get; set; }
     }
 }
