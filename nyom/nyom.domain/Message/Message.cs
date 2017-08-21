@@ -4,12 +4,9 @@ using nyom.domain.core.MongoDb.Repository.Interface;
 
 namespace nyom.domain.Message
 {
-	[BsonDiscriminator(Required = true)]
-	[BsonKnownTypes(typeof(Message))]
-	public class Message : IEntity<string>
+	public class Message : IEntity
 	{
-		[BsonId]
-		public string Id { get; set; }
+		public Guid Id { get; set; }
 		public string TemplateId { get; set; }
 		public string CampanhaId { get; set; }
 		public string Mensagem { get; set; }

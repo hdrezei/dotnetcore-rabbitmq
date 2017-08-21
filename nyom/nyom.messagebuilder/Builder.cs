@@ -86,7 +86,7 @@ namespace nyom.messagebuilder
 					CampanhaId = dadosCampanha.CampanhaId.ToString(),
 					DataCriacao = dadosCampanha.DataInicio,
 					DataEntregaMensagens = DateTime.Now,
-					Id = dadosCampanha.CampanhaId.ToString(),
+					Id = Guid.NewGuid(),
 					Mensagem = dadosTemplate.Mensagem,
 					Status = WorkflowStatus.MessageBuilderCompleted,
 					TemplateId = dadosTemplate.TemplateId.ToString()

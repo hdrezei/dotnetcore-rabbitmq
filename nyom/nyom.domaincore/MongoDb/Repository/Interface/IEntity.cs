@@ -1,9 +1,9 @@
-﻿namespace nyom.domain.core.MongoDb.Repository.Interface
+﻿using System;
+
+namespace nyom.domain.core.MongoDb.Repository.Interface
 {
-	public interface IEntity<TKey>
+	public interface IEntity
 	{
-		TKey Id { get; set; }
+		Guid Id { get; set; }
 	}
-
-
 }

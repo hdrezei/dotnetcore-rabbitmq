@@ -15,7 +15,6 @@ namespace nyom.domain.core.MongoDb.Repository.Models
 			_repositoryBase = repositoryBase;
 		}
 
-
 		public Task<IEnumerable<TEntity>> GetAllAsync()
 		{
 			throw new NotImplementedException();
@@ -26,7 +25,7 @@ namespace nyom.domain.core.MongoDb.Repository.Models
 			return _repositoryBase.GetOneAsync(context);
 		}
 
-		public Task<TEntity> GetOneAsync(string id)
+		public Task<TEntity> GetOneAsync(Guid id)
 		{
 			return _repositoryBase.GetOneAsync(id);
 		}
@@ -36,12 +35,7 @@ namespace nyom.domain.core.MongoDb.Repository.Models
 			return _repositoryBase.SaveOneAsync(context);
 		}
 
-		public Task<TEntity> RemoveOneAsync(TEntity context)
-		{
-			return _repositoryBase.RemoveOneAsync(context);
-		}
-
-		public Task<TEntity> RemoveOneAsync(string id)
+		public Task<TEntity> RemoveOneAsync(Guid id)
 		{
 			return _repositoryBase.RemoveOneAsync(id);
 		}

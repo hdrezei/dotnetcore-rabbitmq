@@ -1,5 +1,8 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using nyom.domain;
+using nyom.domain.Message;
 using nyom.infra.Data.MongoDb.Settings;
 
 namespace nyom.infra.Data.MongoDb.Context
@@ -11,13 +14,16 @@ namespace nyom.infra.Data.MongoDb.Context
 
 		public MongoMessageContext(IOptions<MongoDbSettings> settings, string collectionName)
 		{
-            // var client = new MongoClient(settings.Value.ConnectionString);
-		    var client = new MongoClient("mongodb://localhost:27017/MongoMessage");
-            //_database = client.GetDatabase(settings.Value.Database);
-		    _database = client.GetDatabase("MongoMessage");
+		    var client = new MongoClient(settings.Value.ConnectionString);
+
+            if (client != null)
+            {
+                _database = client.GetDatabase(settings.Value.Database);
+            }
+
             _collectionName = collectionName;
 		}
 
 		public IMongoCollection<TEntity> Collection => _database.GetCollection<TEntity>(_collectionName);
-	}
+    }
 }

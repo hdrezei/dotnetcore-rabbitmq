@@ -18,6 +18,12 @@ namespace nyom.queuebuilder
             _messageService = messageService;
         }
 
+        public void Start()
+        {
+            Console.WriteLine(Environment.GetEnvironmentVariable("CAMPANHA"));
+            EnfileirarMensagens(Guid.Parse("cc7dd79a-bbfa-4e17-b8e7-27d9e4b30dbb"));
+        }
+
         public void EnfileirarMensagens(Guid id)
         {
             var messages = _messageService.FindAll(a => a.Status.Equals(WorkflowStatus.QueueBuilder));
@@ -27,7 +33,7 @@ namespace nyom.queuebuilder
                 return;
             }
 
-            var factory = new ConnectionFactory() { HostName = "localhost", Port = 5672, UserName = "guest", Password = "guest" };
+            var factory = new ConnectionFactory() { HostName = "rabbit", Port = 5672, UserName = "guest", Password = "guest" };
 
             using (var connection = factory.CreateConnection())
             {
