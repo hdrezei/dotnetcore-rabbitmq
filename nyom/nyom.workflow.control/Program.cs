@@ -43,8 +43,6 @@ namespace nyom.workflow.control
 
 		private static void ConfigureServices(IServiceCollection services)
 		{
-		    services.AddDbContext<WorkflowContext>(options =>
-		        options.UseSqlServer(Configuration.GetConnectionString("WorkflowConnection")));
 
             services.AddScoped<ICampanhaWorkflowRepository, CampanhaWorkflowRepository>();
 			services.AddScoped<ICampanhaWorkflowService, CampanhaWorkflowService>();

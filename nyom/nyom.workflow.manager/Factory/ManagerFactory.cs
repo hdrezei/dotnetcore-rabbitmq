@@ -20,7 +20,7 @@ namespace nyom.workflow.manager.Factory
 		public void VerificarStatusCampanha(string id)
 		{
 			//var Id = new Guid(id);
-			var Id = new Guid("0a120ae1-23c6-4dc6-a808-0de1db7ecd47");
+			var Id = new Guid("6E15D6B2-CD18-4048-8746-82084FECD4EC");
 			var dadosCampanha = _campanhaWorkflowService.Find(a => a.CampanhaId.Equals(Id));
 			var workflowStatus = dadosCampanha.Status;
 

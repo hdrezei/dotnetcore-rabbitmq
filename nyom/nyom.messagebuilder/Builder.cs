@@ -28,7 +28,7 @@ namespace nyom.messagebuilder
 		public void MontarMensagens(string campanhaId)
 		{
 			//var id = new Guid(campanhaId);
-            var id = new Guid("0a120ae1-23c6-4dc6-a808-0de1db7ecd47");
+            var id = new Guid("6E15D6B2-CD18-4048-8746-82084FECD4EC");
 			var dadosCampanha = _campanhaCrmService.Get(id);
 			if (dadosCampanha == null)
 				return;
