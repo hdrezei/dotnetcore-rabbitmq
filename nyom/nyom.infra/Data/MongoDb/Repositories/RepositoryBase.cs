@@ -35,8 +35,7 @@ namespace nyom.infra.Data.MongoDb.Repositories
 				.Where(predicate.Compile())
 				.ToList();
 		}
-
-
+		
 		public async Task<TEntity> GetOneAsync(TEntity context)
 		{
 			return await _context.Collection.Find(new BsonDocument("_id", context.Id)).FirstOrDefaultAsync();
@@ -47,12 +46,11 @@ namespace nyom.infra.Data.MongoDb.Repositories
 			return await _context.Collection.Find(f => f.Id.Equals(id)).FirstOrDefaultAsync();
 		}
 
-		public async Task<TEntity> SaveOneAsync(TEntity Context)
+		public async Task<TEntity> SaveOneAsync(TEntity context)
 		{
-			await _context.Collection.InsertOneAsync(Context);
-			return Context;
+			await _context.Collection.InsertOneAsync(context);
+			return context;
 		}
-        
         public async Task<TEntity> RemoveOneAsync(Guid id)
 		{
 			return await _context.Collection.FindOneAndDeleteAsync(f => f.Id.Equals(id));

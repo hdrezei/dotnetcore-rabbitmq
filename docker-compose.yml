@@ -48,7 +48,7 @@ services:
       - net.workflow
 
   mongo.messages:
-    image: mongo:latest
+    image: mongo
     container_name: mongo.messages
     volumes:
       - ./data/db/messages:/data/db      
@@ -67,7 +67,7 @@ services:
       - net.workflow
 
   mongo.logs:
-    image: mongo:latest
+    image: mongo
     container_name: mongo.logs
     volumes:
       - ./data/db/logs:/data/db    

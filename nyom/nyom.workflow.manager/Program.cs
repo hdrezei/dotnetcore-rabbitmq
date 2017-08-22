@@ -1,17 +1,14 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nyom.domain.core.EntityFramework.Interfaces;
 using nyom.domain.core.EntityFramework.Models;
 using nyom.domain.Workflow.Campanha;
-using nyom.infra;
 using nyom.infra.CrossCutting.Helper;
 using nyom.infra.Data.EntityFramwork.Context;
 using nyom.infra.Data.EntityFramwork.Repositories;
 using nyom.infra.Data.EntityFramwork.Repositories.Workflow;
-using nyom.workflow.manager.Factory;
-using nyom.workflow.manager.Interfaces;
+using nyom.infra.Factory;
 using nyom.workflow.manager.Services;
 
 namespace nyom.workflow.manager

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace nyom.workflow.manager.Interfaces
+﻿namespace nyom.infra.Factory
 {
 	public interface IManagerFactory
 	{

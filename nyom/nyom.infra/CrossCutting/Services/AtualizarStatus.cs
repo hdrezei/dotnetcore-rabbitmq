@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace nyom.infra.CrossCutting.Services
 {
-    public class AtualizarStatus : IAtualizarStatus
+	public class AtualizarStatus : IAtualizarStatus
     {
 	    public async Task AtualizarStatusApi(Guid dadosCampanhaCampanhaId, int status)
 	    {

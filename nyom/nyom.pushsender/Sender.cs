@@ -14,7 +14,6 @@ namespace nyom.pushsender
 			_atualizarStatus = atualizarStatus;
 			_enviarMensagensPush = enviarMensagensPush;
 		}
-
 		public void PushMessages(Guid campanha)
 		{
 			var enviar = _enviarMensagensPush.Envia(campanha.ToString());

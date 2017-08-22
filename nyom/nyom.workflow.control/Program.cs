@@ -1,12 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nyom.domain.Workflow.Campanha;
-using nyom.infra;
 using nyom.infra.CrossCutting.Helper;
 using nyom.infra.Data.EntityFramwork.Context;
 using nyom.infra.Data.EntityFramwork.Repositories.Workflow;
-using nyom.workflow.manager.Factory;
-using nyom.workflow.manager.Interfaces;
+using nyom.infra.Factory;
 
 namespace nyom.workflow.control
 {
@@ -14,10 +12,8 @@ namespace nyom.workflow.control
 	{
 		public static IConfigurationRoot Configuration { get; set; }
 		// create service collection
-
 		private static void Main()
 		{
-			
 			var builder = new ConfigurationBuilder()
 				.AddJsonFile("appsettings.json", false, true);
 			Configuration = builder.Build();
@@ -41,6 +37,5 @@ namespace nyom.workflow.control
 			services.AddTransient<IDbContext, WorkflowContext>();
             services.AddScoped<Campanhas>();
 		}
-		
 	}
 }

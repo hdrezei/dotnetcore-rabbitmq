@@ -1,10 +1,9 @@
 ﻿using System;
 using nyom.domain;
 using nyom.domain.Message;
-using nyom.domain.Workflow.Workflow;
-using nyom.infra.CrossCutting.Helper;
 using RabbitMQ.Client;
 using System.Text;
+using nyom.infra.CrossCutting.Services;
 using Newtonsoft.Json;
 
 namespace nyom.queuebuilder
@@ -12,10 +11,12 @@ namespace nyom.queuebuilder
     public class QueueBuilder
     {
         private readonly IMessageService _messageService;
+	    private readonly IEnvioService _envioService;
 
-        public QueueBuilder(IMessageService messageService)
+        public QueueBuilder(IMessageService messageService, IEnvioService envioService)
         {
-            _messageService = messageService;
+	        _messageService = messageService;
+	        _envioService = envioService;
         }
 
         public void Start()
@@ -39,27 +40,27 @@ namespace nyom.queuebuilder
             {
                 using (var channel = connection.CreateModel())
                 {
-                    channel.QueueDeclare(queue: id.ToString(),
+	               
+					channel.QueueDeclare(queue: id.ToString(),
                                          durable: false,
                                          exclusive: false,
                                          autoDelete: true,
                                          arguments: null);
-
-                    // Log Splunk
-                    // Console.WriteLine(" [x] Sent {0}", args[0]);
-                    
-                    foreach (var message in messages)
+					
+					foreach (var message in messages)
                     {
-                        var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message, Formatting.Indented));
+	                    channel.ExchangeDeclare(exchange: "logs", type: "fanout");
+						var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message, Formatting.Indented));
 
                         var properties = channel.CreateBasicProperties();
                         properties.Persistent = true;
 
-                        channel.BasicPublish(exchange: "",
+                        channel.BasicPublish(exchange: "logs",
                                              routingKey: id.ToString(),
                                              basicProperties: null,
                                              body: body);
-                    }
+	                    _envioService.SalvarResultadoEnvio(id.ToString(), JsonConvert.SerializeObject(message, Formatting.Indented));
+					}
                 }
             }
         }
