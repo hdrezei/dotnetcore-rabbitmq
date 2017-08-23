@@ -2,9 +2,8 @@
 using nyom.domain;
 using nyom.domain.Workflow.Campanha;
 using nyom.infra.CrossCutting.Helper;
-using nyom.workflow.manager.Interfaces;
 
-namespace nyom.workflow.manager.Factory
+namespace nyom.infra.Factory
 {
 	public class ManagerFactory : IManagerFactory
 	{
@@ -71,7 +70,5 @@ namespace nyom.workflow.manager.Factory
 					throw new ArgumentOutOfRangeException(nameof(workflowStatus), workflowStatus, null);
 			}
 		}
-
-		
 	}
 }

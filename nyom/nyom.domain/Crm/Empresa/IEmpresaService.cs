@@ -4,6 +4,5 @@ namespace nyom.domain.Crm.Empresa
 {
 	public interface IEmpresaService : IServiceBase<Empresa>
 	{
-		
 	}
 }

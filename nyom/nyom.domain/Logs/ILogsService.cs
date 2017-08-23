@@ -4,6 +4,5 @@ namespace nyom.domain.Logs
 {
 	public interface ILogsService :IServiceBase<Logs>
 	{
-		
 	}
 }

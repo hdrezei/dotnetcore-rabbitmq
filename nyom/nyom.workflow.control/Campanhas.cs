@@ -39,7 +39,6 @@ namespace nyom.workflow.control
 		        Console.WriteLine("Não há campanhas");
 		        return;
             }
-		  
 
 			_campanhaWorkflowService.AtualizarStatusCampanha(dadosCampanha.CampanhaId, WorkflowStatus.WorkflowManager);
 

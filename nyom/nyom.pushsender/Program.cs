@@ -4,15 +4,12 @@ using Microsoft.Extensions.DependencyInjection;
 using nyom.domain.core.EntityFramework.Models;
 using nyom.domain.core.MongoDb.Repository.Interface;
 using nyom.domain.Workflow.Campanha;
-using nyom.infra;
 using nyom.infra.CrossCutting.Helper;
 using nyom.infra.CrossCutting.Services;
 using nyom.infra.Data.EntityFramwork.Context;
 using nyom.infra.Data.EntityFramwork.Repositories;
 using nyom.infra.Data.EntityFramwork.Repositories.Workflow;
-using nyom.workflow.manager.Factory;
-using nyom.workflow.manager.Interfaces;
-using nyom.workflow.manager.Services;
+using nyom.infra.Factory;
 
 namespace nyom.pushsender
 {

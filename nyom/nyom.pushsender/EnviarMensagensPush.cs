@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Text;
 using System.Threading;
+using nyom.domain.Results;
+using nyom.infra.CrossCutting.Services;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -8,6 +10,13 @@ namespace nyom.pushsender
 {
 	public class EnviarMensagensPush : IEnviarMensagensPush
 	{
+		private readonly IEnvioService _envioService;
+
+		public EnviarMensagensPush(IEnvioService envioService)
+		{
+			_envioService = envioService;
+		}
+
 		public bool Envia(string campanha)
 		{
 			try
@@ -17,6 +26,8 @@ namespace nyom.pushsender
 				{
 					using (var channel = connection.CreateModel())
 					{
+						channel.ExchangeDeclare("amg.rabbitmq.trace", "fanout");
+						channel.QueueBind(exchange: "amg.rabbitmq.trace", queue: campanha, routingKey: "#");
 						channel.QueueDeclare(campanha,
 							false,
 							false,
@@ -35,13 +46,11 @@ namespace nyom.pushsender
 							var body = ea.Body;
 							var message = Encoding.UTF8.GetString(body);
 							Console.WriteLine(" [x] Received {0}", message);
-
 							var dots = message.Split('.').Length - 1;
 							Thread.Sleep(dots * 1000);
-
 							Console.WriteLine(" [x] Done");
-
 							channel.BasicAck(ea.DeliveryTag, false);
+							_envioService.SalvarResultadoEnvio(campanha, message);
 						};
 
 						channel.BasicConsume(campanha,

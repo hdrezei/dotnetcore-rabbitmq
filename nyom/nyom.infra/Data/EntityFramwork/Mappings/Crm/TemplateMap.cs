@@ -29,7 +29,6 @@ namespace nyom.infra.Data.EntityFramwork.Mappings.Crm
 
 			builder.Property(c => c.Status)
 				.IsRequired();
-
 		}
 	}
 }

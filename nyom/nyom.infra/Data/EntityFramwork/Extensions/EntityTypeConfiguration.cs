@@ -6,5 +6,4 @@ namespace nyom.infra.Data.EntityFramwork.Extensions
 	{
 		public abstract void Map(EntityTypeBuilder<TEntity> builder);
 	}
-
 }

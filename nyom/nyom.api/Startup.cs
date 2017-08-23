@@ -13,7 +13,7 @@ using nyom.infra.CrossCutting.Helper;
 using nyom.infra.Data.EntityFramwork.Context;
 using nyom.infra.Data.EntityFramwork.Repositories.Workflow;
 using nyom.infra.Data.MongoDb.Repositories;
-using nyom.workflow.manager.Factory;
+using nyom.infra.Factory;
 using nyom.workflow.manager.Interfaces;
 
 namespace nyom.api

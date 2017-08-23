@@ -8,8 +8,7 @@ using nyom.infra.CrossCutting.Helper;
 using nyom.infra.Data.EntityFramwork.Context;
 using nyom.infra.Data.EntityFramwork.Repositories;
 using nyom.infra.Data.EntityFramwork.Repositories.Workflow;
-using nyom.workflow.manager.Factory;
-using nyom.workflow.manager.Interfaces;
+using nyom.infra.Factory;
 using nyom.workflow.manager.Services;
 
 namespace nyom.workflow.manager

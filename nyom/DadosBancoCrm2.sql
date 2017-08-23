@@ -1,0 +1,4 @@
+insert into Campanhas (CampanhaId,DataCriacao,DataInicio,Nome,Publico,Status,TemplateId)values('4063DEBE-6EA0-4C54-B36E-2C65D0D6D060',GETDATE(),GETDATE(),'Teste',100,0,'c393fc0a-899b-4f02-b9da-164b57d45e3b');
+insert into Empresas(EmpresaId,CNPJ,Email,Nome,RazaoSocial,Telefone)values('ee33ada5-126c-446e-9fdb-a461e5db0f54','00000000000','teste@teste.com','Teste','Teste','00000000000');
+insert into Pessoas(PessoaId,Bairro,CEP,CPF,CampanhaId,Cidade,DataNascimento,Email,Endereco,Estado,Nome,Sobrenome,Telefone)values('49994a06-4462-4deb-8882-5c3cc26c8d46','Teste','00000000','00000000000','4063DEBE-6EA0-4C54-B36E-2C65D0D6D060','Teste',GETDATE(),'teste@teste.com','Teste','SP','Teste','Teste','00000000000');
+insert into Templates(TemplateId,DataCriacao,Mensagem,Nome,Status)values('c393fc0a-899b-4f02-b9da-164b57d45e3b',GETDATE(),'Teste','Teste',0);
