@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Options;
-using nyom.domain.Message;
 using nyom.domain.MongoDb.Message;
 using nyom.infra.Data.MongoDb.Settings;
 

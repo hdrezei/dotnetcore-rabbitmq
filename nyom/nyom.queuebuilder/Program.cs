@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
-using nyom.domain.Message;
 using Microsoft.Extensions.DependencyInjection;
 using nyom.domain.MongoDb.Message;
 using nyom.infra.CrossCutting.Helper;
+using nyom.infra.CrossCutting.Services;
 using nyom.infra.Data.MongoDb.Repositories;
 using nyom.infra.Data.MongoDb.Settings;
 
@@ -28,7 +28,6 @@ namespace nyom.queuebuilder
 
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
-
             _serviceProvider = serviceCollection.BuildServiceProvider();
             _serviceProvider.GetService<QueueBuilder>().Start();
         }
@@ -43,10 +42,10 @@ namespace nyom.queuebuilder
 
             services.AddOptions();
             services.AddSingleton(Configuration);
-
             services.AddScoped<IDockerHelper, DockerHelper>();
             services.AddScoped<IMessageService, MessageService>();
-            services.AddScoped<IMessageRepository, MessageRepository>();
+	        services.AddScoped<IAtualizarStatus, AtualizarStatus>();
+			services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<QueueBuilder>();
         }
     }

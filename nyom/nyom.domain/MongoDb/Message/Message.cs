@@ -1,8 +1,7 @@
 ﻿using System;
-using MongoDB.Bson.Serialization.Attributes;
 using nyom.domain.core.MongoDb.Repository.Interface;
 
-namespace nyom.domain.Message
+namespace nyom.domain.MongoDb.Message
 {
 	public class Message : IEntity
 	{

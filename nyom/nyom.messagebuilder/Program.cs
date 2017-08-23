@@ -1,13 +1,11 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using nyom.domain.core.EntityFramework.Interfaces;
 using nyom.domain.core.EntityFramework.Models;
 using nyom.domain.Crm.Campanha;
 using nyom.domain.Crm.Pessoa;
 using nyom.domain.Crm.Templates;
-using nyom.domain.Message;
 using nyom.domain.MongoDb.Message;
 using nyom.infra.CrossCutting.Helper;
 using nyom.infra.CrossCutting.Services;
@@ -37,12 +35,8 @@ namespace nyom.messagebuilder
             Configuration = builder.Build();
 
             var serviceCollection = new ServiceCollection();
-
             ConfigureServices(serviceCollection);
-
             var serviceProvider = serviceCollection.BuildServiceProvider();
-
-			//serviceProvider.GetService<Builder>().MontarMensagens(Environment.GetEnvironmentVariable("CAMPANHA"));
 			serviceProvider.GetService<Builder>().Start();
 		}
 

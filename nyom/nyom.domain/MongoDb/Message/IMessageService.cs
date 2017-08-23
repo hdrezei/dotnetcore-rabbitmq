@@ -2,8 +2,7 @@
 
 namespace nyom.domain.MongoDb.Message
 {
-	public interface IMessageService :IServiceBase<domain.Message.Message>
+	public interface IMessageService :IServiceBase<Message>
 	{
-		
 	}
 }

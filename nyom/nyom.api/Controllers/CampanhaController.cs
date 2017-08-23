@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using nyom.domain;
 using nyom.domain.Workflow.Campanha;
-using nyom.infra.CrossCutting.Helper;
 
 namespace nyom.api.Controllers
 {
