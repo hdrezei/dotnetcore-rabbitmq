@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -12,48 +11,49 @@ using nyom.infra.Data.MongoDb.Settings;
 
 namespace nyom.infra.Data.MongoDb.Repositories
 {
-	public  class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
+	public class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
 		where TEntity : IEntity
 	{
-		protected readonly MongoMessageContext<TEntity> _context;
-        protected string CollectionName => "cc7dd79a-bbfa-4e17-b8e7-27d9e4b30dbb"; // Environment.GetEnvironmentVariable("CAMPANHA");
+		protected readonly MongoMessageContext<TEntity> Context;
+		protected string CollectionName => "4063DEBE-6EA0-4C54-B36E-2C65D0D6D060"; // Environment.GetEnvironmentVariable("CAMPANHA");
 
-        protected RepositoryBase(IOptions<MongoDbSettings> settings)
+		protected RepositoryBase(IOptions<MongoDbSettings> settings)
 		{
-			_context = new MongoMessageContext<TEntity>(settings, CollectionName);
+			Context = new MongoMessageContext<TEntity>(settings, CollectionName);
 		}
 
 		public void Dispose()
 		{
-            GC.SuppressFinalize(this);
+			GC.SuppressFinalize(this);
 		}
 
 		public IList<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate)
 		{
-			return _context.Collection
+			return Context.Collection
 				.AsQueryable()
 				.Where(predicate.Compile())
 				.ToList();
 		}
-		
-		public async Task<TEntity> GetOneAsync(TEntity context)
+
+		public TEntity GetOne(TEntity context)
 		{
-			return await _context.Collection.Find(new BsonDocument("_id", context.Id)).FirstOrDefaultAsync();
+			return Context.Collection.Find(new BsonDocument("_id", context.Id)).FirstOrDefault();
 		}
 
-		public async Task<TEntity> GetOneAsync(Guid id)
+		public TEntity GetOne(Guid id)
 		{
-			return await _context.Collection.Find(f => f.Id.Equals(id)).FirstOrDefaultAsync();
+			return Context.Collection.Find(f => f.Id.Equals(id)).FirstOrDefault();
 		}
 
-		public async Task<TEntity> SaveOneAsync(TEntity context)
+		public TEntity InsertOne(TEntity entity)
 		{
-			await _context.Collection.InsertOneAsync(context);
-			return context;
+			Context.Collection.InsertOne(entity);
+			return entity;
 		}
-        public async Task<TEntity> RemoveOneAsync(Guid id)
+
+		public TEntity RemoveOne(Guid id)
 		{
-			return await _context.Collection.FindOneAndDeleteAsync(f => f.Id.Equals(id));
+			return Context.Collection.FindOneAndDelete(f => f.Id.Equals(id));
 		}
 	}
 }

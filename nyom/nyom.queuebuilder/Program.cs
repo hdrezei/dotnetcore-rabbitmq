@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using nyom.domain.Message;
 using Microsoft.Extensions.DependencyInjection;
+using nyom.domain.MongoDb.Message;
 using nyom.infra.CrossCutting.Helper;
 using nyom.infra.Data.MongoDb.Repositories;
 using nyom.infra.Data.MongoDb.Settings;

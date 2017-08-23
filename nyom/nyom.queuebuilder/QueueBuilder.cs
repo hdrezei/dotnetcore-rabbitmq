@@ -3,7 +3,7 @@ using nyom.domain;
 using nyom.domain.Message;
 using RabbitMQ.Client;
 using System.Text;
-using nyom.infra.CrossCutting.Services;
+using nyom.domain.MongoDb.Message;
 using Newtonsoft.Json;
 
 namespace nyom.queuebuilder
@@ -11,12 +11,10 @@ namespace nyom.queuebuilder
     public class QueueBuilder
     {
         private readonly IMessageService _messageService;
-	    private readonly IEnvioService _envioService;
 
-        public QueueBuilder(IMessageService messageService, IEnvioService envioService)
+        public QueueBuilder(IMessageService messageService)
         {
 	        _messageService = messageService;
-	        _envioService = envioService;
         }
 
         public void Start()
@@ -59,7 +57,7 @@ namespace nyom.queuebuilder
                                              routingKey: id.ToString(),
                                              basicProperties: null,
                                              body: body);
-	                    _envioService.SalvarResultadoEnvio(id.ToString(), JsonConvert.SerializeObject(message, Formatting.Indented));
+	                   
 					}
                 }
             }

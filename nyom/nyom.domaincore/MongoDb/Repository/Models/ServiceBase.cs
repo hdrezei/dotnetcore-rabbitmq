@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using nyom.domain.core.MongoDb.Repository.Interface;
 
 namespace nyom.domain.core.MongoDb.Repository.Models
@@ -15,29 +14,29 @@ namespace nyom.domain.core.MongoDb.Repository.Models
 			_repositoryBase = repositoryBase;
 		}
 
-		public Task<IEnumerable<TEntity>> GetAllAsync()
+		public IEnumerable<TEntity> GetAll()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<TEntity> GetOneAsync(TEntity context)
+		public TEntity GetOne(TEntity context)
 		{
-			return _repositoryBase.GetOneAsync(context);
+			return _repositoryBase.GetOne(context);
 		}
 
-		public Task<TEntity> GetOneAsync(Guid id)
+		public TEntity GetOne(Guid id)
 		{
-			return _repositoryBase.GetOneAsync(id);
+			return _repositoryBase.GetOne(id);
 		}
 
-		public Task<TEntity> SaveOneAsync(TEntity context)
+		public TEntity InsertOne(TEntity context)
 		{
-			return _repositoryBase.SaveOneAsync(context);
+			return _repositoryBase.InsertOne(context);
 		}
 
-		public Task<TEntity> RemoveOneAsync(Guid id)
+		public TEntity RemoveOne(Guid id)
 		{
-			return _repositoryBase.RemoveOneAsync(id);
+			return _repositoryBase.RemoveOne(id);
 		}
 
 		public IList<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate)

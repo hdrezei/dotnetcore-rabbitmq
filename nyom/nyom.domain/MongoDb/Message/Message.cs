@@ -12,6 +12,6 @@ namespace nyom.domain.Message
 		public string Mensagem { get; set; }
 		public DateTime DataCriacao { get; set; }
 		public DateTime DataEntregaMensagens { get; set; }
-		public Enum Status { get; set; }
+		public int Status { get; set; }
 	}
 }

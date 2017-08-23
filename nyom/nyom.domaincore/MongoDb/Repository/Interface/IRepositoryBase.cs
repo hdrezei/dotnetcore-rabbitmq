@@ -7,10 +7,10 @@ namespace nyom.domain.core.MongoDb.Repository.Interface
 {
 	public interface IRepositoryBase<TEntity> : IDisposable
 	{
-		Task<TEntity> GetOneAsync(TEntity context);
-		Task<TEntity> GetOneAsync(Guid id);
-		Task<TEntity> SaveOneAsync(TEntity Context);
-		Task<TEntity> RemoveOneAsync(Guid id);
+		TEntity GetOne(TEntity entity);
+		TEntity GetOne(Guid id);
+		TEntity InsertOne(TEntity entity);
+		TEntity RemoveOne(Guid id);
 		IList<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate);
 	}
 }

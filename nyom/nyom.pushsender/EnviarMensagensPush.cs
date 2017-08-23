@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Threading;
-using nyom.domain.Results;
+
 using nyom.infra.CrossCutting.Services;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -10,13 +10,7 @@ namespace nyom.pushsender
 {
 	public class EnviarMensagensPush : IEnviarMensagensPush
 	{
-		private readonly IEnvioService _envioService;
-
-		public EnviarMensagensPush(IEnvioService envioService)
-		{
-			_envioService = envioService;
-		}
-
+		
 		public bool Envia(string campanha)
 		{
 			try
@@ -50,7 +44,6 @@ namespace nyom.pushsender
 							Thread.Sleep(dots * 1000);
 							Console.WriteLine(" [x] Done");
 							channel.BasicAck(ea.DeliveryTag, false);
-							_envioService.SalvarResultadoEnvio(campanha, message);
 						};
 
 						channel.BasicConsume(campanha,
