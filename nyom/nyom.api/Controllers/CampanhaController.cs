@@ -13,8 +13,7 @@ namespace nyom.api.Controllers
 		{
 			_campanhaWorkflowService = campanhaWorkflowService;
 		}
-
-		[HttpPost]
+		
 		public IActionResult AtualizarCampanha(string id, int status)
 		{
 			var campanhaId = Guid.Parse(id);
@@ -23,7 +22,6 @@ namespace nyom.api.Controllers
 				var dadosCampanha = _campanhaWorkflowService.Find(a => a.CampanhaId.Equals(campanhaId));
 				dadosCampanha.Status = status;
 				_campanhaWorkflowService.Update(dadosCampanha);
-
 				return new ObjectResult(true);
 			}
 			catch (Exception)

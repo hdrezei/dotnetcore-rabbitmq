@@ -58,7 +58,8 @@ namespace nyom.messagebuilder
             services.AddScoped<ICampanhaCrmRepository, CampanhaCrmRepository>();
             services.AddScoped<IManagerFactory, ManagerFactory>();
             services.AddScoped<IMessageService, MessageService>();
-            services.AddScoped<IDockerHelper, DockerHelper>();
+	        services.AddScoped<IMensagens, Mensagens>();
+			services.AddScoped<IDockerHelper, DockerHelper>();
 	        services.AddScoped<IAtualizarStatus, AtualizarStatus>();
             services.AddScoped(typeof(IRepositoryBase<>),
                 typeof(infra.Data.EntityFramwork.Repositories.RepositoryBase<>));

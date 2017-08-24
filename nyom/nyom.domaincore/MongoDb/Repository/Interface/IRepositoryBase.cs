@@ -12,7 +12,5 @@ namespace nyom.domain.core.MongoDb.Repository.Interface
 		TEntity InsertOne(TEntity entity);
 		TEntity RemoveOne(Guid id);
 		IList<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate);
-	    TEntity Save(TEntity entity);
-
 	}
 }

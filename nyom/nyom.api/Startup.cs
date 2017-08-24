@@ -33,7 +33,6 @@ namespace nyom.api
 			services.AddScoped<ICampanhaWorkflowService, CampanhaWorkflowService>();
 			services.AddScoped<ICampanhaWorkflowRepository, CampanhaWorkflowRepository>();
 			services.AddScoped<IManagerFactory, ManagerFactory>();
-			services.AddScoped<IMessageService, MessageService>();
 			services.AddScoped<IDockerHelper, DockerHelper>();
 			services.AddScoped<IMessageRepository, MessageRepository>();
 			services.AddScoped(typeof(IRepositoryBase<>), typeof(infra.Data.EntityFramwork.Repositories.RepositoryBase<>));

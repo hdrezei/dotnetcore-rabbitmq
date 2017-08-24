@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\ValuesController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -27,6 +31,12 @@
     <ProjectReference Include="..\nyom.infra\nyom.infra.csproj" />
     <ProjectReference Include="..\nyom.workflow.control\nyom.workflow.control.csproj" />
     <ProjectReference Include="..\nyom.workflow.manager\nyom.workflow.manager.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
