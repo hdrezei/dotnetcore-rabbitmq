@@ -14,5 +14,7 @@ namespace nyom.domain.core.MongoDb.Repository.Interface
 		Task<TEntity> SaveOneAsync(TEntity context);
 		Task<TEntity> RemoveOneAsync(Guid id);
 		IList<TEntity> FindAll(Expression<Func<TEntity, bool>> predicate);
+	    TEntity Save(TEntity entity);
+
 	}
 }

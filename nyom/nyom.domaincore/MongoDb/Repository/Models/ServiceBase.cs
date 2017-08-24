@@ -35,6 +35,12 @@ namespace nyom.domain.core.MongoDb.Repository.Models
 			return _repositoryBase.SaveOneAsync(context);
 		}
 
+	    public TEntity Save(TEntity entity)
+	    {
+	        return _repositoryBase.Save(entity);
+	    }
+
+
 		public Task<TEntity> RemoveOneAsync(Guid id)
 		{
 			return _repositoryBase.RemoveOneAsync(id);

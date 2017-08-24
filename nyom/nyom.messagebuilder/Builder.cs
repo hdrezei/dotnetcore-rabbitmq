@@ -33,7 +33,7 @@ namespace nyom.messagebuilder
 		public void MontarMensagens(string campanhaId)
 		{
 			//var id = new Guid(campanhaId);
-			var id = new Guid("4063DEBE-6EA0-4C54-B36E-2C65D0D6D060");
+			var id = new Guid("6E15D6B2-CD18-4048-8746-82084FECD4EC");
 			var dadosCampanha = _campanhaCrmService.Get(id);
 			if (dadosCampanha != null)
 			{
@@ -91,7 +91,7 @@ namespace nyom.messagebuilder
 					Status = WorkflowStatus.MessageBuilderCompleted,
 					TemplateId = dadosTemplate.TemplateId.ToString()
 				};
-				_messageService.SaveOneAsync(message);
+				_messageService.Save(message);
 			}
 		}
 	}

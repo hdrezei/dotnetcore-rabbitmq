@@ -51,6 +51,16 @@ namespace nyom.infra.Data.MongoDb.Repositories
 			await _context.Collection.InsertOneAsync(context);
 			return context;
 		}
+
+	    public TEntity Save(TEntity entity)
+	    {
+	        _context.Collection.ReplaceOneAsync(x => x.Id.Equals(entity.Id), entity, new UpdateOptions
+	        {
+	            IsUpsert = true
+	        });
+
+	        return entity;
+	    }
         public async Task<TEntity> RemoveOneAsync(Guid id)
 		{
 			return await _context.Collection.FindOneAndDeleteAsync(f => f.Id.Equals(id));
