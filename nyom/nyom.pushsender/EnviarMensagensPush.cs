@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Threading;
-using nyom.domain.Results;
+using nyom.domain;
 using nyom.infra.CrossCutting.Services;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -10,64 +10,54 @@ namespace nyom.pushsender
 {
 	public class EnviarMensagensPush : IEnviarMensagensPush
 	{
-		private readonly IEnvioService _envioService;
+		private readonly IAtualizarStatus _atualizarStatus;
 
-		public EnviarMensagensPush(IEnvioService envioService)
+		public EnviarMensagensPush(IAtualizarStatus atualizarStatus)
 		{
-			_envioService = envioService;
+			_atualizarStatus = atualizarStatus;
 		}
 
 		public bool Envia(string campanha)
 		{
 			try
 			{
-				var factory = new ConnectionFactory {HostName = "rabbit", Port = 5672, UserName = "guest", Password = "guest"};
+
+				var factory = new ConnectionFactory {HostName = "localhost", Port = 5672, UserName = "guest", Password = "guest"};
 				using (var connection = factory.CreateConnection())
+				using (var channel = connection.CreateModel())
 				{
-					using (var channel = connection.CreateModel())
+					channel.QueueDeclare(queue: campanha, durable: true, exclusive: false, autoDelete: false, arguments: null);
+
+					channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
+
+					Console.WriteLine(" [*] Waiting for messages.");
+
+					var consumer = new EventingBasicConsumer(channel);
+					consumer.Received += (model, ea) =>
 					{
-						channel.ExchangeDeclare("amg.rabbitmq.trace", "fanout");
-						channel.QueueBind(exchange: "amg.rabbitmq.trace", queue: campanha, routingKey: "#");
-						channel.QueueDeclare(campanha,
-							false,
-							false,
-							true,
-							null);
+						var body = ea.Body;
+						var message = Encoding.UTF8.GetString(body);
+						Console.WriteLine(" [x] Received {0}", message);
 
-						channel.BasicQos(0, 1, false);
+						int dots = message.Split('.').Length - 1;
+						Thread.Sleep(dots * 1000);
 
-						Console.WriteLine(" [*] Waiting for messages.");
-						Console.WriteLine("Started " + DateTime.Now);
+						Console.WriteLine(" [x] Done");
 
-						var consumer = new EventingBasicConsumer(channel);
+						channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+					};
+					channel.BasicConsume(queue: campanha, autoAck: false, consumer: consumer);
 
-						consumer.Received += (model, ea) =>
-						{
-							var body = ea.Body;
-							var message = Encoding.UTF8.GetString(body);
-							Console.WriteLine(" [x] Received {0}", message);
-							var dots = message.Split('.').Length - 1;
-							Thread.Sleep(dots * 1000);
-							Console.WriteLine(" [x] Done");
-							channel.BasicAck(ea.DeliveryTag, false);
-							_envioService.SalvarResultadoEnvio(campanha, message);
-						};
-
-						channel.BasicConsume(campanha,
-							false,
-							consumer);
-
-						Console.WriteLine("Finished " + DateTime.Now);
-						Console.WriteLine(" Press [enter] to exit.");
-						Console.ReadLine();
-
-						Thread.Sleep(500000000);
-					}
+					Console.WriteLine(" Press [enter] to exit.");
+					Console.ReadLine();
 				}
+				_atualizarStatus.AtualizarStatusApi(Guid.Parse(campanha), (int)WorkflowStatus.PushSenderCompleted);
+
 				return true;
 			}
-			catch (Exception)
+			catch (Exception e )
 			{
+				Console.WriteLine(e);
 				return false;
 			}
 		}

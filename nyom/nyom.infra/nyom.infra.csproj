@@ -22,7 +22,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.0.0" />
-    <PackageReference Include="mongocsharpdriver" Version="2.4.4" />
+    <PackageReference Include="MongoDB.Driver" Version="2.4.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\nyom.domaincore\nyom.domain.core.csproj" />

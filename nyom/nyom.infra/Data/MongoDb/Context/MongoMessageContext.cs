@@ -11,11 +11,11 @@ namespace nyom.infra.Data.MongoDb.Context
 
 		public MongoMessageContext(IOptions<MongoDbSettings> settings, string collectionName)
 		{
-		    var client = new MongoClient("mongodb://localhost:27017");
+		    var client = new MongoClient(settings.Value.ConnectionString);
 
             if (client != null)
             {
-                _database = client.GetDatabase("Messages");
+                _database = client.GetDatabase(settings.Value.Database);
             }
 
             _collectionName = collectionName;

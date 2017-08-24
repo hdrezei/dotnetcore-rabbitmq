@@ -6,15 +6,13 @@ using nyom.domain.core.EntityFramework.Interfaces;
 using nyom.domain.core.EntityFramework.Models;
 using nyom.domain.Crm.Pessoa;
 using nyom.domain.Crm.Templates;
-using nyom.domain.Message;
+using nyom.domain.MongoDb.Message;
 using nyom.domain.Workflow.Campanha;
-using nyom.infra;
 using nyom.infra.CrossCutting.Helper;
 using nyom.infra.Data.EntityFramwork.Context;
 using nyom.infra.Data.EntityFramwork.Repositories.Workflow;
 using nyom.infra.Data.MongoDb.Repositories;
 using nyom.infra.Factory;
-using nyom.workflow.manager.Interfaces;
 
 namespace nyom.api
 {

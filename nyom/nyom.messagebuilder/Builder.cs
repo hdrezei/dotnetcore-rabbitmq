@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using nyom.domain;
 using nyom.domain.Crm.Campanha;
 using nyom.domain.Crm.Pessoa;
 using nyom.domain.Crm.Templates;
-using nyom.domain.Message;
+using nyom.domain.MongoDb.Message;
 using nyom.infra.CrossCutting.Services;
 
 namespace nyom.messagebuilder
@@ -30,10 +27,15 @@ namespace nyom.messagebuilder
 			_atualizarStatus = atualizarStatus;
 		}
 
+		public void Start()
+		{
+			MontarMensagens("4063DEBE-6EA0-4C54-B36E-2C65D0D6D060");
+		}
+
 		public void MontarMensagens(string campanhaId)
 		{
 			//var id = new Guid(campanhaId);
-			var id = new Guid("6E15D6B2-CD18-4048-8746-82084FECD4EC");
+			var id = new Guid(campanhaId);
 			var dadosCampanha = _campanhaCrmService.Get(id);
 			if (dadosCampanha != null)
 			{
@@ -64,19 +66,6 @@ namespace nyom.messagebuilder
 			}
 		}
 
-		public async Task AtualizarStatusApi(Guid dadosCampanhaCampanhaId,int status)
-		{
-			using (var client = new HttpClient())
-			{
-				client.BaseAddress = new Uri("http://localhost:5000/");
-				client.DefaultRequestHeaders.Accept.Clear();
-				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-				var response = await client.GetAsync("api/campanha?id=" + dadosCampanhaCampanhaId+"&status="+status);
-				Console.WriteLine(response.IsSuccessStatusCode ? "Status alterado com sucesso" : "Erro na alteração do Status");
-				Console.ReadKey();
-			}
-		}
-
 		private void SalvarMensagens(IEnumerable<Pessoa> listaPessoas, CampanhaCrm dadosCampanha, Template dadosTemplate)
 		{
 			foreach (var itens in listaPessoas)
@@ -88,10 +77,10 @@ namespace nyom.messagebuilder
 					DataEntregaMensagens = DateTime.Now,
 					Id = Guid.NewGuid(),
 					Mensagem = dadosTemplate.Mensagem,
-					Status = WorkflowStatus.MessageBuilderCompleted,
+					Status = (int)WorkflowStatus.MessageBuilderCompleted,
 					TemplateId = dadosTemplate.TemplateId.ToString()
 				};
-				_messageService.Save(message);
+				_messageService.InsertOne(message);
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 ﻿using nyom.domain.core.MongoDb.Repository.Interface;
 
-namespace nyom.domain.Message
+namespace nyom.domain.MongoDb.Message
 {
 	public interface IMessageService :IServiceBase<Message>
 	{

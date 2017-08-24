@@ -26,29 +26,17 @@ namespace nyom.pushsender
 
 		private static void Main()
 		{
-			var builder = new ConfigurationBuilder()
-				.AddJsonFile("appsettings.json", false, true);
-			Configuration = builder.Build();
-
 			var serviceCollection = new ServiceCollection();
-
 			ConfigureServices(serviceCollection);
-
 			var serviceProvider = serviceCollection.BuildServiceProvider();
-
-			serviceProvider.GetService<Sender>().PushMessages(new Guid(Environment.GetEnvironmentVariable("CAMPANHA")));
+			serviceProvider.GetService<Sender>().Start();
 		}
 
 		private static void ConfigureServices(IServiceCollection services)
 		{
-			services.AddScoped<ICampanhaWorkflowRepository, CampanhaWorkflowRepository>();
-			services.AddScoped<ICampanhaWorkflowService, CampanhaWorkflowService>();
-			services.AddScoped<IManagerFactory, ManagerFactory>();
-			services.AddScoped<IDockerHelper, DockerHelper>();
-			services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
-			services.AddScoped(typeof(IServiceBase<>), typeof(ServiceBase<>));
-			services.AddScoped<IDbContext, WorkflowContext>();
+			
 			services.AddScoped<IAtualizarStatus, AtualizarStatus>();
+			services.AddScoped<IEnviarMensagensPush, EnviarMensagensPush>();
 
 			services.AddScoped<Sender>();
 		}

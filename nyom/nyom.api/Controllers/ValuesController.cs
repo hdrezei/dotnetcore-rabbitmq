@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using nyom.domain;
-using nyom.domain.Message;
-using nyom.infra.CrossCutting.Helper;
+using nyom.domain.MongoDb.Message;
 
 namespace nyom.api.Controllers
 {
@@ -42,7 +39,6 @@ namespace nyom.api.Controllers
         public void Put(int id, [FromBody]string value)
         {
         }
-
         // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(int id)

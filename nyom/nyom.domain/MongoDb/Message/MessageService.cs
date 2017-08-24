@@ -1,6 +1,6 @@
 ﻿using nyom.domain.core.MongoDb.Repository.Models;
 
-namespace nyom.domain.Message
+namespace nyom.domain.MongoDb.Message
 {
 	public class MessageService : ServiceBase<Message>, IMessageService
 	{
