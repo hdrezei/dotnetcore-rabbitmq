@@ -43,7 +43,8 @@ namespace nyom.queuebuilder
             services.AddOptions();
             services.AddSingleton(Configuration);
             services.AddScoped<IDockerHelper, DockerHelper>();
-            services.AddScoped<IMessageService, MessageService>();
+	        services.AddScoped<IEnfileirarMensagens, EnfileirarMensagens>();
+			services.AddScoped<IMessageService, MessageService>();
 	        services.AddScoped<IAtualizarStatus, AtualizarStatus>();
 			services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<QueueBuilder>();

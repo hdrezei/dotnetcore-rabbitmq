@@ -7,12 +7,7 @@ namespace nyom.api.Controllers
 	[Route("api/[controller]")]
     public class ValuesController : Controller
     {
-	    private readonly IMessageService _messageService;
-
-	    public ValuesController(IMessageService messageService)
-	    {
-		    _messageService = messageService;
-	    }
+	    
 
 	    // GET api/values
         [HttpGet]

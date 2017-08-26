@@ -2,6 +2,7 @@
 using nyom.domain;
 using nyom.domain.Workflow.Campanha;
 using nyom.infra.CrossCutting.Helper;
+using nyom.infra.CrossCutting.Services;
 
 namespace nyom.infra.Factory
 {
@@ -9,16 +10,19 @@ namespace nyom.infra.Factory
 	{
 		private readonly IDockerHelper _dockerHelper;
 		private readonly ICampanhaWorkflowService _campanhaWorkflowService;
+		private readonly IAtualizarStatus _atualizarStatus;
 
-		public ManagerFactory( IDockerHelper dockerHelper, ICampanhaWorkflowService campanhaWorkflowService)
+		public ManagerFactory( IDockerHelper dockerHelper, ICampanhaWorkflowService campanhaWorkflowService, IAtualizarStatus atualizarStatus)
 		{
 			_dockerHelper = dockerHelper;
 			_campanhaWorkflowService = campanhaWorkflowService;
+			_atualizarStatus = atualizarStatus;
 		}
 
-		public void VerificarStatusCampanha(string id)
+		public void VerificarStatusCampanha(object state)
 		{
-			//var Id = new Guid(id);
+			//var Id = new Guid(Enviroment);
+			//var id = new Guid(Environment.GetEnvironmentVariable("CAMPANHA"));
 			var Id = new Guid("4063DEBE-6EA0-4C54-B36E-2C65D0D6D060");
 			var dadosCampanha = _campanhaWorkflowService.Find(a => a.CampanhaId.Equals(Id));
 			var workflowStatus = dadosCampanha.Status;
@@ -26,8 +30,9 @@ namespace nyom.infra.Factory
 			switch (workflowStatus)
 			{
 				case (int)WorkflowStatus.WorkflowManager:
-					_campanhaWorkflowService.AtualizarStatusCampanha(Id, WorkflowStatus.MessageBuilder);
+					_atualizarStatus.AtualizarStatusApi(Id,(int)WorkflowStatus.MessageBuilder);
 					_dockerHelper.CriarContainerDocker(Id, "nyom.messagebuilder");
+					Console.WriteLine("Status Atualizado, iniciando MessageBuilder");
 					break;
 
 				case (int)WorkflowStatus.MessageBuilder:
@@ -37,22 +42,24 @@ namespace nyom.infra.Factory
 					break;
 
 				case (int)WorkflowStatus.MessageBuilderCompleted:
-					_campanhaWorkflowService.AtualizarStatusCampanha(Id, WorkflowStatus.QueueBuilder);
+					_atualizarStatus.AtualizarStatusApi(Id, (int)WorkflowStatus.QueueBuilder);
 					_dockerHelper.CriarContainerDocker(Id, "nyom.queuebuilder");
+					Console.WriteLine("Status Atualizado, iniciando QueuBuilder");
 					break;
 
 				case (int)WorkflowStatus.QueueBuilderCompleted:
-					_campanhaWorkflowService.AtualizarStatusCampanha(Id, WorkflowStatus.PushSender);
+					_atualizarStatus.AtualizarStatusApi(Id, (int)WorkflowStatus.PushSender);
 					_dockerHelper.CriarContainerDocker(Id, "nyom.pushsender");
+					Console.WriteLine("Status Atualizado, iniciando PushSender");
 					break;
 
 				case (int)WorkflowStatus.PushSenderCompleted:
-					_campanhaWorkflowService.AtualizarStatusCampanha(Id, WorkflowStatus.LoggingCleanup);
-					_dockerHelper.CriarContainerDocker(Id, "nyom.mongo.logs");
+					_atualizarStatus.AtualizarStatusApi(Id, (int)WorkflowStatus.Finished);
+					Console.WriteLine("Status Atualizado, Finalizado");
 					break;
 
 				case (int)WorkflowStatus.LoggingCleanupCompleted:
-					_campanhaWorkflowService.AtualizarStatusCampanha(Id, WorkflowStatus.Finished);
+					_atualizarStatus.AtualizarStatusApi(Id, (int)WorkflowStatus.Finished);
 					break;
 
 				case (int)WorkflowStatus.Finished:

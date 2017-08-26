@@ -1,87 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using nyom.domain;
-using nyom.domain.Crm.Campanha;
-using nyom.domain.Crm.Pessoa;
-using nyom.domain.Crm.Templates;
-using nyom.domain.MongoDb.Message;
-using nyom.infra.CrossCutting.Services;
-
-namespace nyom.messagebuilder
+﻿namespace nyom.messagebuilder
 {
 	public class Builder
 	{
-		private readonly ITemplateService _templateservice;
-		private readonly ICampanhaCrmService _campanhaCrmService;
-		private readonly IPessoaService _pessoaService;
-		private readonly IMessageService _messageService;
-		private readonly IAtualizarStatus _atualizarStatus;
+		private readonly IMensagens _mensagens;
 
-		public Builder(ITemplateService templateservice, ICampanhaCrmService campanhaCrmService,
-			IPessoaService pessoaService, IMessageService messageService, IAtualizarStatus atualizarStatus)
+		public Builder(IMensagens mensagens)
 		{
-			_templateservice = templateservice;
-			_campanhaCrmService = campanhaCrmService;
-			_pessoaService = pessoaService;
-			_messageService = messageService;
-			_atualizarStatus = atualizarStatus;
+			_mensagens = mensagens;
 		}
 
 		public void Start()
 		{
-			MontarMensagens("4063DEBE-6EA0-4C54-B36E-2C65D0D6D060");
-		}
-
-		public void MontarMensagens(string campanhaId)
-		{
-			//var id = new Guid(campanhaId);
-			var id = new Guid(campanhaId);
-			var dadosCampanha = _campanhaCrmService.Get(id);
-			if (dadosCampanha != null)
-			{
-				var dadosTemplate = _templateservice.Get(dadosCampanha.TemplateId);
-				if (dadosTemplate == null)
-				{
-					Console.WriteLine("Nenhum template foi encontrado");
-					Console.ReadKey();
-					return;
-				}
-
-				var listaPessoas = _pessoaService.All();
-				if (listaPessoas == null)
-				{
-					Console.WriteLine("Nenhuma lista de pessoas foi encontrada");
-					Console.ReadKey();
-					return;
-				}
-
-				SalvarMensagens(listaPessoas, dadosCampanha, dadosTemplate);
-				_atualizarStatus.AtualizarStatusApi(dadosCampanha.CampanhaId, (int) WorkflowStatus.MessageBuilderCompleted);
-			}
-			else
-			{
-				Console.WriteLine("Nenhuma campanha foi encontrada");
-				Console.ReadKey();
-				return;
-			}
-		}
-
-		private void SalvarMensagens(IEnumerable<Pessoa> listaPessoas, CampanhaCrm dadosCampanha, Template dadosTemplate)
-		{
-			foreach (var itens in listaPessoas)
-			{
-				var message = new Message
-				{
-					CampanhaId = dadosCampanha.CampanhaId.ToString(),
-					DataCriacao = dadosCampanha.DataInicio,
-					DataEntregaMensagens = DateTime.Now,
-					Id = Guid.NewGuid(),
-					Mensagem = dadosTemplate.Mensagem,
-					Status = (int)WorkflowStatus.MessageBuilderCompleted,
-					TemplateId = dadosTemplate.TemplateId.ToString()
-				};
-				_messageService.InsertOne(message);
-			}
+			//_mensagens.MontarMensagens(Environment.GetEnvironmentVariable("CAMPANHA"));
+			_mensagens.MontarMensagens("4063DEBE-6EA0-4C54-B36E-2C65D0D6D060");
 		}
 	}
 }

@@ -5,6 +5,7 @@ using nyom.domain.core.EntityFramework.Interfaces;
 using nyom.domain.core.EntityFramework.Models;
 using nyom.domain.Workflow.Campanha;
 using nyom.infra.CrossCutting.Helper;
+using nyom.infra.CrossCutting.Services;
 using nyom.infra.Data.EntityFramwork.Context;
 using nyom.infra.Data.EntityFramwork.Repositories;
 using nyom.infra.Data.EntityFramwork.Repositories.Workflow;
@@ -31,11 +32,8 @@ namespace nyom.workflow.manager
 			Configuration = builder.Build();
 
 			var serviceCollection = new ServiceCollection();
-
 			ConfigureServices(serviceCollection);
-
 			var serviceProvider = serviceCollection.BuildServiceProvider();
-
 			serviceProvider.GetService<ManagerServices>().Start(Environment.GetEnvironmentVariable("CAMPANHA"));
 		}
 
@@ -44,6 +42,7 @@ namespace nyom.workflow.manager
             services.AddScoped<ICampanhaWorkflowRepository, CampanhaWorkflowRepository>();
 			services.AddScoped<ICampanhaWorkflowService, CampanhaWorkflowService>();
 			services.AddScoped<IManagerFactory, ManagerFactory>();
+			services.AddScoped<IAtualizarStatus, AtualizarStatus>();
 			services.AddScoped<IDockerHelper, DockerHelper>();
 			services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
 			services.AddScoped(typeof(IServiceBase<>), typeof(ServiceBase<>));
