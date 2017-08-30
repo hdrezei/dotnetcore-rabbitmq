@@ -43,5 +43,10 @@ namespace nyom.domain.core.MongoDb.Repository.Models
 		{
 			return _repositoryBase.FindAll(predicate);
 		}
+
+	    public TEntity Save(TEntity entity)
+	    {
+	        throw new NotImplementedException();
+	    }
 	}
 }

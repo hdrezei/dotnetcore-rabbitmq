@@ -35,7 +35,7 @@ namespace nyom.infra.Data.MongoDb.Repositories
 				.ToList();
 		}
 
-		public TEntity GetOne(TEntity context)
+	    public TEntity GetOne(TEntity context)
 		{
 			return Context.Collection.Find(new BsonDocument("_id", context.Id)).FirstOrDefault();
 		}
