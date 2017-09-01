@@ -37,6 +37,12 @@ namespace nyom.infra.CrossCutting.Helper
 
 			//Process process = Process.Start(psi);
 
+
+
+
+			//docker run --name nyom.workflow.control --network=dotnetcorerabbitmq_net.workflow -links=mssql.workflow:nyom.workflow.control  nyom.workflow.control
+
+
 			Console.WriteLine(argumento);
 
 		}
