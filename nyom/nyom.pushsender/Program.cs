@@ -1,15 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using nyom.domain.core.EntityFramework.Models;
-using nyom.domain.core.MongoDb.Repository.Interface;
-using nyom.domain.Workflow.Campanha;
-using nyom.infra.CrossCutting.Helper;
 using nyom.infra.CrossCutting.Services;
-using nyom.infra.Data.EntityFramwork.Context;
-using nyom.infra.Data.EntityFramwork.Repositories;
-using nyom.infra.Data.EntityFramwork.Repositories.Workflow;
-using nyom.infra.Factory;
 
 namespace nyom.pushsender
 {
@@ -34,10 +26,8 @@ namespace nyom.pushsender
 
 		private static void ConfigureServices(IServiceCollection services)
 		{
-			
 			services.AddScoped<IAtualizarStatus, AtualizarStatus>();
 			services.AddScoped<IEnviarMensagensPush, EnviarMensagensPush>();
-
 			services.AddScoped<Sender>();
 		}
 	}
