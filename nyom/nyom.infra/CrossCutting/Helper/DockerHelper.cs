@@ -3,54 +3,67 @@ using System.Diagnostics;
 
 namespace nyom.infra.CrossCutting.Helper
 {
-    public class DockerHelper : IDockerHelper
-    {
-        public void Run(Guid dadosCampanhaCampanhaId, string servico)
-        {
-            using (var processo = new Process())
-            {
-                processo.StartInfo.FileName = Environment.GetEnvironmentVariable("comspec");
-                processo.StartInfo.Arguments = string.Format(@"docker run {0} --alias={1}  --net {2} --links {3} -e CAMPANHA={1} -v tcp://localhost:2305:/var/run/docker.sock", servico, dadosCampanhaCampanhaId, "nyom_net.workflow", "mssql.workflow");
-				Console.WriteLine(string.Format(@"docker run {0} --alias={1}  --net {2} --links {3} -e CAMPANHA={1} -v tcp://localhost:2305:/var/run/docker.sock", servico, dadosCampanhaCampanhaId, "nyom_net.workflow", "mssql.workflow"));
+	public class DockerHelper : IDockerHelper
+	{
+		public void Run(Guid dadosCampanhaCampanhaId, string servico)
+		{
+			var argumento =
+				string.Format(
+					"docker run {0} --alias={1}  --net {2} --links {3}:{0} -e CAMPANHA={1} -v tcp://docker.for.win.localhost:2375:/var/run/docker.sock",
+					servico, dadosCampanhaCampanhaId, "net.workflow", "mssql.workflow");
+
+			using (var processo = new Process())
+			{
+				processo.StartInfo.FileName = Environment.GetEnvironmentVariable("comspec");
+				processo.StartInfo.Arguments = string.Format("docker run {0} --alias={1}  --net {2} --links {3}:{0} -e CAMPANHA={1} -v tcp://docker.for.win.localhost:2375:/var/run/docker.sock",
+					servico, dadosCampanhaCampanhaId, "net.workflow", "mssql.workflow");
 				processo.StartInfo.RedirectStandardOutput = true;
-                processo.StartInfo.UseShellExecute = false;
-                processo.StartInfo.CreateNoWindow = true;
+				processo.StartInfo.UseShellExecute = false;
+				processo.StartInfo.CreateNoWindow = true;
+				processo.Start();
+			}
+			//Process process = new System.Diagnostics.Process();
+			//Process proc = new System.Diagnostics.Process();
+			//proc.StartInfo.FileName(@"C:\Windows\System32\cmd.exe");
+			//proc.Start(argumento);
 
-                processo.Start();
-            }
-        }
+			//ProcessStartInfo psi = new ProcessStartInfo();
+			//psi.WindowStyle = ProcessWindowStyle.Normal;
+			//psi.FileName = @"C:\Program Files\Git\bin\bash.exe";
+			//psi.WorkingDirectory = @"C:\Program Files\Docker Toolbox";
+			//psi.Arguments = @"--login -i ""C:\Program Files\Docker Toolbox\start.sh""  docker-machine inspect default";
+			//psi.UseShellExecute = false;
+			//psi.RedirectStandardOutput = true;
 
-        public void Inspect(string servico)
-        {
-            using (var processo = new Process())
-            {
-                processo.StartInfo.FileName = Environment.GetEnvironmentVariable("comspec");
-                processo.StartInfo.Arguments = string.Format("docker inspect {0}", servico);
-                processo.StartInfo.RedirectStandardOutput = true;
-                processo.StartInfo.UseShellExecute = false;
-                processo.StartInfo.CreateNoWindow = true;
-                processo.Start();
-            }
-        }
+			//Process process = Process.Start(psi);
 
-        public void Execute(string servico)
-        {
-            using (var processo = new Process())
-            {
-                processo.StartInfo.FileName = Environment.GetEnvironmentVariable("comspec");
-                processo.StartInfo.Arguments = string.Format("docker exec -d {0}", servico);
-                processo.StartInfo.RedirectStandardOutput = true;
-                processo.StartInfo.UseShellExecute = false;
-                processo.StartInfo.CreateNoWindow = true;
-                processo.Start();
-            }
-        }
 
-        public void CriarContainerDocker(Guid id, string servico)
-        {
-            Run(id, servico);
-            Inspect(servico);
-            Execute(servico);
-        }
-    }
+
+
+			//docker run --name nyom.workflow.control --network=dotnetcorerabbitmq_net.workflow -links=mssql.workflow:nyom.workflow.control  nyom.workflow.control
+
+
+			Console.WriteLine(argumento);
+
+		}
+
+		public void Inspect(string servico)
+		{
+			var argumento = string.Format("docker inspect {0}", servico);
+			Process.Start("cmd.exe", "/c " + argumento);
+		}
+
+		public void Execute(string servico)
+		{
+			var argumento = string.Format("docker exec -d {0}", servico);
+			Process.Start("cmd.exe", "/c " + argumento);
+		}
+
+		public void CriarContainerDocker(Guid id, string servico)
+		{
+			Run(id, servico);
+			Inspect(servico);
+			Execute(servico);
+		}
+	}
 }
