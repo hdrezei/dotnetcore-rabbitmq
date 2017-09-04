@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 using nyom.domain.MongoDb.Message;
-using Newtonsoft.Json;
 using RabbitMQ.Client;
 
 namespace nyom.queuebuilder

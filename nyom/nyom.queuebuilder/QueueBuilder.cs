@@ -19,7 +19,6 @@ namespace nyom.queuebuilder
         {
             Console.WriteLine(Environment.GetEnvironmentVariable("CAMPANHA"));
 	        var enfileirar = _enfileirarMensagens.EnfileirarMensagensPush(Guid.Parse("4063DEBE-6EA0-4C54-B36E-2C65D0D6D060"));
-
 	        _atualizarStatus.AtualizarStatusApi(Guid.Parse("4063DEBE-6EA0-4C54-B36E-2C65D0D6D060"), (int)WorkflowStatus.QueueBuilderCompleted);
 		}
     }

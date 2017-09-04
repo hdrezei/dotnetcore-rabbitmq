@@ -1,7 +1,5 @@
 ﻿using System.Threading;
-using nyom.domain.Workflow.Campanha;
 using nyom.infra.Factory;
-using nyom.workflow.manager.Interfaces;
 
 namespace nyom.workflow.manager.Services
 {

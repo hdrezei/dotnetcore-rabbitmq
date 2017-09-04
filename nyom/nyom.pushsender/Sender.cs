@@ -15,7 +15,6 @@ namespace nyom.pushsender
 			_enviarMensagensPush = enviarMensagensPush;
 		}
 
-
 		public void Start()
 		{
 			PushMessages(Guid.Parse("4063DEBE-6EA0-4C54-B36E-2C65D0D6D060"));
@@ -26,7 +25,6 @@ namespace nyom.pushsender
 
 			if(enviar)
 			_atualizarStatus.AtualizarStatusApi(campanha, (int) WorkflowStatus.PushSenderCompleted);
-
 		}
 	}
 }

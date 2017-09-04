@@ -12,7 +12,7 @@ namespace nyom.workflow.control
 	public class Program
 	{
 		public static IConfigurationRoot Configuration { get; set; }
-		// create service collection
+		
 		private static void Main()
 		{
 			var builder = new ConfigurationBuilder()
