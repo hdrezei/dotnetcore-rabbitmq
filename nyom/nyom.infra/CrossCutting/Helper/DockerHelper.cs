@@ -1,78 +1,89 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
-using System.Reflection;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Docker.DotNet;
+using Docker.DotNet.Models;
 
 namespace nyom.infra.CrossCutting.Helper
 {
 	public class DockerHelper : IDockerHelper
 	{
-		public void Run(Guid dadosCampanhaCampanhaId, string servico)
+		public async void RunAsync(Guid dadosCampanhaCampanhaId, string servico)
 		{
-			var comando = string.Format(
-				"docker run {0} --alias={1}  --net {2} --links {3}:{0} -e CAMPANHA={1} -v tcp://docker.for.win.localhost:2375:/var/run/docker.sock {0}",
-				servico, dadosCampanhaCampanhaId, "net.worflow", "mssql.workflow");
+			var client = new DockerClientConfiguration(new Uri("tcp://docker.for.win.localhost:2375"))
+				.CreateClient();
 
-			var escapedArgs = comando.Replace("\"", "\\\"");
-			var process = new Process()
+			Console.WriteLine("OSVersion: {0}", Environment.OSVersion.ToString());
+
+			if (Environment.OSVersion.ToString().Contains("Windows"))
 			{
-				StartInfo = new ProcessStartInfo
+				var argumento =
+					string.Format(
+						"docker run {0} --alias={1}  --network={2} --links={3}:{0} -e CAMPANHA={1} -v tcp://docker.for.win.localhost:2375:/var/run/docker.sock {0}",
+						servico, dadosCampanhaCampanhaId, "dotnetcorerabbitmq_net.workflow", "mssql.workflow");
+				Process.Start("cmd.exe", "/c " + argumento);
+			}
+			else
+			{
+				var argumento =
+					string.Format(
+						"docker run {0} --alias={1}  --network={2} --links={3}:{0} -e CAMPANHA={1} -v tcp://docker.for.win.localhost:2375:/var/run/docker.sock {0}",
+						servico, dadosCampanhaCampanhaId, "dotnetcorerabbitmq_net.workflow", "mssql.workflow");
+				var parameters = new Config
 				{
-					FileName = "/bin/bash",
-					Arguments = $"-c \"{escapedArgs}\"",
-					RedirectStandardOutput = true,
-					UseShellExecute = false,
-					CreateNoWindow = true,
+					Image = servico,
+					ArgsEscaped = false,
+					AttachStderr = false,
+					AttachStdin = false,
+					AttachStdout = true,
+					Cmd = new string[] {
+						"--alias", dadosCampanhaCampanhaId.ToString(),
+						"--network", "dotnetcorerabbitmq_net.workflow",
+						"--links", "mssql.workflow:"+servico,
+						"-e", "CAMPANHA="+dadosCampanhaCampanhaId.ToString(),
+						"-v", "tcp://docker.for.win.localhost:2375:/var/run/docker.sock"
+					}
+				};
+				CreateContainerResponse response = await client.Containers.CreateContainerAsync(new CreateContainerParameters(parameters));
+
+				await client.Containers.StartContainerAsync(response.ID, new ContainerStartParameters());
+
+				var config = new ContainerAttachParameters
+				{
+					Stream = true,
+					Stderr = false,
+					Stdin = false,
+					Stdout = true
+				};
+				var buffer = new byte[1024];
+				using (var stream = await client.Containers.AttachContainerAsync(response.ID, false, config, default(CancellationToken)))
+				{
+					using (var fileStream = System.IO.File.Create($"{DateTime.Now.Ticks}.jpg"))
+					{
+						await stream.CopyOutputToAsync(null, fileStream, null, default(CancellationToken));
+					}
 				}
-			};
-			process.Start();
+			}
 		}
-	
+
+		//docker run --name nyom.workflow.control --network=dotnetcorerabbitmq_net.workflow -links=mssql.workflow:nyom.workflow.control  nyom.workflow.control
+
 		public void Inspect(string servico)
 		{
 			var argumento = string.Format("docker inspect {0}", servico);
-			var escapedArgs = argumento.Replace("\"", "\\\"");
-			var process = new Process()
-			{
-				StartInfo = new ProcessStartInfo
-				{
-					FileName = "/bin/bash",
-					Arguments = $"-c \"{escapedArgs}\"",
-					RedirectStandardOutput = true,
-					UseShellExecute = false,
-					CreateNoWindow = true,
-				}
-			};
-			process.Start();
-			process.StandardOutput.ReadToEnd();
-			process.WaitForExit();
+			Process.Start("cmd.exe", "/c " + argumento);
 		}
 
 		public void Execute(string servico)
 		{
 			var argumento = string.Format("docker exec -d {0}", servico);
-			var escapedArgs = argumento.Replace("\"", "\\\"");
-			var process = new Process()
-			{
-				StartInfo = new ProcessStartInfo
-				{
-					FileName = "/bin/bash",
-					Arguments = $"\"{escapedArgs}\"",
-					RedirectStandardOutput = true,
-					UseShellExecute = false,
-					CreateNoWindow = true,
-				}
-			};
-			process.Start();
-			process.StandardOutput.ReadToEnd();
-			process.WaitForExit();
+			Process.Start("cmd.exe", "/c " + argumento);
 		}
 
 		public void CriarContainerDocker(Guid id, string servico)
 		{
-			Run(id, servico);
+			RunAsync(id, servico);
 			Inspect(servico);
 			Execute(servico);
 		}
