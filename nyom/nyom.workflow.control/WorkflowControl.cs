@@ -40,7 +40,7 @@ namespace nyom.workflow.control
 				return;
 			}
 
-			_dockerHelper.Run(dadosCampanha.CampanhaId, "nyom.workflow.manager");
+			_dockerHelper.RunAsync(dadosCampanha.CampanhaId, "nyom.workflow.manager");
 			//_atualizarStatus.AtualizarStatusApi(dadosCampanha.CampanhaId, (int)WorkflowStatus.WorkflowManager);
 			Console.WriteLine("Campanha encontrada, iniciando Workflow Manager");
 		}
