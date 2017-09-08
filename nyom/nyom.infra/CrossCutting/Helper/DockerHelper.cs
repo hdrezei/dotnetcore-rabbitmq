@@ -55,7 +55,7 @@ namespace nyom.infra.CrossCutting.Helper
 						//"-e", "CAMPANHA=" + dadosCampanhaCampanhaId,
 						//"-v", "tcp://docker.for.win.localhost:2375:/var/run/docker.sock"
 						string.Format(
-							"--alias={1}  --network={2} --links={3}:{0} -e CAMPANHA={1} -v tcp://docker.for.win.localhost:2375:/var/run/docker.sock {0}",
+							"--name={1} --alias={1}  --network={2} --links={3}:{0} -e CAMPANHA={1} -v tcp://docker.for.win.localhost:2375:/var/run/docker.sock {0}",
 							servico, dadosCampanhaCampanhaId, "dotnetcorerabbitmq_net.workflow", "mssql.workflow")
 					}
 				};

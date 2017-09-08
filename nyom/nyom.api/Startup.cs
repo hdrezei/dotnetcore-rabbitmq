@@ -10,7 +10,6 @@ using nyom.domain.EntityFramework.Crm.Pessoa;
 using nyom.domain.EntityFramework.Crm.Templates;
 using nyom.domain.EntityFramework.Workflow.Campanha;
 using nyom.domain.MongoDb.Message;
-using nyom.domain.Workflow.Campanha;
 using nyom.infra.CrossCutting.Helper;
 using nyom.infra.Data.EntityFramwork.Context;
 using nyom.infra.Data.EntityFramwork.Repositories.Workflow;

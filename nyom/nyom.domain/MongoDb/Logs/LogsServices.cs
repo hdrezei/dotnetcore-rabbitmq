@@ -1,9 +1,8 @@
 ﻿using nyom.domain.core.MongoDb.Repository.Models;
-using nyom.domain.MongoDb.Logs;
 
-namespace nyom.domain.Logs
+namespace nyom.domain.MongoDb.Logs
 {
-    class LogsServices : ServiceBase<MongoDb.Logs.Logs>,ILogsService
+    class LogsServices : ServiceBase<Logs>,ILogsService
     {
 	    private readonly ILogsRepository _logsRepository;
 

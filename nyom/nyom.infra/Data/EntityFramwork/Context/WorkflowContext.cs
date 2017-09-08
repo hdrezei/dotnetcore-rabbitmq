@@ -19,18 +19,11 @@ namespace nyom.infra.Data.EntityFramwork.Context
             return base.Set<TEntity>();
         }
 
-		//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		// => optionsBuilder.UseSqlServer(Configuration.GetConnectionString("WorkflowConnection"));
-		//=> optionsBuilder.UseSqlServer("Server=mssql.workflow; Database=workflow; User ID=sa; Password=nyom.workflow-7410");
-
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			// get the configuration from the app settings
 			var config = new ConfigurationBuilder()
 				.AddJsonFile("appsettings.json")
 				.Build();
-			// define the database to 
-			Console.WriteLine(config.GetConnectionString("WorkflowConnection"));
 			optionsBuilder.UseSqlServer(config.GetConnectionString("WorkflowConnection"));
 		}
 
