@@ -1,8 +1,8 @@
 ﻿using nyom.domain.core.EntityFramework.Interfaces;
 
-namespace nyom.domain.Workflow.Workflow
+namespace nyom.domain.EntityFramework.Workflow.Workflow
 {
-	public interface IWorkflowService : IServiceBase<Workflow>
+	public interface IWorkflowService : IServiceBase<domain.Workflow.Workflow.Workflow>
 	{
 	}
 }

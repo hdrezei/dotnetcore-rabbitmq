@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\nyom.domain.core\nyom.domain.core.csproj" />
     <ProjectReference Include="..\nyom.domain\nyom.domain.csproj" />
     <ProjectReference Include="..\nyom.infra\nyom.infra.csproj" />
   </ItemGroup>

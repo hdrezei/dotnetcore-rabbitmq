@@ -1,8 +1,8 @@
 ﻿using nyom.domain.core.EntityFramework.Interfaces;
 
-namespace nyom.domain.Crm.Empresa
+namespace nyom.domain.EntityFramework.Crm.Empresa
 {
-	public interface IEmpresaService : IServiceBase<Empresa>
+	public interface IEmpresaService : IServiceBase<domain.Crm.Empresa.Empresa>
 	{
 	}
 }

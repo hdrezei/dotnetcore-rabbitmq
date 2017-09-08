@@ -4,6 +4,9 @@ using nyom.domain;
 using nyom.domain.Crm.Campanha;
 using nyom.domain.Crm.Pessoa;
 using nyom.domain.Crm.Templates;
+using nyom.domain.EntityFramework.Crm.Campanha;
+using nyom.domain.EntityFramework.Crm.Pessoa;
+using nyom.domain.EntityFramework.Crm.Templates;
 using nyom.domain.MongoDb.Message;
 using nyom.infra.CrossCutting.Services;
 

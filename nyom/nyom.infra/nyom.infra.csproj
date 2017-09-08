@@ -28,7 +28,7 @@
     <PackageReference Include="Opener.Net" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\nyom.domaincore\nyom.domain.core.csproj" />
+    <ProjectReference Include="..\nyom.domain.core\nyom.domain.core.csproj" />
     <ProjectReference Include="..\nyom.domain\nyom.domain.csproj" />
   </ItemGroup>
 </Project>

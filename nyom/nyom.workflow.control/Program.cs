@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using nyom.domain.EntityFramework.Workflow.Campanha;
 using nyom.domain.Workflow.Campanha;
 using nyom.infra.CrossCutting.Helper;
 using nyom.infra.CrossCutting.Services;

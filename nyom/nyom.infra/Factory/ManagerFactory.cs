@@ -1,5 +1,6 @@
 ﻿using System;
 using nyom.domain;
+using nyom.domain.EntityFramework.Workflow.Campanha;
 using nyom.domain.Workflow.Campanha;
 using nyom.infra.CrossCutting.Helper;
 using nyom.infra.CrossCutting.Services;
