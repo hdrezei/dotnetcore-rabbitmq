@@ -1,1 +1,0 @@
-bash -c " docker run --name nyom.workflow.manager --network=dotnetcorerabbitmq_net.workflow -links=mssql.workflow:nyom.workflow.manager -e CAMPANHA=4063DEBE-6EA0-4C54-B36E-2C65D0D6D060  nyom.workflow.control --alias=4063DEBE-6EA0-4C54-B36E-2C65D0D6D060 -v tcp://docker.for.win.localhost:2375:/var/run/docker.sock nyom.workflow.manager "
