@@ -1,8 +1,8 @@
 ﻿using nyom.domain.core.EntityFramework.Interfaces;
 
-namespace nyom.domain.Crm.Empresa
+namespace nyom.domain.EntityFramework.Crm.Empresa
 {
-	public interface IEmpresaRepository:IRepositoryBase<Empresa>
+	public interface IEmpresaRepository:IRepositoryBase<domain.Crm.Empresa.Empresa>
 	{
 	}
 }

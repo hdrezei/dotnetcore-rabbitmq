@@ -1,4 +1,5 @@
 ﻿using nyom.domain.Crm.Empresa;
+using nyom.domain.EntityFramework.Crm.Empresa;
 using nyom.infra.Data.EntityFramwork.Context;
 
 namespace nyom.infra.Data.EntityFramwork.Repositories.Crm

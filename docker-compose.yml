@@ -81,7 +81,7 @@ services:
       - mongo.messages  
 
   mongo.messages: 
-    image: mongo:latest 
+    image: mongo
     container_name: mongo.messages 
     volumes: 
       - ./data/db/messages:/data/db 

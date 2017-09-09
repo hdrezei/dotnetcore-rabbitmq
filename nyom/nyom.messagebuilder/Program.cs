@@ -2,10 +2,13 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nyom.domain.core.EntityFramework.Interfaces;
-using nyom.domain.core.EntityFramework.Models;
+using nyom.domain.core.MongoDb.Repository.Models;
 using nyom.domain.Crm.Campanha;
 using nyom.domain.Crm.Pessoa;
 using nyom.domain.Crm.Templates;
+using nyom.domain.EntityFramework.Crm.Campanha;
+using nyom.domain.EntityFramework.Crm.Pessoa;
+using nyom.domain.EntityFramework.Crm.Templates;
 using nyom.domain.MongoDb.Message;
 using nyom.infra.CrossCutting.Helper;
 using nyom.infra.CrossCutting.Services;

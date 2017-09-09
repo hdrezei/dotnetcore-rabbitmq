@@ -1,4 +1,5 @@
 ﻿using nyom.domain.core.EntityFramework.Models;
+using nyom.domain.EntityFramework.Crm.Templates;
 
 namespace nyom.domain.Crm.Templates
 {

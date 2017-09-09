@@ -1,8 +1,8 @@
 ﻿using nyom.domain.core.EntityFramework.Interfaces;
 
-namespace nyom.domain.Crm.Pessoa
+namespace nyom.domain.EntityFramework.Crm.Pessoa
 {
-	public interface IPessoaService : IServiceBase<Pessoa>
+	public interface IPessoaService : IServiceBase<domain.Crm.Pessoa.Pessoa>
 	{
 	}
 }

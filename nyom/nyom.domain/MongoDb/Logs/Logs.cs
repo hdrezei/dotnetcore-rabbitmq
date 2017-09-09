@@ -1,7 +1,7 @@
-﻿using nyom.domain.core.MongoDb.Repository.Interface;
-using System;
+﻿using System;
+using nyom.domain.core.MongoDb.Repository.Interface;
 
-namespace nyom.domain.Logs
+namespace nyom.domain.MongoDb.Logs
 {
    public class Logs : IEntity
    {

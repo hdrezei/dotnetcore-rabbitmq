@@ -1,4 +1,5 @@
 ﻿using nyom.domain.core.EntityFramework.Models;
+using nyom.domain.EntityFramework.Workflow.Workflow;
 
 namespace nyom.domain.Workflow.Workflow
 {
