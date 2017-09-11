@@ -19,9 +19,9 @@ namespace nyom.infra.Factory
 			_atualizarStatus = atualizarStatus;
 		}
 
-		public void VerificarStatusCampanha(object state)
+		public void VerificarStatusCampanha()
 		{
-			//var Id = new Guid(Enviroment);
+			
 			//var id = new Guid(Environment.GetEnvironmentVariable("CAMPANHA"));
 			Console.WriteLine("Bem vindo ao WorkflowManager");
 			var Id = new Guid("4063DEBE-6EA0-4C54-B36E-2C65D0D6D060");

@@ -2,6 +2,6 @@
 {
 	public interface IManagerFactory
 	{
-		void VerificarStatusCampanha(object state);
+		void VerificarStatusCampanha();
 	}
 }
