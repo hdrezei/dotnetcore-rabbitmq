@@ -26,7 +26,7 @@ namespace nyom.infra.Factory
 			Console.WriteLine("Bem vindo ao WorkflowManager");
 			var Id = new Guid("4063DEBE-6EA0-4C54-B36E-2C65D0D6D060");
 			var dadosCampanha = _campanhaWorkflowService.Find(a => a.CampanhaId.Equals(Id));
-			var workflowStatus = dadosCampanha.Status;
+			var workflowStatus = 4;
 
 			switch (workflowStatus)
 			{
