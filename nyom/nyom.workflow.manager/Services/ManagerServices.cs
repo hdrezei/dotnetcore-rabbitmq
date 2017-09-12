@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using nyom.infra.Factory;
 
 namespace nyom.workflow.manager.Services
@@ -15,6 +16,7 @@ namespace nyom.workflow.manager.Services
 
 		public void Start(string id)
 		{
+			
 			AutoEvent = new AutoResetEvent(false);
 			new Timer(VerificarCampanha, AutoEvent, 36000, 36000);
 			AutoEvent.WaitOne();
