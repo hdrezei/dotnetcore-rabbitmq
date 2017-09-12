@@ -14,9 +14,11 @@ namespace nyom.infra.CrossCutting.Helper
 		public async void RunAsync(Guid dadosCampanhaCampanhaId, string servico)
 		{
 			var client = new DockerClientConfiguration(new Uri("tcp://docker.for.win.localhost:2375"))
-				.CreateClient();
+			.CreateClient();
 
 
+			//DockerClient client = new DockerClientConfiguration(new Uri("npipe://localhost/pipe/docker_engine"))
+			//	.CreateClient();
 			if (Environment.OSVersion.ToString().Contains("Windows"))
 			{
 				var argumento =
@@ -30,32 +32,35 @@ namespace nyom.infra.CrossCutting.Helper
 				var parameters = new Config
 				{
 					Image = servico,
-					ArgsEscaped = false,
-					AttachStderr = false,
+					ArgsEscaped = true,
+					AttachStderr = true,
 					AttachStdin = false,
 					AttachStdout = true,
-					OpenStdin = true,
-					StdinOnce = true,
+					OpenStdin = false,
+					StdinOnce = false,
 					Env = new[]
 					{
 						"CAMAPANHA=" + dadosCampanhaCampanhaId + ""
 					},
 					Labels = new Dictionary<string, string>
 					{
-						{"alias", dadosCampanhaCampanhaId.ToString()},
-						{"Name", servico}
+						{"alias", dadosCampanhaCampanhaId.ToString()}
+						
 					},
-
 					Cmd = new[]
 					{
+						//"--name",servico,
+						//"--network","dotnetcorerabbitmq_net.workflow",
+						//"-links","mssql.workflow:"+servicodocker ps a-
 						string.Format(
-							"--name {0} --network={1} -links={2}:{0} -v tcp://docker.for.win.localhost:2375:/var/run/docker.sock",
-							servico, "dotnetcorerabbitmq_net.workflow", "mssql.workflow")
+							"--name {0} --net={1} -links={2}:{0}",
+							servico, "dotnetcorerabbitmq_net.workflow", "mssql.workflow"),"bash"
 					}
 				};
 
-				var response = await client.Containers.CreateContainerAsync(new CreateContainerParameters(parameters));
-
+				//var response = await client.Containers.CreateContainerAsync(new CreateContainerParameters(parameters));
+				CreateContainerResponse response = await client.Containers.CreateContainerAsync(new CreateContainerParameters(parameters));
+				Task task = client.Containers.StartContainerAsync(response.ID, new ContainerStartParameters());
 				var config = new ContainerAttachParameters
 				{
 					Stream = true,
@@ -63,18 +68,13 @@ namespace nyom.infra.CrossCutting.Helper
 					Stdin = false,
 					Stdout = true
 				};
-
-				Task task = client.Containers.StartContainerAsync(response.ID, new ContainerStartParameters());
-
 				var buffer = new byte[1024];
-				using (var stream =
-					await client.Containers.AttachContainerAsync(response.ID, false, config, default(CancellationToken)))
+				using (var stream = await client.Containers.AttachContainerAsync(response.ID, false, config, default(CancellationToken)))
 				{
-					var result = await stream.ReadOutputAsync(buffer, 0, buffer.Length, default(CancellationToken));
-					do
+					using (var fileStream = System.IO.File.Create($"{DateTime.Now.Ticks}.jpg"))
 					{
-						Console.Write(Encoding.UTF8.GetString(buffer, 0, result.Count));
-					} while (!result.EOF);
+						await stream.CopyOutputToAsync(null, fileStream, null, default(CancellationToken));
+					}
 				}
 			}
 		}

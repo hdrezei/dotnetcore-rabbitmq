@@ -21,16 +21,18 @@ namespace nyom.infra.Factory
 
 		public void VerificarStatusCampanha()
 		{
-			
+
 			//var id = new Guid(Environment.GetEnvironmentVariable("CAMPANHA"));
-			
+			Console.WriteLine("Entrou aqui 1");
+			Console.WriteLine(Environment.GetEnvironmentVariable("CAMPANHA"));
 			var Id = new Guid("4063DEBE-6EA0-4C54-B36E-2C65D0D6D060");
 			var dadosCampanha = _campanhaWorkflowService.Find(a => a.CampanhaId.Equals(Id));
-			var workflowStatus = 4;
+			var workflowStatus = (int)WorkflowStatus.MessageBuilderCompleted;
 
 			switch (workflowStatus)
 			{
 				case (int)WorkflowStatus.WorkflowManager:
+					
 					_atualizarStatus.AtualizarStatusApi(Id,(int)WorkflowStatus.MessageBuilder);
 					_dockerHelper.RunAsync(Id, "nyom.messagebuilder");
 					Console.WriteLine("Status Atualizado, iniciando MessageBuilder");
@@ -43,7 +45,7 @@ namespace nyom.infra.Factory
 					break;
 
 				case (int)WorkflowStatus.MessageBuilderCompleted:
-					Console.WriteLine("Status Atualizado, iniciando MessageBuilder");
+					Console.WriteLine("Entrou aqui 2");
 					_atualizarStatus.AtualizarStatusApi(Id, (int)WorkflowStatus.QueueBuilder);
 					_dockerHelper.RunAsync(Id, "nyom.queuebuilder");
 					Console.WriteLine("Status Atualizado, iniciando QueuBuilder");
