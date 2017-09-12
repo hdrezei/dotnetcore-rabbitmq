@@ -17,7 +17,7 @@ namespace nyom.infra.CrossCutting.Helper
 			.CreateClient();
 
 
-			//DockerClient client = new DockerClientConfiguration(new Uri("npipe://localhost/pipe/docker_engine"))
+			//DockerClient client = new DockerClientConfiguration(new Uri("npipe://./pipe/docker_engine"))
 			//	.CreateClient();
 			if (Environment.OSVersion.ToString().Contains("Windows"))
 			{
@@ -40,11 +40,11 @@ namespace nyom.infra.CrossCutting.Helper
 					StdinOnce = false,
 					Env = new[]
 					{
-						"CAMAPANHA=" + dadosCampanhaCampanhaId + ""
+						"CAMPANHA=" + dadosCampanhaCampanhaId + ""
 					},
 					Labels = new Dictionary<string, string>
 					{
-						{"alias", dadosCampanhaCampanhaId.ToString()}
+						{"Links","mssql.workflow:nyom.workflow.manager"}
 						
 					},
 					Cmd = new[]
@@ -58,14 +58,23 @@ namespace nyom.infra.CrossCutting.Helper
 					}
 				};
 
+				NetworkingConfig net = new NetworkingConfig()
+				{
+					EndpointsConfig = new Dictionary<string, EndpointSettings>()
+					{
+						{ "dotnetcorerabbitmq_net.workflow",new EndpointSettings()}
+					}
+				};
+
+
 				//var response = await client.Containers.CreateContainerAsync(new CreateContainerParameters(parameters));
-				CreateContainerResponse response = await client.Containers.CreateContainerAsync(new CreateContainerParameters(parameters));
+				CreateContainerResponse response = await client.Containers.CreateContainerAsync(new CreateContainerParameters(parameters){Name = servico, NetworkingConfig = net });
 				Task task = client.Containers.StartContainerAsync(response.ID, new ContainerStartParameters());
 				var config = new ContainerAttachParameters
 				{
 					Stream = true,
 					Stderr = false,
-					Stdin = false,
+					Stdin = true,
 					Stdout = true
 				};
 				var buffer = new byte[1024];

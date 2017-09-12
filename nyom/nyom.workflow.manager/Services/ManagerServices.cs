@@ -18,12 +18,13 @@ namespace nyom.workflow.manager.Services
 		{
 			
 			AutoEvent = new AutoResetEvent(false);
-			new Timer(VerificarCampanha, AutoEvent, 36000, 36000);
+			new Timer(VerificarCampanha, AutoEvent, 0, 36000);
 			AutoEvent.WaitOne();
 		}
 
 		public void VerificarCampanha(object stateInfo)
 		{
+			Console.WriteLine("Entrou em VerificarCampanha");
 			_managerFactory.VerificarStatusCampanha();
 
 		}
