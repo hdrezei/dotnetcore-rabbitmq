@@ -4,14 +4,12 @@ using Microsoft.Extensions.DependencyInjection;
 using nyom.domain.core.EntityFramework.Interfaces;
 using nyom.domain.core.EntityFramework.Models;
 using nyom.domain.EntityFramework.Workflow.Campanha;
-using nyom.domain.Workflow.Campanha;
 using nyom.infra.CrossCutting.Helper;
 using nyom.infra.CrossCutting.Services;
 using nyom.infra.Data.EntityFramwork.Context;
 using nyom.infra.Data.EntityFramwork.Repositories;
 using nyom.infra.Data.EntityFramwork.Repositories.Workflow;
 using nyom.infra.Factory;
-using nyom.workflow.manager.Services;
 
 namespace nyom.workflow.manager
 {

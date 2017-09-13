@@ -21,20 +21,17 @@ namespace nyom.infra.Factory
 
 		public void VerificarStatusCampanha()
 		{
-
-			//var id = new Guid(Environment.GetEnvironmentVariable("CAMPANHA"));
-			Console.WriteLine("Entrou aqui 1");
 			Console.WriteLine(Environment.GetEnvironmentVariable("CAMPANHA"));
-			var Id = new Guid("4063DEBE-6EA0-4C54-B36E-2C65D0D6D060");
-			var dadosCampanha = _campanhaWorkflowService.Find(a => a.CampanhaId.Equals(Id));
-			var workflowStatus = (int)WorkflowStatus.MessageBuilderCompleted;
+			var id = Guid.Parse(Environment.GetEnvironmentVariable("CAMPANHA"));
+			var dadosCampanha = _campanhaWorkflowService.Find(a => a.CampanhaId.Equals(id));
+			var workflowStatus = dadosCampanha.Status;
 
 			switch (workflowStatus)
 			{
 				case (int)WorkflowStatus.WorkflowManager:
 					
-					_atualizarStatus.AtualizarStatusApi(Id,(int)WorkflowStatus.MessageBuilder);
-					_dockerHelper.RunAsync(Id, "nyom.messagebuilder");
+					_atualizarStatus.AtualizarStatusApi(id,(int)WorkflowStatus.MessageBuilder);
+					_dockerHelper.RunAsync(id, "nyom.messagebuilder");
 					Console.WriteLine("Status Atualizado, iniciando MessageBuilder");
 					break;
 
@@ -46,24 +43,24 @@ namespace nyom.infra.Factory
 
 				case (int)WorkflowStatus.MessageBuilderCompleted:
 					Console.WriteLine("Entrou aqui 2");
-					_atualizarStatus.AtualizarStatusApi(Id, (int)WorkflowStatus.QueueBuilder);
-					_dockerHelper.RunAsync(Id, "nyom.queuebuilder");
+					_atualizarStatus.AtualizarStatusApi(id, (int)WorkflowStatus.QueueBuilder);
+					_dockerHelper.RunAsync(id, "nyom.queuebuilder");
 					Console.WriteLine("Status Atualizado, iniciando QueuBuilder");
 					break;
 
 				case (int)WorkflowStatus.QueueBuilderCompleted:
-					_atualizarStatus.AtualizarStatusApi(Id, (int)WorkflowStatus.PushSender);
-					_dockerHelper.RunAsync(Id, "nyom.pushsender");
+					_atualizarStatus.AtualizarStatusApi(id, (int)WorkflowStatus.PushSender);
+					_dockerHelper.RunAsync(id, "nyom.pushsender");
 					Console.WriteLine("Status Atualizado, iniciando PushSender");
 					break;
 
 				case (int)WorkflowStatus.PushSenderCompleted:
-					_atualizarStatus.AtualizarStatusApi(Id, (int)WorkflowStatus.Finished);
+					_atualizarStatus.AtualizarStatusApi(id, (int)WorkflowStatus.Finished);
 					Console.WriteLine("Status Atualizado, Finalizado");
 					break;
 
 				case (int)WorkflowStatus.LoggingCleanupCompleted:
-					_atualizarStatus.AtualizarStatusApi(Id, (int)WorkflowStatus.Finished);
+					_atualizarStatus.AtualizarStatusApi(id, (int)WorkflowStatus.Finished);
 					break;
 
 				case (int)WorkflowStatus.Finished:

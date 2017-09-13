@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Docker.DotNet;
@@ -14,11 +14,8 @@ namespace nyom.infra.CrossCutting.Helper
 		public async void RunAsync(Guid dadosCampanhaCampanhaId, string servico)
 		{
 			var client = new DockerClientConfiguration(new Uri("tcp://docker.for.win.localhost:2375"))
-			.CreateClient();
+				.CreateClient();
 
-
-			//DockerClient client = new DockerClientConfiguration(new Uri("npipe://./pipe/docker_engine"))
-			//	.CreateClient();
 			if (Environment.OSVersion.ToString().Contains("Windows"))
 			{
 				var argumento =
@@ -44,31 +41,36 @@ namespace nyom.infra.CrossCutting.Helper
 					},
 					Labels = new Dictionary<string, string>
 					{
-						{"Links","mssql.workflow:nyom.workflow.manager"}
-						
+						{"Links", "mssql.workflow:nyom.workflow.manager"}
 					},
 					Cmd = new[]
 					{
-						//"--name",servico,
-						//"--network","dotnetcorerabbitmq_net.workflow",
-						//"-links","mssql.workflow:"+servicodocker ps a-
 						string.Format(
 							"--name {0} --net={1} -links={2}:{0}",
-							servico, "dotnetcorerabbitmq_net.workflow", "mssql.workflow"),"bash"
+							servico, "dotnetcorerabbitmq_net.workflow", "mssql.workflow"),
+						"bash"
 					}
 				};
 
-				NetworkingConfig net = new NetworkingConfig()
+				var net = new NetworkingConfig
 				{
-					EndpointsConfig = new Dictionary<string, EndpointSettings>()
+					EndpointsConfig = new Dictionary<string, EndpointSettings>
 					{
-						{ "dotnetcorerabbitmq_net.workflow",new EndpointSettings()}
+						{
+							"dotnetcorerabbitmq_net.workflow", new EndpointSettings
+							{
+								Links = new List<string>
+								{
+									"mssql.workflow:nyom.workflow.manager"
+								}
+							}
+						}
 					}
 				};
 
-
-				//var response = await client.Containers.CreateContainerAsync(new CreateContainerParameters(parameters));
-				CreateContainerResponse response = await client.Containers.CreateContainerAsync(new CreateContainerParameters(parameters){Name = servico, NetworkingConfig = net });
+				var response =
+					await client.Containers.CreateContainerAsync(
+						new CreateContainerParameters(parameters) {Name = servico, NetworkingConfig = net});
 				Task task = client.Containers.StartContainerAsync(response.ID, new ContainerStartParameters());
 				var config = new ContainerAttachParameters
 				{
@@ -77,10 +79,12 @@ namespace nyom.infra.CrossCutting.Helper
 					Stdin = true,
 					Stdout = true
 				};
+
 				var buffer = new byte[1024];
-				using (var stream = await client.Containers.AttachContainerAsync(response.ID, false, config, default(CancellationToken)))
+				using (var stream =
+					await client.Containers.AttachContainerAsync(response.ID, false, config, default(CancellationToken)))
 				{
-					using (var fileStream = System.IO.File.Create($"{DateTime.Now.Ticks}.jpg"))
+					using (var fileStream = File.Create($"{DateTime.Now.Ticks}.jpg"))
 					{
 						await stream.CopyOutputToAsync(null, fileStream, null, default(CancellationToken));
 					}
