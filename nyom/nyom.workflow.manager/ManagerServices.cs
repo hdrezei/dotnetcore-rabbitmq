@@ -2,7 +2,7 @@
 using System.Threading;
 using nyom.infra.Factory;
 
-namespace nyom.workflow.manager.Services
+namespace nyom.workflow.manager
 {
 	public class ManagerServices 
 	{
@@ -17,8 +17,13 @@ namespace nyom.workflow.manager.Services
 		public void Start(string id)
 		{
 			AutoEvent = new AutoResetEvent(false);
-			new Timer(_managerFactory.VerificarStatusCampanha, AutoEvent, 0, 36000);
+			new Timer(VerificarCampanha, AutoEvent, 0, 36000);
 			AutoEvent.WaitOne();
+		}
+
+		public void VerificarCampanha(object stateInfo)
+		{
+			_managerFactory.VerificarStatusCampanha();
 		}
 	}
 }

@@ -18,7 +18,6 @@ namespace nyom.queuebuilder
 	    {
 		    try
 		    {
-			    //var messages = _messageService.FindAll(a => a.Status.Equals(WorkflowStatus.QueueBuilder));
 			    var messages = _messageService.FindAll(a => a.CampanhaId.Equals(id.ToString()));
 
 			    if (messages == null)
@@ -43,7 +42,6 @@ namespace nyom.queuebuilder
 						    channel.ExchangeDeclare(exchange: "logs", type: "fanout");
 						    var body = Encoding.UTF8.GetBytes(message.Mensagem);
 						    //var body = Encoding.UTF8.GetBytes(message.Mensagem);
-
 						    var properties = channel.CreateBasicProperties();
 						    properties.Persistent = true;
 
@@ -52,7 +50,6 @@ namespace nyom.queuebuilder
 							    basicProperties: properties,
 							    body: body);
 						    Console.WriteLine(" [x] Sent {0}", message);
-
 					    }
 				    }
 			    }
@@ -63,7 +60,6 @@ namespace nyom.queuebuilder
 			    Console.WriteLine(e);
 			    return false;
 		    }
-		  
 	    }
 	}
 }

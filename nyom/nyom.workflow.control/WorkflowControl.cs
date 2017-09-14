@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using nyom.domain;
 using nyom.domain.EntityFramework.Workflow.Campanha;
-using nyom.domain.Workflow.Campanha;
 using nyom.infra.CrossCutting.Helper;
 using nyom.infra.CrossCutting.Services;
 
@@ -41,8 +40,8 @@ namespace nyom.workflow.control
 				return;
 			}
 
-			_dockerHelper.RunAsync(dadosCampanha.CampanhaId, "nyom.workflow.manager");
 			_atualizarStatus.AtualizarStatusApi(dadosCampanha.CampanhaId, (int)WorkflowStatus.WorkflowManager);
+			_dockerHelper.RunAsync(dadosCampanha.CampanhaId, "nyom.workflow.manager");
 			Console.WriteLine("Campanha encontrada, iniciando Workflow Manager");
 		}
 	}

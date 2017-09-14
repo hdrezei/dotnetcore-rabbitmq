@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Docker.DotNet;
@@ -17,7 +16,6 @@ namespace nyom.infra.CrossCutting.Helper
 			var client = new DockerClientConfiguration(new Uri("tcp://docker.for.win.localhost:2375"))
 				.CreateClient();
 
-
 			if (Environment.OSVersion.ToString().Contains("Windows"))
 			{
 				var argumento =
@@ -28,63 +26,71 @@ namespace nyom.infra.CrossCutting.Helper
 			}
 			else
 			{
-				//var argumento =
-				//	string.Format(
-				//		"docker run {0} --alias={1}  --network={2} --links={3}:{0} -e CAMPANHA={1} -v tcp://docker.for.win.localhost:2375:/var/run/docker.sock {0}",
-				//		servico, dadosCampanhaCampanhaId, "dotnetcorerabbitmq_net.workflow", "mssql.workflow");
 				var parameters = new Config
 				{
 					Image = servico,
-					ArgsEscaped = false,
-					AttachStderr = false,
+					ArgsEscaped = true,
+					AttachStderr = true,
 					AttachStdin = false,
 					AttachStdout = true,
+					OpenStdin = false,
+					StdinOnce = false,
 					Env = new[]
 					{
-						"CAMAPANHA="+dadosCampanhaCampanhaId.ToString()+""
+						"CAMPANHA=" + dadosCampanhaCampanhaId + ""
 					},
-					
 					Labels = new Dictionary<string, string>
-						{  { "alias", dadosCampanhaCampanhaId.ToString() } },
-
+					{
+						{"Links", "mssql.workflow:nyom.workflow.manager"}
+					},
 					Cmd = new[]
 					{
-						//"--alias", dadosCampanhaCampanhaId.ToString(),
-						//"--network", "dotnetcorerabbitmq_net.workflow",
-						//"--links", "mssql.workflow:" + servico,
-						//"-e", "CAMPANHA=" + dadosCampanhaCampanhaId,
-						//"-v", "tcp://docker.for.win.localhost:2375:/var/run/docker.sock"
 						string.Format(
-							"--name={1} --alias={1}  --network={2} --links={3}:{0} -e CAMPANHA={1} -v tcp://docker.for.win.localhost:2375:/var/run/docker.sock {0}",
-							servico, dadosCampanhaCampanhaId, "dotnetcorerabbitmq_net.workflow", "mssql.workflow")
+							"--name {0} --net={1} -links={2}:{0}",
+							servico, "dotnetcorerabbitmq_net.workflow", "mssql.workflow"),
+						"bash"
 					}
 				};
-				CreateContainerResponse response = await client.Containers.CreateContainerAsync(new CreateContainerParameters(parameters));
 
+				var net = new NetworkingConfig
+				{
+					EndpointsConfig = new Dictionary<string, EndpointSettings>
+					{
+						{
+							"dotnetcorerabbitmq_net.workflow", new EndpointSettings
+							{
+								Links = new List<string>
+								{
+									"mssql.workflow:nyom.workflow.manager"
+								}
+							}
+						}
+					}
+				};
+
+				var response =
+					await client.Containers.CreateContainerAsync(
+						new CreateContainerParameters(parameters) {Name = servico, NetworkingConfig = net});
 				Task task = client.Containers.StartContainerAsync(response.ID, new ContainerStartParameters());
-
 				var config = new ContainerAttachParameters
 				{
 					Stream = true,
-					Stderr = true,
-					Stdin = false,
-					Stdout = true,
-					Logs = "1"
+					Stderr = false,
+					Stdin = true,
+					Stdout = true
 				};
 
 				var buffer = new byte[1024];
-				using (var stream = await client.Containers.AttachContainerAsync(response.ID, false, config, default(CancellationToken)))
+				using (var stream =
+					await client.Containers.AttachContainerAsync(response.ID, false, config, default(CancellationToken)))
 				{
-					var result = await stream.ReadOutputAsync(buffer, 0, buffer.Length, default(CancellationToken));
-					do
+					using (var fileStream = File.Create($"{DateTime.Now.Ticks}.jpg"))
 					{
-						Console.Write(Encoding.UTF8.GetString(buffer, 0, result.Count));
+						await stream.CopyOutputToAsync(null, fileStream, null, default(CancellationToken));
 					}
-					while (!result.EOF);
 				}
 			}
 		}
-
 		//docker run --name nyom.workflow.control --network=dotnetcorerabbitmq_net.workflow -links=mssql.workflow:nyom.workflow.control  nyom.workflow.control
 
 		public void Inspect(string servico)

@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:latest
+FROM microsoft/dotnet
 RUN mkdir /nyom
 WORKDIR /nyom
 COPY /bin/Release/netcoreapp2.0/publish/ /nyom
