@@ -10,7 +10,6 @@ namespace nyom.infra.CrossCutting.Services
 			using (var client = new HttpClient())
 			{
 				var response = client.GetAsync("http://localhost:52031/api/campanha?id=" + dadosCampanhaCampanhaId + "&status=" + status).Result;
-
 				if (!response.IsSuccessStatusCode) return;
 				var responseContent = response.Content;
 				var responseString = responseContent.ReadAsStringAsync().Result;

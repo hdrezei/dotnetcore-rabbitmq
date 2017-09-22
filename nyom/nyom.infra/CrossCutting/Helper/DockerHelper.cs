@@ -82,7 +82,7 @@ namespace nyom.infra.CrossCutting.Helper
 
 				var buffer = new byte[1024];
 				using (var stream =
-					await client.Containers.AttachContainerAsync(response.ID, false, config, default(CancellationToken)))
+					await client.Containers.AttachContainerAsync(response.ID, false, config))
 				{
 					using (var fileStream = File.Create($"{DateTime.Now.Ticks}.jpg"))
 					{
@@ -91,8 +91,7 @@ namespace nyom.infra.CrossCutting.Helper
 				}
 			}
 		}
-		//docker run --name nyom.workflow.control --network=dotnetcorerabbitmq_net.workflow -links=mssql.workflow:nyom.workflow.control  nyom.workflow.control
-
+		
 		public void Inspect(string servico)
 		{
 			var argumento = string.Format("docker inspect {0}", servico);

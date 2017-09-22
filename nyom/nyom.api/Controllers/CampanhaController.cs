@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using nyom.domain.EntityFramework.Workflow.Campanha;
-using nyom.domain.Workflow.Campanha;
 
 namespace nyom.api.Controllers
 {

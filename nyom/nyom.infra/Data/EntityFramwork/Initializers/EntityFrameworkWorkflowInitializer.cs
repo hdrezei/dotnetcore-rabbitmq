@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using nyom.domain;
-using nyom.domain.Workflow.Campanha;
+using nyom.domain.EntityFramework.Workflow.Campanha;
 using nyom.domain.Workflow.Workflow;
 using nyom.infra.Data.EntityFramwork.Context;
 

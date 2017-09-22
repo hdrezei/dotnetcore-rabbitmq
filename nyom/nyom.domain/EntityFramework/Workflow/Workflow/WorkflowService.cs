@@ -1,9 +1,8 @@
 ﻿using nyom.domain.core.EntityFramework.Models;
-using nyom.domain.EntityFramework.Workflow.Workflow;
 
-namespace nyom.domain.Workflow.Workflow
+namespace nyom.domain.EntityFramework.Workflow.Workflow
 {
-	public class WorkflowService : ServiceBase<Workflow>, IWorkflowService
+	public class WorkflowService : ServiceBase<domain.Workflow.Workflow.Workflow>, IWorkflowService
 	{
 		private readonly IWorkflowRepository _workflowRepository;
 		public WorkflowService(IWorkflowRepository workflowRepository) : base(workflowRepository)

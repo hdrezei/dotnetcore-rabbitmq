@@ -41,7 +41,6 @@ namespace nyom.queuebuilder
 					    {
 						    channel.ExchangeDeclare(exchange: "logs", type: "fanout");
 						    var body = Encoding.UTF8.GetBytes(message.Mensagem);
-						    //var body = Encoding.UTF8.GetBytes(message.Mensagem);
 						    var properties = channel.CreateBasicProperties();
 						    properties.Persistent = true;
 

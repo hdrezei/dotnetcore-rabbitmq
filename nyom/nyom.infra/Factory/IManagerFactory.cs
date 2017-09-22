@@ -3,5 +3,6 @@
 	public interface IManagerFactory
 	{
 		void VerificarStatusCampanha();
+
 	}
 }

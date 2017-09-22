@@ -1,6 +1,5 @@
 ﻿using System;
 using nyom.domain.core.EntityFramework.Models;
-using nyom.domain.Workflow.Campanha;
 
 namespace nyom.domain.EntityFramework.Workflow.Campanha
 {

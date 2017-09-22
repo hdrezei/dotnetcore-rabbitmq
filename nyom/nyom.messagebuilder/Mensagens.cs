@@ -59,7 +59,6 @@ namespace nyom.messagebuilder
 			{
 				Console.WriteLine("Nenhuma campanha foi encontrada");
 				Console.ReadKey();
-				return;
 			}
 		}
 		public void SalvarMensagens(IEnumerable<Pessoa> listaPessoas, CampanhaCrm dadosCampanha, Template dadosTemplate)

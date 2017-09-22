@@ -1,9 +1,7 @@
-﻿using System;
-using System.IO;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using nyom.domain;
-using nyom.domain.Workflow.Campanha;
+using nyom.domain.EntityFramework.Workflow.Campanha;
 using nyom.domain.Workflow.Workflow;
 using nyom.infra.Data.EntityFramwork.Extensions;
 using nyom.infra.Data.EntityFramwork.Mappings.Workflow;
@@ -34,7 +32,6 @@ namespace nyom.infra.Data.EntityFramwork.Context
         {
             modelBuilder.AddConfiguration(new CampanhaWorkflowMap());
             modelBuilder.AddConfiguration(new WorkflowMap());
-
             base.OnModelCreating(modelBuilder);
         }
     }
